@@ -1,20 +1,32 @@
-SRCS	=	push_swap.c \
-			operations.c \
-			
-OBJ	=	$(SRCS:.c=.o)
-CC	=	cc
-CFLAGS	=	-Wall -Wextra -Werror
-INCLUDES	=	-I.
-RM	=	rm -f
-NAME	=	push_swap
+NAME		:=	push_swap
+SRCS		:=	push_swap.c \
+				operations.c 
+OBJ_DIR		:=	obj
+OBJS		:=	$(SRCS:%.c=$(OBJ_DIR)/%.o)
+LIBFT_DIR	:=	libft
+LD_FLAGS	:=	-L$(LIBFT_DIR)
+LD_LIBS		:=	-lft
+INC			:=	-Iincludes -I$(LIBFT_DIR)
+CC			:=	cc
+CFLAGS		:=	-Wall -Wextra -Werror
 
-NAME : SRCS
-	$(CC) $(CFLAGS) $(INCLUDES) $(SRCS) -o $(NAME)
+
+$(NAME) : $(OBJS) $(LIBFT_DIR)/libft.a
+	$(CC) $(CFLAGS) $(OBJS) $(LD_FLAGS) $(LD_LIBS) -o $@
+
+$(OBJ_DIR)/%.o: %.c | $(OBJ_DIR)
+	$(CC) $(CFLAGS) $(INC) -c $< -o $@
+
+$(LIBFT_DIR)/libft.a: $(LIBFT_DIR)
+	$(MAKE) complete -C $(LIBFT_DIR)
+
+$(OBJ_DIR):
+	mkdir -p $@
 
 all:	$(NAME)
 
 clean:
-	$(RM) $(OBJ)
+	$(RM) -r $(OBJS) $(OBJ_DIR)
 
 fclean:	clean
 	$(RM) $(NAME)
