@@ -10,6 +10,7 @@ INC			:=	-Iincludes -I$(LIBFT_DIR)
 CC			:=	cc
 CFLAGS		:=	-Wall -Wextra -Werror
 
+vpath %.c srcs;srcs/operations;srcs/stack;srcs/validator
 
 $(NAME) : $(OBJS) $(LIBFT_DIR)/libft.a
 	$(CC) $(CFLAGS) $(OBJS) $(LD_FLAGS) $(LD_LIBS) -o $@
