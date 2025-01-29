@@ -6,12 +6,14 @@
 /*   By: yuuchiya <yuuchiya@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 13:36:28 by yuuchiya          #+#    #+#             */
-/*   Updated: 2025/01/29 19:10:48 by yuuchiya         ###   ########.fr       */
+/*   Updated: 2025/01/29 20:11:02 by yuuchiya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef VALIDATOR_PUBLIC_H
 # define VALIDATOR_PUBLIC_H
+
+# include "stack_public.h"
 
 typedef enum e_validator_error	t_error_code;
 typedef struct s_validator		t_validator;

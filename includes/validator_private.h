@@ -6,7 +6,7 @@
 /*   By: yuuchiya <yuuchiya@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 14:37:43 by yuuchiya          #+#    #+#             */
-/*   Updated: 2025/01/29 19:02:42 by yuuchiya         ###   ########.fr       */
+/*   Updated: 2025/01/29 20:10:48 by yuuchiya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@
 # include <stdbool.h>
 # include <limits.h>
 # include "libft.h"
-# include "stack.h"
 # include "validator_public.h"
 
 struct s_validator
