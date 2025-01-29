@@ -10,26 +10,26 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef OPERATIONS_H
-# define OPERATIONS_H
+#ifndef OPERATIONS_PUBLIC_H
+# define OPERATIONS_PUBLIC_H
 
-# include "stack.h"
+# include "stack_public.h"
 
 typedef struct s_push_swap
 {
-	t_stack	*stack_a;
-	t_stack	*stack_b;
-	void	(*sa)(struct s_push_swap*);
-	void	(*sb)(struct s_push_swap*);
-	void	(*ss)(struct s_push_swap*);
-	void	(*pa)(struct s_push_swap*);
-	void	(*pb)(struct s_push_swap*);
-	void	(*ra)(struct s_push_swap*);
-	void	(*rb)(struct s_push_swap*);
-	void	(*rr)(struct s_push_swap*);
-	void	(*rra)(struct s_push_swap*);
-	void	(*rrb)(struct s_push_swap*);
-	void	(*rrr)(struct s_push_swap*);
+	t_stack		*stack_a;
+	t_stack		*stack_b;
+	void	(*sa)(t_stack*);
+	void	(*sb)(t_stack*);
+	void	(*ss)(t_stack*, t_stack*);
+	void	(*pa)(t_stack*, t_stack*);
+	void	(*pb)(t_stack*, t_stack*);
+	void	(*ra)(t_stack*);
+	void	(*rb)(t_stack*);
+	void	(*rr)(t_stack*, t_stack*);
+	void	(*rra)(t_stack*);
+	void	(*rrb)(t_stack*);
+	void	(*rrr)(t_stack*, t_stack*);
 }	t_push_swap;
 
 t_push_swap	*push_swap_create(void);

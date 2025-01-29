@@ -24,9 +24,11 @@ typedef struct s_stack
 	char	name;
 	void	(*push)(struct s_stack*, int);
 	int		(*pop)(struct s_stack*);
-	int		(*peek)(const struct s_stack*);
+	int		(*peek)(struct s_stack*);
 	void	(*clear)(struct s_stack*);
-	int		(*is_empty)(const struct s_stack*);
+	void	(*print)(struct s_stack*);
+	void	(*add_size)(int *, int);
+	void	(*set_stack_top)(t_list **, t_list *);
 }	t_stack;
 
 // constructor

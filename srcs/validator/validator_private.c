@@ -18,7 +18,7 @@ static int	is_space(char c)
 			c == '\v' || c == '\f' || c == '\r');
 }
 
-static long	ft_atol(const char *str)
+static long	ft_atol(char *str)
 {
 	unsigned long	num;
 	int				sign;
@@ -44,18 +44,20 @@ static long	ft_atol(const char *str)
 	return (num * sign);
 }
 
-bool	validate_number(const char *str, long *result)
+bool	validate_number(char *str, long *result)
 {
 	long	num;
 	bool	is_valid;
+	char	*strptr;
 
 	is_valid = true;
-	while (is_space(*str))
-		str++;
-	if (*str == '-' || *str == '+')
-		str++;
-	while (*str && is_valid)
-		is_valid = ft_isdigit(*str++);
+	strptr = str;
+	while (is_space(*strptr))
+		strptr++;
+	if (*strptr == '-' || *strptr == '+')
+		strptr++;
+	while (*strptr && is_valid)
+		is_valid = ft_isdigit(*strptr++);
 	if (!is_valid)
 		return (false);
 	num = ft_atol(str);

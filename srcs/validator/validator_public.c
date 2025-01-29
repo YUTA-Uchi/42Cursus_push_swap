@@ -13,12 +13,12 @@
 #include "validator_private.h"
 #include "validator_public.h"
 
-int	validate_all(const t_validator *v)
+int	validate_all(t_validator *v)
 {
 	long	temp_num;
 	int		i;
 
-	if (!init_parsed_nums(v->parsed_nums, v->arg_count))
+	if (!init_parsed_nums(&(v->parsed_nums), v->arg_count))
 		return (set_error(v, V_MALLOC_ERROR), 0);
 	i = 0;
 	while (i < v->arg_count)
@@ -35,20 +35,22 @@ int	validate_all(const t_validator *v)
 	return (1);
 }
 
-int	fill_stack(const t_validator *v, const t_stack *stack)
+int	fill_stack(t_validator *v, t_stack *stack)
 {
 	int	i;
 
 	i = v->num_count - 1;
 	while (i >= 0)
 	{
+		ft_printf(STDOUT_FILENO, "push %p\n", stack->top);
 		stack->push(stack, v->parsed_nums[i]);
+		ft_printf(STDOUT_FILENO, "pushed %d\n", *(int*)stack->top->content);
 		i--;
 	}
 	return (1);
 }
 
-t_error_code	get_error_code(const t_validator *v)
+t_error_code	get_error_code(t_validator *v)
 {
 	return (v->error_code);
 }

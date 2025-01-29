@@ -27,16 +27,14 @@ t_stack	*stack_create(char name)
 	new_stack->pop = stack_pop;
 	new_stack->peek = stack_peek;
 	new_stack->clear = stack_clear;
-	new_stack->is_empty = stack_is_empty;
+	new_stack->print = stack_print;
+	new_stack->add_size = add_size;
+	new_stack->set_stack_top = set_stack_top;
 	return (new_stack);
 }
 
 void	stack_destroy(t_stack *stack)
 {
-	t_stack_node	*node;
-	t_stack_node	*next;
-
-	node = stack->top;
-	ft_lstclear(&node, free);
+	stack->clear(stack);
 	free(stack);
 }

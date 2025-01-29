@@ -17,7 +17,7 @@ static void	add_num_count(t_validator *self, int count)
 	self->num_count += count;
 }
 
-int	init_parsed_nums(int *parsed_nums, int count)
+int	init_parsed_nums(int **parsed_nums, int count)
 {
 	*parsed_nums = malloc(sizeof(int) * count);
 	if (!*parsed_nums)

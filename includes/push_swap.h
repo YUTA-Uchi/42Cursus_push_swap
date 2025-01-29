@@ -15,7 +15,7 @@
 
 # include "validator_public.h"
 # include "stack_public.h"
-# include "operations.h"
+# include "operations_public.h"
 # include "libft.h"
 
 #endif

@@ -12,18 +12,19 @@
 
 #include "stack_private.h"
 
-void	stack_push(const t_stack *stack, int content)
+void	stack_push(t_stack *stack, int content)
 {
 	t_list	*new_node;
 
 	new_node = ft_lstnew(&content);
 	if (!new_node)
 		return ;
+	ft_printf(STDOUT_FILENO, "stackpush %p\n", stack->top);
 	ft_lstadd_front(&(stack->top), new_node);
 	add_size(&(stack->size), 1);
 }
 
-int	stack_pop(const t_stack *stack)
+int	stack_pop(t_stack *stack)
 {
 	t_list	*node;
 	int		content;
@@ -38,30 +39,29 @@ int	stack_pop(const t_stack *stack)
 	return (content);
 }
 
-int	stack_peek(const t_stack *stack)
+int	stack_peek(t_stack *stack)
 {
 	if (stack->size == 0)
 		return (0);
 	return (*(int *)(stack->top->content));
 }
 
-void	stack_clear(const t_stack *stack)
+void	stack_clear(t_stack *stack)
 {
-	t_list	*node;
-	t_list	*next;
-
-	node = stack->top;
-	while (node)
-	{
-		next = node->next;
-		free(node);
-		node = next;
-	}
-	set_stack_top(&(stack->top), NULL);
+	ft_lstclear(&(stack->top), free);
 	add_size(&(stack->size), -stack->size);
 }
 
-int	stack_is_empty(const t_stack *stack)
+void	stack_print(t_stack *stack)
 {
-	return (stack->size == 0);
+	t_list	*node;
+
+	ft_printf(STDOUT_FILENO, "stack %c:\n", stack->name);
+	node = stack->top;
+	while (node)
+	{
+		ft_printf(STDOUT_FILENO, "%d:%p\n", *(int *)(node->content), node);	
+		node = node->next;
+	}
 }
+

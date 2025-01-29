@@ -30,10 +30,11 @@ struct s_validator
 
 typedef struct s_validator	t_validator;
 
-bool	validate_number(const char *str, long *result);
+bool	validate_number(char *str, long *result);
 int		check_duplicates(int *nums, int count);
+// utils
 void	set_parsed_nums(t_validator *self, int num);
 void	set_error(t_validator *self, int error_code);
-int		init_parsed_nums(int *parsednums, int count);
+int		init_parsed_nums(int **parsednums, int count);
 
 #endif

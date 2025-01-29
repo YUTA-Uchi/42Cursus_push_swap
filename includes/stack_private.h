@@ -15,11 +15,11 @@
 
 # include "stack_public.h"
 
-void	stack_push(const t_stack *stack, int content);
-int		stack_pop(const t_stack *stack);
-int		stack_peek(const t_stack *stack);
-void	stack_clear(const t_stack *stack);
-int		stack_is_empty(const t_stack *stack);
+void	stack_push(t_stack *stack, int content);
+int		stack_pop(t_stack *stack);
+int		stack_peek(t_stack *stack);
+void	stack_clear(t_stack *stack);
+void	stack_print(t_stack *stack);
 // util
 void	add_size(int *size, int add_num);
 void	set_stack_top(t_list **self_top, t_list *top);
