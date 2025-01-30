@@ -10,7 +10,10 @@ void	rotate(t_stack *stack)
 	top_content = stack->pop(stack);
 	ft_lstadd_back(&(stack->top), ft_lstnew(top_content));
 	stack->add_size(&(stack->size), 1);
-	// printf("ra\n");
+	if (stack->name == 'a')
+		ft_printf(STDOUT_FILENO, "ra\n");
+	else
+		ft_printf(STDOUT_FILENO, "rb\n");
 }
 
 // void	rotate_b(t_stack *b)

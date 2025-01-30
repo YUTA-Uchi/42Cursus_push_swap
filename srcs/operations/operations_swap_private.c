@@ -12,7 +12,10 @@ void	swap(t_stack *stack)
 	second = stack->pop(stack);
 	stack->push(stack, first);
 	stack->push(stack, second);
-	// printf("sa\n");
+	if (stack->name == 'a')
+		ft_printf(STDOUT_FILENO, "sa\n");
+	else
+		ft_printf(STDOUT_FILENO, "sb\n");
 }
 
 // void	swap_b(t_stack *b)

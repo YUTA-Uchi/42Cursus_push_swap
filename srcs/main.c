@@ -15,14 +15,14 @@
 int	main(int argc, char **argv)
 {
 	t_validator	*validator;
-	t_push_swap			*ps;
+	t_push_swap	*ps;
+	t_sorter	*sorter;
 
 	if (argc < 2)
 		return (1);
 	validator = validator_create(argc - 1, argv + 1);
 	if (!validator)
 		return (1);
-	ft_printf(1, "validator created\n");
 	ps = push_swap_create();
 	if (!validate_all(validator))
 	{
@@ -32,22 +32,14 @@ int	main(int argc, char **argv)
 		return (1);
 	}
 	fill_stack(validator, ps->stack_a);
-	ft_printf(1, "stack filled\n");
 	validator_destroy(validator);
-	ft_printf(1, "validator destroyed\n");
-	// sort
-	ps->stack_a->print(ps->stack_a);
-	ps->swap(ps->stack_a);
-	ps->stack_a->print(ps->stack_a);
-	ps->push(ps->stack_b, ps->stack_a);
-	ps->stack_a->print(ps->stack_a);
-	ps->stack_b->print(ps->stack_b);
-	ps->rotate(ps->stack_a);
-	ps->stack_a->print(ps->stack_a);
-	ps->reverse_rotate(ps->stack_a);
-	ps->stack_a->print(ps->stack_a);
-	ps->stack_b->print(ps->stack_b);
-	push_swap_destroy(ps);
-
+	sorter = sorter_create(ps);
+	if (!sorter)
+	{
+		push_swap_destroy(ps);
+		return (1);
+	}
+	sorter->sort(sorter);
+	sorter_destroy(sorter);
 	return (0);
 }

@@ -23,11 +23,11 @@ enum e_validator_error
 {
 	V_SUCCESS = 0,
 	V_EMPTY_ARG,
-	V_INVALID_CHAR,
-	V_INVALID_SIGN,
-	V_OUT_OF_RANGE,
+	V_INVALID_NUM,
 	V_DUPLICATE,
-	V_MALLOC_ERROR
+	V_MALLOC_ERROR,
+	V_NO_MORE_OPERATION,
+	V_TOO_MANY_ARG
 };
 
 // constructor/deconstructor

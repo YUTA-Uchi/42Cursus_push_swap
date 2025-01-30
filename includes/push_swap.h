@@ -16,6 +16,7 @@
 # include "validator_public.h"
 # include "stack_public.h"
 # include "operations_public.h"
+# include "sort_solver_public.h"
 # include "libft.h"
 
 #endif

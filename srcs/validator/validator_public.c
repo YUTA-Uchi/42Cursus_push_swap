@@ -20,13 +20,17 @@ int	validate_all(t_validator *v)
 
 	if (!init_parsed_nums(&(v->parsed_nums), v->arg_count))
 		return (set_error(v, V_MALLOC_ERROR), 0);
+	if (v->arg_count == 1)
+		return (set_error(v, V_NO_MORE_OPERATION), 0);
+	else if (v->arg_count == INT_MAX)
+		return (set_error(v, V_TOO_MANY_ARG), 0);
 	i = 0;
 	while (i < v->arg_count)
 	{
 		if (!v->args[i][0])
 			return (set_error(v, V_EMPTY_ARG), 0);
 		if (!validate_number(v->args[i], &temp_num))
-			return (set_error(v, V_INVALID_CHAR), 0);
+			return (set_error(v, V_INVALID_NUM), 0);
 		set_parsed_nums(v, (int)temp_num);
 		i++;
 	}
@@ -45,7 +49,7 @@ int	fill_stack(t_validator *v, t_stack *stack)
 	{
 		content = malloc(sizeof(int));
 		if (!content)
-			return (0);
+			return (set_error(v, V_MALLOC_ERROR), 0);
 		*content = v->parsed_nums[i];
 		stack->push(stack, content);
 		i--;

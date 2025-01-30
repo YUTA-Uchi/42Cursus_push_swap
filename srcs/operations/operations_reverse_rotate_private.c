@@ -18,7 +18,10 @@ void	reverse_rotate(t_stack *stack)
 	free(tail);
 	stack->add_size(&(stack->size), -1);
 	stack->push(stack, tail_content);
-	// printf("rra\n");
+	if (stack->name == 'a')
+		ft_printf(STDOUT_FILENO, "rra\n");
+	else
+		ft_printf(STDOUT_FILENO, "rrb\n");
 }
 
 // void	reverse_rotate_b(t_stack *b)
