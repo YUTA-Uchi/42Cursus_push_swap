@@ -16,7 +16,7 @@
 # include <stdlib.h>
 # include "libft.h"
 
-typedef int	t_stack_node;
+typedef int	*t_stack_content;
 typedef struct s_stack
 {
 	t_list	*top;

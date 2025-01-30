@@ -37,10 +37,14 @@ int	main(int argc, char **argv)
 	ft_printf(1, "validator destroyed\n");
 	// sort
 	ps->stack_a->print(ps->stack_a);
-	ps->sa(ps->stack_a);
-	ps->pa(ps->stack_a, ps->stack_b);
-	ps->ra(ps->stack_a);
-	ps->rra(ps->stack_a);
+	ps->swap(ps->stack_a);
+	ps->stack_a->print(ps->stack_a);
+	ps->push(ps->stack_b, ps->stack_a);
+	ps->stack_a->print(ps->stack_a);
+	ps->stack_b->print(ps->stack_b);
+	ps->rotate(ps->stack_a);
+	ps->stack_a->print(ps->stack_a);
+	ps->reverse_rotate(ps->stack_a);
 	ps->stack_a->print(ps->stack_a);
 	ps->stack_b->print(ps->stack_b);
 	push_swap_destroy(ps);

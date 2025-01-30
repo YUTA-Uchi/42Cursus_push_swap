@@ -1,49 +1,49 @@
 
 #include "operations_private.h"
 
-void	reverse_rotate_a(t_stack *a)
+void	reverse_rotate(t_stack *stack)
 {
 	t_list	*tmp;
 	t_list	*last;
 	int		last_content;
 
-	if (a->size < 2)
+	if (stack->size < 2)
 		return ;
-	last = a->top;
+	last = stack->top;
 	while (last->next->next)
 		last = last->next;
 	tmp = last->next;
-	last_content = *(int *)(tmp->content);
+	last_content = *(t_stack_content)(tmp->content);
 	last->next = NULL;
 	ft_lstdelone(tmp, free);
-	a->add_size(&(a->size), -1);
-	a->push(a, last_content);
+	stack->add_size(&(stack->size), -1);
+	stack->push(stack, last_content);
 	// printf("rra\n");
 }
 
-void	reverse_rotate_b(t_stack *b)
-{
-	t_list	*tmp;
-	t_list	*last;
-	int		last_content;
+// void	reverse_rotate_b(t_stack *b)
+// {
+// 	t_list	*tmp;
+// 	t_list	*last;
+// 	int		last_content;
 
-	if (b->size < 2)
-		return ;
-	last = b->top;
-	while (last->next->next)
-		last = last->next;
-	tmp = last->next;
-	last_content = *(int *)(tmp->content);
-	last->next = NULL;
-	ft_lstdelone(tmp, free);
-	b->add_size(&(b->size), -1);
-	b->push(b, last_content);
-	// printf("rrb\n");
-}
+// 	if (b->size < 2)
+// 		return ;
+// 	last = b->top;
+// 	while (last->next->next)
+// 		last = last->next;
+// 	tmp = last->next;
+// 	last_content = *(t_stack_content)(tmp->content);
+// 	last->next = NULL;
+// 	ft_lstdelone(tmp, free);
+// 	b->add_size(&(b->size), -1);
+// 	b->push(b, last_content);
+// 	// printf("rrb\n");
+// }
 
 void	reverse_rotate_ab(t_stack *a, t_stack *b)
 {
-	reverse_rotate_a(a);
-	reverse_rotate_b(b);
+	reverse_rotate(a);
+	reverse_rotate(b);
 	// printf("rrr\n");
 }

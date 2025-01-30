@@ -19,16 +19,16 @@ typedef struct s_push_swap
 {
 	t_stack		*stack_a;
 	t_stack		*stack_b;
-	void	(*sa)(t_stack*);
-	void	(*sb)(t_stack*);
+	void	(*swap)(t_stack*);
+	// void	(*sb)(t_stack*);
 	void	(*ss)(t_stack*, t_stack*);
-	void	(*pa)(t_stack*, t_stack*);
-	void	(*pb)(t_stack*, t_stack*);
-	void	(*ra)(t_stack*);
-	void	(*rb)(t_stack*);
+	void	(*push)(t_stack*, t_stack*);
+	// void	(*pb)(t_stack*, t_stack*);
+	void	(*rotate)(t_stack*);
+	// void	(*rb)(t_stack*);
 	void	(*rr)(t_stack*, t_stack*);
-	void	(*rra)(t_stack*);
-	void	(*rrb)(t_stack*);
+	void	(*reverse_rotate)(t_stack*);
+	// void	(*rrb)(t_stack*);
 	void	(*rrr)(t_stack*, t_stack*);
 }	t_push_swap;
 

@@ -1,33 +1,43 @@
 
 #include "operations_private.h"
 
-void	rotate_a(t_stack *a)
+void	rotate(t_stack *stack)
 {
-	int	tmp;
+	int				tmp;
+	t_stack_content	tmp_content;
 
-	if (a->size < 2)
+	if (stack->size < 2)
 		return ;
-	tmp = a->pop(a);
-	ft_lstadd_back(&(a->top), ft_lstnew(&tmp));
-	a->add_size(&(a->size), 1);
+	tmp = stack->pop(stack);
+	tmp_content = malloc(sizeof(int));
+	if (!tmp_content)
+		return ;
+	*tmp_content = tmp;
+	ft_lstadd_back(&(stack->top), ft_lstnew(tmp_content));
+	stack->add_size(&(stack->size), 1);
 	// printf("ra\n");
 }
 
-void	rotate_b(t_stack *b)
-{
-	int	tmp;
+// void	rotate_b(t_stack *b)
+// {
+// 	int				tmp;
+// 	t_stack_content	tmp_content;
 
-	if (b->size < 2)
-		return ;
-	tmp = b->pop(b);
-	ft_lstadd_back(&(b->top), ft_lstnew(&tmp));
-	b->add_size(&(b->size), 1);
-	// printf("rb\n");
-}
+// 	if (b->size < 2)
+// 		return ;
+// 	tmp = b->pop(b);
+// 	tmp_content = malloc(sizeof(int));
+// 	if (!tmp_content)
+// 		return ;
+// 	*tmp_content = tmp;
+// 	ft_lstadd_back(&(b->top), ft_lstnew(tmp_content));
+// 	b->add_size(&(b->size), 1);
+// 	// printf("rb\n");
+// }
 
 void	rotate_ab(t_stack *a, t_stack *b)
 {
-	rotate_a(a);
-	rotate_b(b);
+	rotate(a);
+	rotate(b);
 	// printf("rr\n");
 }

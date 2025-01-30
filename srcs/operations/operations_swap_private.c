@@ -1,33 +1,35 @@
 
 #include "operations_private.h"
 
-void	swap_a(t_stack *a)
+void	swap(t_stack *stack)
 {
-	int	tmp;
+	int	first;
+	int	second;
 
-	if (a->size < 2)
+	if (stack->size < 2)
 		return ;
-	tmp = a->pop(a);
-	a->push(a, a->pop(a));
-	a->push(a, tmp);
+	first = stack->pop(stack);
+	second = stack->pop(stack);
+	stack->push(stack, first);
+	stack->push(stack, second);
 	// printf("sa\n");
 }
 
-void	swap_b(t_stack *b)
-{
-	int	tmp;
+// void	swap_b(t_stack *b)
+// {
+// 	int	tmp;
 
-	if (b->size < 2)
-		return ;
-	tmp = b->pop(b);
-	b->push(b, b->pop(b));
-	b->push(b, tmp);
-	// printf("sb\n");
-}
+// 	if (b->size < 2)
+// 		return ;
+// 	tmp = b->pop(b);
+// 	b->push(b, b->pop(b));
+// 	b->push(b, tmp);
+// 	// printf("sb\n");
+// }
 
 void	swap_ab(t_stack *a, t_stack *b)
 {
-	swap_a(a);
-	swap_b(b);
+	swap(a);
+	swap(b);
 	// printf("ss\n");
 }

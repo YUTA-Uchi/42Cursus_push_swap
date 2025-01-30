@@ -1,18 +1,18 @@
 
 #include "operations_private.h"
 
-void	push_a(t_stack *a, t_stack *b)
+void	push(t_stack *to, t_stack *from)
 {
-	if (b->size == 0)
+	if (from->size == 0)
 		return ;
-	a->push(a, b->pop(b));
+	to->push(to, from->pop(from));
 	// printf("pa\n");
 }
 
-void	push_b(t_stack *a, t_stack *b)
-{
-	if (a->size == 0)
-		return ;
-	b->push(b, a->pop(a));
-	// printf("pb\n");
-}
+// void	push_b(t_stack *a, t_stack *b)
+// {
+// 	if (a->size == 0)
+// 		return ;
+// 	b->push(b, a->pop(a));
+// 	// printf("pb\n");
+// }

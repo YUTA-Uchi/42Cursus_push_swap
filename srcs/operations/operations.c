@@ -22,16 +22,12 @@ t_push_swap	*push_swap_create(void)
 		return (NULL);
 	new_ps->stack_a = stack_create('a');
 	new_ps->stack_b = stack_create('b');
-	new_ps->sa = swap_a;
-	new_ps->sb = swap_b;
+	new_ps->swap = swap;
 	new_ps->ss = swap_ab;
-	new_ps->pa = push_a;
-	new_ps->pb = push_b;
-	new_ps->ra = rotate_a;
-	new_ps->rb = rotate_b;
+	new_ps->push = push;
+	new_ps->rotate = rotate;
 	new_ps->rr = rotate_ab;
-	new_ps->rra = reverse_rotate_a;
-	new_ps->rrb = reverse_rotate_b;
+	new_ps->reverse_rotate = reverse_rotate;
 	new_ps->rrr = reverse_rotate_ab;
 	return (new_ps);
 }

@@ -42,9 +42,7 @@ int	fill_stack(t_validator *v, t_stack *stack)
 	i = v->num_count - 1;
 	while (i >= 0)
 	{
-		ft_printf(STDOUT_FILENO, "push %p\n", stack->top);
 		stack->push(stack, v->parsed_nums[i]);
-		ft_printf(STDOUT_FILENO, "pushed %d\n", *(int*)stack->top->content);
 		i--;
 	}
 	return (1);

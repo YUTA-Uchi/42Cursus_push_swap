@@ -14,12 +14,19 @@
 
 void	stack_push(t_stack *stack, int content)
 {
-	t_list	*new_node;
+	t_list			*new_node;
+	t_stack_content	new_content;
 
-	new_node = ft_lstnew(&content);
-	if (!new_node)
+	new_content = malloc(sizeof(int));
+	if (!new_content)
 		return ;
-	ft_printf(STDOUT_FILENO, "stackpush %p\n", stack->top);
+	*new_content = content;
+	new_node = ft_lstnew(new_content);
+	if (!new_node)
+	{
+		free(new_content);
+		return ;
+	}
 	ft_lstadd_front(&(stack->top), new_node);
 	add_size(&(stack->size), 1);
 }
@@ -32,7 +39,7 @@ int	stack_pop(t_stack *stack)
 	if (stack->size == 0)
 		return (0);
 	node = stack->top;
-	content = *(int *)(node->content);
+	content = *(t_stack_content)(node->content);
 	set_stack_top(&(stack->top), node->next);
 	ft_lstdelone(node, free);
 	add_size(&(stack->size), -1);
@@ -43,7 +50,7 @@ int	stack_peek(t_stack *stack)
 {
 	if (stack->size == 0)
 		return (0);
-	return (*(int *)(stack->top->content));
+	return (*(t_stack_content)(stack->top->content));
 }
 
 void	stack_clear(t_stack *stack)
@@ -60,7 +67,7 @@ void	stack_print(t_stack *stack)
 	node = stack->top;
 	while (node)
 	{
-		ft_printf(STDOUT_FILENO, "%d:%p\n", *(int *)(node->content), node);	
+		ft_printf(STDOUT_FILENO, "%d\n", *(t_stack_content)(node->content));	
 		node = node->next;
 	}
 }

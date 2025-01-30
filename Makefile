@@ -17,7 +17,7 @@ OBJS		:=	$(SRCS:%.c=$(OBJ_DIR)/%.o)
 LIBFT_DIR	:=	libft
 LD_FLAGS	:=	-L$(LIBFT_DIR)
 LD_LIBS		:=	-lft
-INC			:=	-Iincludes -I$(LIBFT_DIR)
+INC			:=	-Iincludes -I$(LIBFT_DIR) -MMD -MP
 CC			:=	cc
 CFLAGS		:=	-Wall -Wextra -Werror
 
