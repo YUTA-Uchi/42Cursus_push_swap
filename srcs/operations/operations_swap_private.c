@@ -3,8 +3,8 @@
 
 void	swap(t_stack *stack)
 {
-	int	first;
-	int	second;
+	t_stack_content	first;
+	t_stack_content	second;
 
 	if (stack->size < 2)
 		return ;

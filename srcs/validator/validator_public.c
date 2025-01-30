@@ -38,11 +38,16 @@ int	validate_all(t_validator *v)
 int	fill_stack(t_validator *v, t_stack *stack)
 {
 	int	i;
+	t_stack_content	content;
 
 	i = v->num_count - 1;
 	while (i >= 0)
 	{
-		stack->push(stack, v->parsed_nums[i]);
+		content = malloc(sizeof(int));
+		if (!content)
+			return (0);
+		*content = v->parsed_nums[i];
+		stack->push(stack, content);
 		i--;
 	}
 	return (1);

@@ -3,21 +3,21 @@
 
 void	reverse_rotate(t_stack *stack)
 {
-	t_list	*tmp;
-	t_list	*last;
-	int		last_content;
+	t_list			*tail;
+	t_list			*pretail;
+	t_stack_content	tail_content;
 
 	if (stack->size < 2)
 		return ;
-	last = stack->top;
-	while (last->next->next)
-		last = last->next;
-	tmp = last->next;
-	last_content = *(t_stack_content)(tmp->content);
-	last->next = NULL;
-	ft_lstdelone(tmp, free);
+	pretail = stack->top;
+	while (pretail->next->next)
+		pretail = pretail->next;
+	tail = pretail->next;
+	tail_content = (t_stack_content)(tail->content);
+	pretail->next = NULL;
+	free(tail);
 	stack->add_size(&(stack->size), -1);
-	stack->push(stack, last_content);
+	stack->push(stack, tail_content);
 	// printf("rra\n");
 }
 

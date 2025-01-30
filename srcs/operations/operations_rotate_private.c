@@ -3,17 +3,12 @@
 
 void	rotate(t_stack *stack)
 {
-	int				tmp;
-	t_stack_content	tmp_content;
+	t_stack_content	top_content;
 
 	if (stack->size < 2)
 		return ;
-	tmp = stack->pop(stack);
-	tmp_content = malloc(sizeof(int));
-	if (!tmp_content)
-		return ;
-	*tmp_content = tmp;
-	ft_lstadd_back(&(stack->top), ft_lstnew(tmp_content));
+	top_content = stack->pop(stack);
+	ft_lstadd_back(&(stack->top), ft_lstnew(top_content));
 	stack->add_size(&(stack->size), 1);
 	// printf("ra\n");
 }

@@ -19,16 +19,16 @@
 typedef int	*t_stack_content;
 typedef struct s_stack
 {
-	t_list	*top;
-	int		size;
-	char	name;
-	void	(*push)(struct s_stack*, int);
-	int		(*pop)(struct s_stack*);
-	int		(*peek)(struct s_stack*);
-	void	(*clear)(struct s_stack*);
-	void	(*print)(struct s_stack*);
-	void	(*add_size)(int *, int);
-	void	(*set_stack_top)(t_list **, t_list *);
+	t_list			*top;
+	int				size;
+	char			name;
+	void			(*push)(struct s_stack*, t_stack_content);
+	t_stack_content	(*pop)(struct s_stack*);
+	t_stack_content	(*peek)(struct s_stack*);
+	void			(*clear)(struct s_stack*);
+	void			(*print)(struct s_stack*);
+	void			(*add_size)(int *, int);
+	void			(*set_stack_top)(t_list **, t_list *);
 }	t_stack;
 
 // constructor
