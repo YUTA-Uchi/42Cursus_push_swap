@@ -4,23 +4,20 @@
 
 # include <stdbool.h>
 # include "operations_public.h"
+# include "sort_strategy_public.h"
 
-typedef struct s_sorter {
-	t_push_swap 	*ps;
-	int				min;
-	int				max;
-	int				median;
-	void			(*sort)(struct s_sorter *self);
-	// ヘルパー関数群
-	int				(*find_min)(t_stack *stack);
-	int				(*find_max)(t_stack *stack);
-	int				(*find_median)(t_stack *stack);
-	bool			(*is_sorted)(t_stack *stack);
-	int				(*get_position)(t_stack *stack, int value);
-	void			(*calculate_stats)(struct s_sorter *self);
-} t_sorter;
+typedef struct s_sort_solver t_sort_solver;
 
-t_sorter	*sorter_create(t_push_swap *ps);
-void		sorter_destroy(t_sorter *sorter);
+struct s_sort_solver {
+	t_operations 	*ops;
+	t_stack			*stack_a;
+	t_stack			*stack_b;
+	t_sort_strategy	*strategy;
+	void			(*set_strategy)(t_sort_solver*, t_sort_strategy*);
+	void			(*solve)(t_sort_solver*);
+};
+
+t_sort_solver	*sort_solver_create(t_stack *stack_a, t_stack *stack_b);
+void		sort_solver_destroy(t_sort_solver *solver);
 
 #endif

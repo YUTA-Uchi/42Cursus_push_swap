@@ -15,8 +15,17 @@
 
 # include "validator_public.h"
 # include "stack_public.h"
-# include "operations_public.h"
 # include "sort_solver_public.h"
 # include "libft.h"
+
+typedef struct s_push_swap
+{
+	t_sort_solver	*solver;
+	t_validator		*validator;
+}	t_push_swap;
+
+t_push_swap	*push_swap_create(int argc, char **argv);
+void		push_swap_destroy(t_push_swap *ps);
+int			push_swap_execute(t_push_swap *ps);
 
 #endif

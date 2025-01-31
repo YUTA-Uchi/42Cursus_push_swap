@@ -36,5 +36,6 @@ int		check_duplicates(int *nums, int count);
 void	set_parsed_nums(t_validator *self, int num);
 void	set_error(t_validator *self, int error_code);
 int		init_parsed_nums(int **parsednums, int count);
+int		count_args(char **args);
 
 #endif

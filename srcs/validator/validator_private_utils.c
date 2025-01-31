@@ -35,3 +35,13 @@ void	set_parsed_nums(t_validator *self, int num)
 	self->parsed_nums[self->num_count] = num;
 	add_num_count(self, 1);
 }
+
+int	count_args(char **args)
+{
+	int	count;
+
+	count = 0;
+	while (args[count])
+		count++;
+	return (count);
+}

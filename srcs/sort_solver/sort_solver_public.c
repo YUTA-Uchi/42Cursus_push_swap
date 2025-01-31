@@ -1,68 +1,44 @@
 
 #include "sort_solver_public.h"
 
-void	selection_sort(t_sorter *sorter)
+static void	set_strategy(t_sort_solver *solver, t_sort_strategy *strategy)
 {
-	t_push_swap	*ps;
-	int			min;
-
-	ps = sorter->ps;
-	while (ps->stack_a->size > 0)  // n回ループ
-	{
-		// find_minの中で全探索
-		min = sorter->find_min(ps->stack_a);  // O(n)
-		
-		// 最小値を見つけるまでrotate
-		while (*(int *)(ps->stack_a->top->content) != min) // 最悪O(n)
-			ps->rotate(ps->stack_a);
-			
-		ps->push(ps->stack_b, ps->stack_a);
-	}
-	
-	// 最後にn回のpa
-	while (ps->stack_b->size > 0)  // O(n)
-		ps->push(ps->stack_a, ps->stack_b);
+	if (solver->strategy)
+		solver->strategy->destroy(solver->strategy);
+	solver->strategy = strategy;
 }
 
-static int	find_min(t_stack *stack)
+static void	solve(t_sort_solver *solver)
 {
-	t_list	*node;
-	int		min;
-
-	node = stack->top;
-	min = *(t_stack_content)node->content;
-	while (node)
-	{
-		if (*(t_stack_content)node->content < min)
-			min = *(t_stack_content)node->content;
-		node = node->next;
-	}
-	return (min);
+	if (solver->strategy)
+		solver->strategy->execute(solver);
 }
 
-t_sorter	*sorter_create(t_push_swap *ps)
+t_sort_solver	*sort_solver_create(t_stack *stack_a, t_stack *stack_b)
 {
-	t_sorter	*sorter;
+	t_sort_solver	*solver;
 
-	sorter = malloc(sizeof(t_sorter));
-	if (!sorter)
+	solver = malloc(sizeof(t_sort_solver));
+	if (!solver)
 		return (NULL);
-	sorter->ps = ps;
-	sorter->min = 0;
-	sorter->max = 0;
-	sorter->median = 0;
-	sorter->sort = selection_sort;
-	sorter->find_min = find_min;
-	sorter->find_max = NULL;
-	sorter->find_median = NULL;
-	sorter->is_sorted = NULL;
-	sorter->get_position = NULL;
-	sorter->calculate_stats = NULL;
-	return (sorter);
+	solver->ops = operations_create();
+	if (!solver->ops)
+	{
+		free(solver);
+		return (NULL);
+	}
+	solver->stack_a = stack_a;
+	solver->stack_b = stack_b;
+	solver->strategy = NULL;
+	solver->set_strategy = set_strategy;
+	solver->solve = solve;
+	return (solver);
 }
 
-void	sorter_destroy(t_sorter *sorter)
+void	sort_solver_destroy(t_sort_solver *solver)
 {
-	push_swap_destroy(sorter->ps);
-	free(sorter);
+	operations_destroy(solver->ops);
+	stack_destroy(solver->stack_a);
+	stack_destroy(solver->stack_b);
+	free(solver);
 }

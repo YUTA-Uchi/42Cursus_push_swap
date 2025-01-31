@@ -15,10 +15,8 @@
 
 # include "stack_public.h"
 
-typedef struct s_push_swap
+typedef struct s_operations
 {
-	t_stack		*stack_a;
-	t_stack		*stack_b;
 	void	(*swap)(t_stack*);
 	// void	(*sb)(t_stack*);
 	void	(*ss)(t_stack*, t_stack*);
@@ -30,9 +28,9 @@ typedef struct s_push_swap
 	void	(*reverse_rotate)(t_stack*);
 	// void	(*rrb)(t_stack*);
 	void	(*rrr)(t_stack*, t_stack*);
-}	t_push_swap;
+}	t_operations;
 
-t_push_swap	*push_swap_create(void);
-void		push_swap_destroy(t_push_swap *ps);
+t_operations	*operations_create(void);
+void		operations_destroy(t_operations *ops);
 
 #endif
