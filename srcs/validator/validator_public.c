@@ -73,7 +73,7 @@ t_validator	*validator_create(int argc, char **argv)
 	{
 		new_validator->args = ft_split(argv[0], ' ');
 		if (!new_validator->args)
-			return (validator_destroy(new_validator), NULL);
+			return (validator_destroy(new_validator, argc), NULL);
 		new_validator->arg_count = count_args(new_validator->args);
 	}
 	else
@@ -87,10 +87,19 @@ t_validator	*validator_create(int argc, char **argv)
 	return (new_validator);
 }
 
-void	validator_destroy(t_validator *v)
+void	validator_destroy(t_validator *v, int argc)
 {
+	int	i;
+
 	if (!v)
 		return ;
+	if (v->args && argc == 1)
+	{
+		i = 0;
+		while (i < v->arg_count)
+			free(v->args[i++]);
+		free(v->args);
+	}
 	if (v->parsed_nums)
 		free(v->parsed_nums);
 	free(v);

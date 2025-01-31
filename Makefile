@@ -14,6 +14,7 @@ SRCS		:=	main.c \
 				sort_solver_public.c \
 				sort_strategy_public.c \
 				selection_sort_strategy_private.c \
+				turkey_sort_strategy_private.c \
 
 OBJ_DIR		:=	./obj
 OBJS		:=	$(SRCS:%.c=$(OBJ_DIR)/%.o)

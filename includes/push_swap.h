@@ -25,7 +25,7 @@ typedef struct s_push_swap
 }	t_push_swap;
 
 t_push_swap	*push_swap_create(int argc, char **argv);
-void		push_swap_destroy(t_push_swap *ps);
+void		push_swap_destroy(t_push_swap *ps, int argc);
 int			push_swap_execute(t_push_swap *ps);
 
 #endif

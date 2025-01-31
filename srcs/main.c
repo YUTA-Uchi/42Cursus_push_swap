@@ -21,16 +21,16 @@ t_push_swap	*push_swap_create(int argc, char **argv)
 		return (NULL);
 	ps->validator = validator_create(argc, argv);
 	if (!ps->validator)
-		return (push_swap_destroy(ps), NULL);
+		return (push_swap_destroy(ps, argc), NULL);
 	if (validate_all(ps->validator) != V_SUCCESS)
 	{
-		return (push_swap_destroy(ps), NULL);
+		return (push_swap_destroy(ps, argc), NULL);
 	}
 	ps->solver = sort_solver_create(stack_create('a'), stack_create('b'));
 	if (!ps->solver)
-		return (push_swap_destroy(ps), NULL);
+		return (push_swap_destroy(ps, argc), NULL);
 	if (fill_stack(ps->validator, ps->solver->stack_a) != V_SUCCESS)
-		return (push_swap_destroy(ps), NULL);
+		return (push_swap_destroy(ps, argc), NULL);
 	return (ps);
 }
 
@@ -38,7 +38,7 @@ int	push_swap_execute(t_push_swap *ps)
 {
 	t_sort_strategy	*strategy;
 
-	strategy = selection_strategy_create();
+	strategy = turkey_sort_strategy_create(15);
 	if (!strategy)
 		return (1);
 	ps->solver->set_strategy(ps->solver, strategy);
@@ -46,12 +46,12 @@ int	push_swap_execute(t_push_swap *ps)
 	return (0);
 }
 
-void	push_swap_destroy(t_push_swap *ps)
+void	push_swap_destroy(t_push_swap *ps, int argc)
 {
 	if (ps->solver)
 		sort_solver_destroy(ps->solver);
 	if (ps->validator)
-		validator_destroy(ps->validator);
+		validator_destroy(ps->validator, argc);
 	free(ps);
 }
 
@@ -68,6 +68,6 @@ int	main(int argc, char **argv)
 	result = push_swap_execute(ps);
 	if (result)
 		ft_putstr_fd("Error3\n", 2);
-	push_swap_destroy(ps);
+	push_swap_destroy(ps, argc - 1);
 	return (0);
 }

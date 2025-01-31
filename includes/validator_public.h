@@ -32,7 +32,7 @@ enum e_validator_error
 
 // constructor/deconstructor
 t_validator		*validator_create(int argc, char **argv);
-void			validator_destroy(t_validator *v);
+void			validator_destroy(t_validator *v, int argc);
 // public methods
 int				validate_all(t_validator *v);
 int				fill_stack(t_validator *v, t_stack *stack);

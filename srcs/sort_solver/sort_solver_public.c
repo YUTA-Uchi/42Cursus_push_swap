@@ -40,5 +40,7 @@ void	sort_solver_destroy(t_sort_solver *solver)
 	operations_destroy(solver->ops);
 	stack_destroy(solver->stack_a);
 	stack_destroy(solver->stack_b);
+	if (solver->strategy)
+		solver->strategy->destroy(solver->strategy);
 	free(solver);
 }

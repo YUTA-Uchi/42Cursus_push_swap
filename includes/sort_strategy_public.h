@@ -20,14 +20,18 @@ typedef struct s_selection_strategy
 	t_sort_strategy	base;
 } t_selection_strategy;
 
-t_sort_strategy	*selection_strategy_create(void);
+t_sort_strategy	*selection_sort_strategy_create(void);
 
 typedef struct s_turkey_strategy
 {
 	t_sort_strategy	base;
 	int				chunk_size;
+	int				chunk_count;
+	int				chunk;
+	int				min;
+	int				max;
 } t_turkey_strategy;
 
-t_sort_strategy	*turkey_strategy_create(int chunk_size);
+t_sort_strategy	*turkey_sort_strategy_create(int chunk_size);
 // void			turkey_strategy_destroy(t_sort_strategy *strategy);
 #endif
