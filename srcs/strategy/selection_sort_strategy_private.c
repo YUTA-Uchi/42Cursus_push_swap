@@ -28,11 +28,11 @@ void	selection_sort(t_sort_solver *solver)
 	{
 		min = find_min(solver->stack_a);
 		while (*(int *)(solver->stack_a->top->content) != min)
-			solver->ops->rotate(solver->stack_a);
-		solver->ops->push(solver->stack_b, solver->stack_a);
+			solver->ops->ra(solver->stack_a);
+		solver->ops->pb(solver->stack_b, solver->stack_a);
 	}
 	while (solver->stack_b->size > 0)
-		solver->ops->push(solver->stack_a, solver->stack_b);
+		solver->ops->pa(solver->stack_a, solver->stack_b);
 }
 
 void	selection_strategy_destroy(t_sort_strategy *strategy)

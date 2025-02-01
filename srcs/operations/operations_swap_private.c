@@ -1,38 +1,48 @@
 
 #include "operations_private.h"
 
-void	swap(t_stack *stack)
+void	swap_a(t_stack *a)
 {
 	t_stack_content	first;
 	t_stack_content	second;
 
-	if (stack->size < 2)
+	if (a->size < 2)
 		return ;
-	first = stack->pop(stack);
-	second = stack->pop(stack);
-	stack->push(stack, first);
-	stack->push(stack, second);
-	if (stack->name == 'a')
-		ft_printf(STDOUT_FILENO, "sa\n");
-	else
-		ft_printf(STDOUT_FILENO, "sb\n");
+	first = a->pop(a);
+	second = a->pop(a);
+	a->push(a, first);
+	a->push(a, second);
+	ft_printf(STDOUT_FILENO, "sa\n");
 }
 
-// void	swap_b(t_stack *b)
-// {
-// 	int	tmp;
+void	swap_b(t_stack *b)
+{
+	t_stack_content	first;
+	t_stack_content	second;
 
-// 	if (b->size < 2)
-// 		return ;
-// 	tmp = b->pop(b);
-// 	b->push(b, b->pop(b));
-// 	b->push(b, tmp);
-// 	// printf("sb\n");
-// }
+	if (b->size < 2)
+		return ;
+	first = b->pop(b);
+	second = b->pop(b);
+	b->push(b, first);
+	b->push(b, second);
+	ft_printf(STDOUT_FILENO, "sb\n");
+}
 
 void	swap_ab(t_stack *a, t_stack *b)
 {
-	swap(a);
-	swap(b);
-	// printf("ss\n");
+	t_stack_content	first;
+	t_stack_content	second;
+
+	if (a->size < 2 || b->size < 2)
+		return ;
+	first = a->pop(a);
+	second = a->pop(a);
+	a->push(a, first);
+	a->push(a, second);
+	first = b->pop(b);
+	second = b->pop(b);
+	b->push(b, first);
+	b->push(b, second);
+	ft_printf(STDOUT_FILENO, "ss\n");
 }

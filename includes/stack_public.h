@@ -6,7 +6,7 @@
 /*   By: yuuchiya <yuuchiya@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 13:05:43 by yuuchiya          #+#    #+#             */
-/*   Updated: 2025/01/29 19:32:33 by yuuchiya         ###   ########.fr       */
+/*   Updated: 2025/02/01 14:47:55 by yuuchiya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,8 @@ typedef struct s_stack
 	void			(*push)(struct s_stack*, t_stack_content);
 	t_stack_content	(*pop)(struct s_stack*);
 	t_stack_content	(*peek)(struct s_stack*);
+	void			(*rotate)(struct s_stack*);
+	void			(*reverse_rotate)(struct s_stack*);
 	void			(*clear)(struct s_stack*);
 	void			(*print)(struct s_stack*);
 	void			(*add_size)(int *, int);

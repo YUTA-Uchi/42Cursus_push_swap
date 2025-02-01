@@ -6,7 +6,7 @@
 /*   By: yuuchiya <yuuchiya@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 19:13:17 by yuuchiya          #+#    #+#             */
-/*   Updated: 2025/01/29 20:06:00 by yuuchiya         ###   ########.fr       */
+/*   Updated: 2025/02/01 14:49:50 by yuuchiya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@ t_stack	*stack_create(char name)
 	new_stack->push = stack_push;
 	new_stack->pop = stack_pop;
 	new_stack->peek = stack_peek;
+	new_stack->rotate = stack_rotate;
+	new_stack->reverse_rotate = stack_reverse_rotate;
 	new_stack->clear = stack_clear;
 	new_stack->print = stack_print;
 	new_stack->add_size = add_size;

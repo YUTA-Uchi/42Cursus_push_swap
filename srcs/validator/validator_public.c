@@ -6,7 +6,7 @@
 /*   By: yuuchiya <yuuchiya@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 14:52:22 by yuuchiya          #+#    #+#             */
-/*   Updated: 2025/01/29 19:10:27 by yuuchiya         ###   ########.fr       */
+/*   Updated: 2025/02/01 15:11:43 by yuuchiya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ int	validate_all(t_validator *v)
 
 int	fill_stack(t_validator *v, t_stack *stack)
 {
-	int	i;
+	int				i;
 	t_stack_content	content;
 
 	i = v->num_count - 1;

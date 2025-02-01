@@ -6,7 +6,7 @@
 /*   By: yuuchiya <yuuchiya@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 19:34:38 by yuuchiya          #+#    #+#             */
-/*   Updated: 2025/01/29 19:58:49 by yuuchiya         ###   ########.fr       */
+/*   Updated: 2025/02/01 15:01:15 by yuuchiya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ t_stack_content	stack_pop(t_stack *stack)
 	t_stack_content	content;
 
 	if (stack->size == 0)
-		return (0);
+		return (NULL);
 	node = stack->top;
 	content = (t_stack_content)(node->content);
 	set_stack_top(&(stack->top), node->next);
@@ -48,22 +48,32 @@ t_stack_content	stack_peek(t_stack *stack)
 	return ((t_stack_content)(stack->top->content));
 }
 
-void	stack_clear(t_stack *stack)
+void	stack_rotate(t_stack *stack)
 {
-	ft_lstclear(&(stack->top), free);
-	add_size(&(stack->size), -stack->size);
+	t_stack_content	top_content;
+
+	if (stack->size < 2)
+		return ;
+	top_content = stack->pop(stack);
+	ft_lstadd_back(&(stack->top), ft_lstnew(top_content));
+	stack->add_size(&(stack->size), 1);
 }
 
-void	stack_print(t_stack *stack)
+void	stack_reverse_rotate(t_stack *stack)
 {
-	t_list	*node;
+	t_list			*tail;
+	t_list			*pretail;
+	t_stack_content	tail_content;
 
-	ft_printf(STDOUT_FILENO, "stack %c:\n", stack->name);
-	node = stack->top;
-	while (node)
-	{
-		ft_printf(STDOUT_FILENO, "%d\n", *(t_stack_content)(node->content));
-		node = node->next;
-	}
+	if (stack->size < 2)
+		return ;
+	pretail = stack->top;
+	while (pretail->next->next)
+		pretail = pretail->next;
+	tail = pretail->next;
+	tail_content = (t_stack_content)(tail->content);
+	pretail->next = NULL;
+	free(tail);
+	stack->add_size(&(stack->size), -1);
+	stack->push(stack, tail_content);
 }
-
