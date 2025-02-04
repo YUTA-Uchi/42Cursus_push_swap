@@ -61,13 +61,13 @@ int	main(int argc, char **argv)
 	int				result;
 
 	if (argc < 2)
-		return (ft_putstr_fd("Error1\n", 2), 1);
+		return (1);
 	ps = push_swap_create(argc - 1, argv + 1);
 	if (!ps)
-		return (ft_putstr_fd("Error2\n", 2), 1);
+		return (ft_putstr_fd("Error\n", 2), 1);
 	result = push_swap_execute(ps);
 	if (result)
-		ft_putstr_fd("Error3\n", 2);
+		ft_putstr_fd("Error\n", 2);
 	push_swap_destroy(ps, argc - 1);
 	return (0);
 }
