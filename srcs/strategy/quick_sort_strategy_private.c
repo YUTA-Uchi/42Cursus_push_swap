@@ -71,6 +71,7 @@ int	partition_to_a(t_sort_solver *solver, int size, int pivot)
 {
 	int	pushed;
 	int	i;
+	int	half;
 
 	pushed = 0;
 	i = 0;
@@ -86,10 +87,22 @@ int	partition_to_a(t_sort_solver *solver, int size, int pivot)
 		i++;
 	}
 	i = 0;
-	while (i < (size - pushed))
+	half = solver->stack_b->size / 2;
+	if (half > (size - pushed))
 	{
-		solver->ops->rrb(solver->stack_b);
-		i++;
+		while (i < (size - pushed))
+		{
+			solver->ops->rrb(solver->stack_b);
+			i++;
+		}
+	}
+	else
+	{
+		while (i < solver->stack_b->size - (size - pushed))
+		{
+			solver->ops->rb(solver->stack_b);
+			i++;
+		}
 	}
 	return (pushed);
 }
@@ -98,6 +111,7 @@ int	partition_to_b(t_sort_solver *solver, int size, int pivot)
 {
 	int	pushed;
 	int	i;
+	int	half;
 
 	pushed = 0;
 	i = 0;
@@ -113,10 +127,22 @@ int	partition_to_b(t_sort_solver *solver, int size, int pivot)
 		i++;
 	}
 	i = 0;
-	while (i < (size - pushed))
+	half = solver->stack_a->size / 2;
+	if (half > (size - pushed))
 	{
-		solver->ops->rra(solver->stack_a);
-		i++;
+		while (i < (size - pushed))
+		{
+			solver->ops->rra(solver->stack_a);
+			i++;
+		}
+	}
+	else
+	{
+		while (i < solver->stack_a->size - (size - pushed))
+		{
+			solver->ops->ra(solver->stack_a);
+			i++;
+		}
 	}
 	return (pushed);
 }
