@@ -120,11 +120,39 @@ int	get_pivot(t_stack *stack, int size)
 // 	return ((min + max) / 2);
 // }
 
+void	minimal_restore(t_sort_solver *solver, t_stack *stack, int size_remain)
+{
+	int	i;
+	int	half;
+
+	i = 0;
+	half = stack->size / 2;
+	if (half > size_remain)
+	{
+		while (i++ < size_remain)
+		{
+			if (stack->name == 'a')
+				solver->ops->rra(stack);
+			else
+				solver->ops->rrb(stack);
+		}
+	}
+	else
+	{
+		while (i++ < stack->size - size_remain)
+		{
+			if (stack->name == 'a')
+				solver->ops->ra(stack);
+			else
+				solver->ops->rb(stack);
+		}
+	}
+}
+
 int	partition_to_a(t_sort_solver *solver, int size, int pivot)
 {
 	int	pushed;
 	int	i;
-	int	half;
 
 	pushed = 0;
 	i = 0;
@@ -139,24 +167,7 @@ int	partition_to_a(t_sort_solver *solver, int size, int pivot)
 			solver->ops->rb(solver->stack_b);
 		i++;
 	}
-	i = 0;
-	half = solver->stack_b->size / 2;
-	if (half > (size - pushed))
-	{
-		while (i < (size - pushed))
-		{
-			solver->ops->rrb(solver->stack_b);
-			i++;
-		}
-	}
-	else
-	{
-		while (i < solver->stack_b->size - (size - pushed))
-		{
-			solver->ops->rb(solver->stack_b);
-			i++;
-		}
-	}
+	minimal_restore(solver, solver->stack_b, size - pushed);
 	return (pushed);
 }
 
@@ -164,7 +175,6 @@ int	partition_to_b(t_sort_solver *solver, int size, int pivot)
 {
 	int	pushed;
 	int	i;
-	int	half;
 
 	pushed = 0;
 	i = 0;
@@ -179,24 +189,7 @@ int	partition_to_b(t_sort_solver *solver, int size, int pivot)
 			solver->ops->ra(solver->stack_a);
 		i++;
 	}
-	i = 0;
-	half = solver->stack_a->size / 2;
-	if (half > (size - pushed))
-	{
-		while (i < (size - pushed))
-		{
-			solver->ops->rra(solver->stack_a);
-			i++;
-		}
-	}
-	else
-	{
-		while (i < solver->stack_a->size - (size - pushed))
-		{
-			solver->ops->ra(solver->stack_a);
-			i++;
-		}
-	}
+	minimal_restore(solver, solver->stack_a, size - pushed);
 	return (pushed);
 }
 
