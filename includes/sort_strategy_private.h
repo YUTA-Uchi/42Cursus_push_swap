@@ -3,6 +3,7 @@
 # define SORT_STRATEGY_PRIVATE_H
 
 # include "sort_strategy_public.h"
+# include <stdbool.h>
 
 typedef struct s_stack	t_stack;
 
@@ -21,6 +22,7 @@ int		get_pivot(t_stack *stack, int size);
 int		get_distance_to_min(t_stack *stack, int size);
 int		get_distance_to_max(t_stack *stack, int size);
 //mini sort
+bool	is_minimal_sort(t_sort_solver *solver, int size);
 void	sort_two(t_sort_solver *solver, t_stack *stack);
 void	sort_three(t_sort_solver *solver);
 void	sort_three_stack_b(t_sort_solver *solver);
