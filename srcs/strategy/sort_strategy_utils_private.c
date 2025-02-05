@@ -6,7 +6,7 @@
 /*   By: yuuchiya <yuuchiya@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 10:49:07 by yuuchiya          #+#    #+#             */
-/*   Updated: 2025/02/05 12:02:01 by yuuchiya         ###   ########.fr       */
+/*   Updated: 2025/02/05 12:49:44 by yuuchiya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,36 +93,46 @@ int	get_distance_to_min(t_stack *stack, int size)
 {
 	t_list	*node;
 	int		min;
+	int		distance;
 	int		i;
 
 	node = stack->top;
-	min = 0;
+	min = *(t_stack_content)node->content;
+	distance = 0;
 	i = 0;
 	while (node && (i < size))
 	{
 		if (*(t_stack_content)node->content < min)
-			min = i;
+		{
+			min = *(t_stack_content)node->content;
+			distance = i;
+		}
 		node = node->next;
 		i++;
 	}
-	return (min);
+	return (distance);
 }
 
 int	get_distance_to_max(t_stack *stack, int size)
 {
 	t_list	*node;
 	int		max;
+	int		distance;
 	int		i;
 
 	node = stack->top;
-	max = 0;
+	max = *(t_stack_content)node->content;
+	distance = 0;
 	i = 0;
 	while (node && (i < size))
 	{
 		if (*(t_stack_content)node->content > max)
-			max = i;
+		{
+			max = *(t_stack_content)node->content;
+			distance = i;
+		}
 		node = node->next;
 		i++;
 	}
-	return (max);
+	return (distance);
 }
