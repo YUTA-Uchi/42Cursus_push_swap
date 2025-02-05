@@ -104,9 +104,9 @@ int	partition_to_a(t_sort_solver *solver, int size, int pivot)
 		i++;
 	}
 	ft_printf(2, "partition_to_a end\n");
-	ft_printf(2, "restore start\n");
-	minimal_restore(solver, solver->stack_b, size - pushed);
-	ft_printf(2, "restore end\n");
+	// ft_printf(2, "restore start\n");
+	// minimal_restore(solver, solver->stack_b, size - pushed);
+	// ft_printf(2, "restore end\n");
 	return (pushed);
 }
 
@@ -179,6 +179,16 @@ void	sort_stack_b(t_sort_solver *solver, int size)
 	else if (size == 4)
 	{
 		sort_four_stack_b(solver);
+		return ;
+	}
+	else if (size == 5)
+	{
+		sort_five_stack_b(solver);
+		return ;
+	}
+	else if (size == 6)
+	{
+		sort_six_stack_b(solver);
 		return ;
 	}
 	pivot = get_pivot(solver->stack_b, size);

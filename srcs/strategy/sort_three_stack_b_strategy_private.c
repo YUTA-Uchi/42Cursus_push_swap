@@ -15,31 +15,6 @@
 
 void	sort_three_stack_b_distance_2(t_sort_solver *solver)
 {
-	// if (solver->stack_b->size == 3)
-	// {
-	// 	solver->ops->rrb(solver->stack_b);
-	// 	solver->ops->pa(solver->stack_a, solver->stack_b);
-	// 	sort_two(solver, solver->stack_b);
-	// 	return ;
-	// }
-	// if (*(t_stack_content)(solver->stack_b->top->content) 
-	// 	< *(t_stack_content)(solver->stack_b->top->next->content))
-	// {
-	// 	solver->ops->pa(solver->stack_a, solver->stack_b);
-	// 	solver->ops->rr(solver->stack_a, solver->stack_b);
-	// 	solver->ops->pa(solver->stack_a, solver->stack_b);
-	// 	solver->ops->rrb(solver->stack_b);
-	// 	solver->ops->pa(solver->stack_a, solver->stack_b);
-	// 	solver->ops->rra(solver->stack_a);
-	// }
-	// else
-	// {
-	// 	solver->ops->pa(solver->stack_a, solver->stack_b);
-	// 	solver->ops->rr(solver->stack_a, solver->stack_b);
-	// 	solver->ops->pa(solver->stack_a, solver->stack_b);
-	// 	solver->ops->rrr(solver->stack_a, solver->stack_b);
-	// 	solver->ops->pa(solver->stack_a, solver->stack_b);
-	// }
 	solver->ops->rrb(solver->stack_b);
 	solver->ops->pa(solver->stack_a, solver->stack_b);
 	solver->ops->ra(solver->stack_a);

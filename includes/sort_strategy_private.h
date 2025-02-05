@@ -28,5 +28,9 @@ void	sort_three(t_sort_solver *solver);
 void	sort_three_stack_b(t_sort_solver *solver);
 void	sort_four(t_sort_solver *solver);
 void	sort_four_stack_b(t_sort_solver *solver);
+void	sort_five(t_sort_solver *solver);
+void	sort_five_stack_b(t_sort_solver *solver);
+void	sort_six(t_sort_solver *solver);
+void	sort_six_stack_b(t_sort_solver *solver);
 
 #endif
