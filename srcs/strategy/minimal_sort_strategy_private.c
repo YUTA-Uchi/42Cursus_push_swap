@@ -6,7 +6,7 @@
 /*   By: yuuchiya <yuuchiya@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 10:54:57 by yuuchiya          #+#    #+#             */
-/*   Updated: 2025/02/05 11:01:58 by yuuchiya         ###   ########.fr       */
+/*   Updated: 2025/02/05 12:33:25 by yuuchiya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,37 +44,50 @@ void	sort_three(t_sort_solver *solver)
 	a = *(t_stack_content)(solver->stack_a->top->content);
 	b = *(t_stack_content)(solver->stack_a->top->next->content);
 	c = *(t_stack_content)(solver->stack_a->top->next->next->content);
-	if (a > b && b < c && a < c)
+	if (a > b && b < c && a < c)//c > a > b
+	{
 		solver->ops->sa(solver->stack_a);
-	else if (a > b && b > c)
+		solver->ops->pb(solver->stack_b, solver->stack_a);
+		sort_two(solver, solver->stack_a);
+		solver->ops->pa(solver->stack_a, solver->stack_b);
+	}
+	else if (a > b && b > c)//a > b > c
+	{
+		solver->ops->ra(solver->stack_a);
+		solver->ops->sa(solver->stack_a);
+		solver->ops->pb(solver->stack_b, solver->stack_a);
+		solver->ops->rra(solver->stack_a);
+		sort_two(solver, solver->stack_a);
+		solver->ops->pa(solver->stack_a, solver->stack_b);
+
+	}
+	else if (a > b && b < c && a > c)// a > c > b
+	{
+		solver->ops->sa(solver->stack_a);
+		solver->ops->pb(solver->stack_b, solver->stack_a);
+		sort_two(solver, solver->stack_a);
+		solver->ops->pa(solver->stack_a, solver->stack_b);
+	}
+	else if (a < b && b > c && a < c)// b > c > a
 	{
 		solver->ops->pb(solver->stack_b, solver->stack_a);
-		solver->ops->sa(solver->stack_a);
-		solver->ops->ra(solver->stack_a);
+		sort_two(solver, solver->stack_a);
 		solver->ops->pa(solver->stack_a, solver->stack_b);
-		solver->ops->sa(solver->stack_a);
-		solver->ops->rra(solver->stack_a);
 	}
-	else if (a > b && b < c && a > c)
-	{
-		solver->ops->sa(solver->stack_a);
-		solver->ops->ra(solver->stack_a);
-		solver->ops->sa(solver->stack_a);
-		solver->ops->rra(solver->stack_a);
-	}
-	else if (a < b && b > c && a < c)
+	else if (a < b && b > c && a > c)// b > a > c
 	{
 		solver->ops->ra(solver->stack_a);
 		solver->ops->sa(solver->stack_a);
+		solver->ops->pb(solver->stack_b, solver->stack_a);
 		solver->ops->rra(solver->stack_a);
+		sort_two(solver, solver->stack_a);
+		solver->ops->pa(solver->stack_a, solver->stack_b);
 	}
-	else if (a < b && b > c && a > c)
+	else
 	{
 		solver->ops->pb(solver->stack_b, solver->stack_a);
-		solver->ops->sa(solver->stack_a);
-		solver->ops->ra(solver->stack_a);
+		sort_two(solver, solver->stack_a);
 		solver->ops->pa(solver->stack_a, solver->stack_b);
-		solver->ops->rra(solver->stack_a);
 	}
 }
 
@@ -90,50 +103,42 @@ void	sort_three_stack_b(t_sort_solver *solver)
 	a = *(t_stack_content)(solver->stack_b->top->content);
 	b = *(t_stack_content)(solver->stack_b->top->next->content);
 	c = *(t_stack_content)(solver->stack_b->top->next->next->content);
-	if (a > b && a > c && c > b)
+	if (a > b && a > c && c > b)// a > c > b
 	{
 		solver->ops->pa(solver->stack_a, solver->stack_b);
-		solver->ops->sb(solver->stack_b);
-		solver->ops->pa(solver->stack_a, solver->stack_b);
-		solver->ops->pa(solver->stack_a, solver->stack_b);
+		sort_two(solver, solver->stack_b);
 	}
-	else if (b > a && a > c)
+	else if (b > a && a > c)// b > a > c
 	{
 		solver->ops->sb(solver->stack_b);
 		solver->ops->pa(solver->stack_a, solver->stack_b);
-		solver->ops->pa(solver->stack_a, solver->stack_b);
-		solver->ops->pa(solver->stack_a, solver->stack_b);
+		sort_two(solver, solver->stack_b);
 	}
-	else if (b > a && b > c && c > a)
+	else if (b > a && b > c && c > a)// b > c > a
 	{
 		solver->ops->sb(solver->stack_b);
 		solver->ops->pa(solver->stack_a, solver->stack_b);
-		solver->ops->sb(solver->stack_b);
-		solver->ops->pa(solver->stack_a, solver->stack_b);
-		solver->ops->pa(solver->stack_a, solver->stack_b);
+		sort_two(solver, solver->stack_b);
 	}
-	else if (c > a && a > b)
+	else if (c > a && a > b)// c > a > b
 	{
 		solver->ops->rb(solver->stack_b);
 		solver->ops->sb(solver->stack_b);
 		solver->ops->pa(solver->stack_a, solver->stack_b);
 		solver->ops->rrb(solver->stack_b);
-		solver->ops->pa(solver->stack_a, solver->stack_b);
-		solver->ops->pa(solver->stack_a, solver->stack_b);
+		sort_two(solver, solver->stack_b);
 	}
-	else if (c > b && b > a)
+	else if (c > b && b > a)// c > b > a
 	{
 		solver->ops->rb(solver->stack_b);
 		solver->ops->sb(solver->stack_b);
 		solver->ops->pa(solver->stack_a, solver->stack_b);
-		solver->ops->pa(solver->stack_a, solver->stack_b);
 		solver->ops->rrb(solver->stack_b);
-		solver->ops->pa(solver->stack_a, solver->stack_b);
+		sort_two(solver, solver->stack_b);
 	}
-	else
+	else// a > b > c
 	{
 		solver->ops->pa(solver->stack_a, solver->stack_b);
-		solver->ops->pa(solver->stack_a, solver->stack_b);
-		solver->ops->pa(solver->stack_a, solver->stack_b);
+		sort_two(solver, solver->stack_b);
 	}
 }

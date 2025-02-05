@@ -6,7 +6,7 @@
 /*   By: yuuchiya <yuuchiya@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 10:49:07 by yuuchiya          #+#    #+#             */
-/*   Updated: 2025/02/05 11:09:38 by yuuchiya         ###   ########.fr       */
+/*   Updated: 2025/02/05 12:02:01 by yuuchiya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,4 +87,42 @@ int	get_pivot(t_stack *stack, int size)
 	median = get_median(values, size);
 	free(values);
 	return (median);
+}
+
+int	get_distance_to_min(t_stack *stack, int size)
+{
+	t_list	*node;
+	int		min;
+	int		i;
+
+	node = stack->top;
+	min = 0;
+	i = 0;
+	while (node && (i < size))
+	{
+		if (*(t_stack_content)node->content < min)
+			min = i;
+		node = node->next;
+		i++;
+	}
+	return (min);
+}
+
+int	get_distance_to_max(t_stack *stack, int size)
+{
+	t_list	*node;
+	int		max;
+	int		i;
+
+	node = stack->top;
+	max = 0;
+	i = 0;
+	while (node && (i < size))
+	{
+		if (*(t_stack_content)node->content > max)
+			max = i;
+		node = node->next;
+		i++;
+	}
+	return (max);
 }
