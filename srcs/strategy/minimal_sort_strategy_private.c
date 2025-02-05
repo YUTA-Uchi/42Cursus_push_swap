@@ -6,7 +6,7 @@
 /*   By: yuuchiya <yuuchiya@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 10:54:57 by yuuchiya          #+#    #+#             */
-/*   Updated: 2025/02/05 12:52:12 by yuuchiya         ###   ########.fr       */
+/*   Updated: 2025/02/05 13:00:47 by yuuchiya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,5 +84,81 @@ void	sort_three_stack_b(t_sort_solver *solver)
 		solver->ops->pa(solver->stack_a, solver->stack_b);
 		solver->ops->rrb(solver->stack_b);
 		sort_two(solver, solver->stack_b);
+	}
+}
+
+void	sort_four(t_sort_solver *solver)
+{
+	int	distance_to_min;
+
+	distance_to_min = get_distance_to_min(solver->stack_a, 4);
+	if (distance_to_min == 0)
+	{
+		solver->ops->pb(solver->stack_b, solver->stack_a);
+		sort_three(solver);
+		solver->ops->pa(solver->stack_a, solver->stack_b);
+	}
+	else if (distance_to_min == 1)
+	{
+		solver->ops->sa(solver->stack_a);
+		solver->ops->pb(solver->stack_b, solver->stack_a);
+		sort_three(solver);
+		solver->ops->pa(solver->stack_a, solver->stack_b);
+	}
+	else if (distance_to_min == 2)
+	{
+		solver->ops->ra(solver->stack_a);
+		solver->ops->sa(solver->stack_a);
+		solver->ops->pb(solver->stack_b, solver->stack_a);
+		solver->ops->rra(solver->stack_a);
+		sort_three(solver);
+		solver->ops->pa(solver->stack_a, solver->stack_b);
+	}
+	else
+	{
+		solver->ops->ra(solver->stack_a);
+		solver->ops->ra(solver->stack_a);
+		solver->ops->sa(solver->stack_a);
+		solver->ops->pb(solver->stack_b, solver->stack_a);
+		solver->ops->rra(solver->stack_a);
+		solver->ops->rra(solver->stack_a);
+		sort_three(solver);
+		solver->ops->pa(solver->stack_a, solver->stack_b);
+	}
+}
+
+void	sort_four_stack_b(t_sort_solver *solver)
+{
+	int	distance_to_max;
+
+	distance_to_max = get_distance_to_max(solver->stack_b, 4);
+	if (distance_to_max == 0)
+	{
+		solver->ops->pa(solver->stack_a, solver->stack_b);
+		sort_three_stack_b(solver);
+	}
+	else if (distance_to_max == 1)
+	{
+		solver->ops->sb(solver->stack_b);
+		solver->ops->pa(solver->stack_a, solver->stack_b);
+		sort_three_stack_b(solver);
+	}
+	else if (distance_to_max == 2)
+	{
+		solver->ops->rb(solver->stack_b);
+		solver->ops->sb(solver->stack_b);
+		solver->ops->pa(solver->stack_a, solver->stack_b);
+		solver->ops->rrb(solver->stack_b);
+		sort_three_stack_b(solver);
+	}
+	else
+	{
+		solver->ops->rb(solver->stack_b);
+		solver->ops->rb(solver->stack_b);
+		solver->ops->sb(solver->stack_b);
+		solver->ops->pa(solver->stack_a, solver->stack_b);
+		solver->ops->rrb(solver->stack_b);
+		solver->ops->rrb(solver->stack_b);
+		sort_three_stack_b(solver);
 	}
 }

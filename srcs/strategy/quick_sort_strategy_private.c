@@ -6,7 +6,7 @@
 /*   By: yuuchiya <yuuchiya@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/01 15:22:24 by yuuchiya          #+#    #+#             */
-/*   Updated: 2025/02/05 11:03:31 by yuuchiya         ###   ########.fr       */
+/*   Updated: 2025/02/05 13:01:21 by yuuchiya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -147,6 +147,11 @@ void	sort_stack_a(t_sort_solver *solver, int size)
 		sort_three(solver);
 		return ;
 	}
+	else if (size == 4)
+	{
+		sort_four(solver);
+		return ;
+	}
 	pivot = get_pivot(solver->stack_a, size);
 	pushed = partition_to_b(solver, size, pivot);
 	sort_stack_a(solver, size - pushed);
@@ -174,6 +179,11 @@ void	sort_stack_b(t_sort_solver *solver, int size)
 	else if (size == 3)
 	{
 		sort_three_stack_b(solver);
+		return ;
+	}
+	else if (size == 4)
+	{
+		sort_four_stack_b(solver);
 		return ;
 	}
 	pivot = get_pivot(solver->stack_b, size);

@@ -24,5 +24,7 @@ int		get_distance_to_max(t_stack *stack, int size);
 void	sort_two(t_sort_solver *solver, t_stack *stack);
 void	sort_three(t_sort_solver *solver);
 void	sort_three_stack_b(t_sort_solver *solver);
+void	sort_four(t_sort_solver *solver);
+void	sort_four_stack_b(t_sort_solver *solver);
 
 #endif
