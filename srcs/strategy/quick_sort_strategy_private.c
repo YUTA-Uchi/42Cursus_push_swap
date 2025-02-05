@@ -6,7 +6,7 @@
 /*   By: yuuchiya <yuuchiya@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/01 15:22:24 by yuuchiya          #+#    #+#             */
-/*   Updated: 2025/02/01 17:49:43 by yuuchiya         ###   ########.fr       */
+/*   Updated: 2025/02/05 11:03:31 by yuuchiya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,44 +16,7 @@
 void	sort_stack_a(t_sort_solver *solver, int size);
 void	sort_stack_b(t_sort_solver *solver, int size);
 
-int	get_pivot(t_stack *stack, int size)
-{
-	int			values[size];
-	int			count;
-	t_list		*current;
-	int			i, j, key;
 
-	count = 0;
-	if (stack->peek(stack) == NULL)
-		return (0);
-
-	current = stack->top;
-	while (current != NULL && count < size)
-	{
-		values[count] = *(t_stack_content)current->content;
-		count++;
-		current = current->next;
-	}
-
-	i = 1;
-	while (i < count)
-	{
-		key = values[i];
-		j = i - 1;
-		while (j >= 0 && values[j] > key)
-		{
-			values[j + 1] = values[j];
-			j--;
-		}
-		values[j + 1] = key;
-		i++;
-	}
-
-	if (count % 2)
-		return (values[count / 2]);
-	else
-		return ((values[(count / 2) - 1] + values[count / 2]) / 2);
-}
 
 // int	get_pivot(t_stack *stack)
 // {
@@ -120,34 +83,6 @@ int	get_pivot(t_stack *stack, int size)
 // 	return ((min + max) / 2);
 // }
 
-void	minimal_restore(t_sort_solver *solver, t_stack *stack, int size_remain)
-{
-	int	i;
-	int	half;
-
-	i = 0;
-	half = stack->size / 2;
-	if (half > size_remain)
-	{
-		while (i++ < size_remain)
-		{
-			if (stack->name == 'a')
-				solver->ops->rra(stack);
-			else
-				solver->ops->rrb(stack);
-		}
-	}
-	else
-	{
-		while (i++ < stack->size - size_remain)
-		{
-			if (stack->name == 'a')
-				solver->ops->ra(stack);
-			else
-				solver->ops->rb(stack);
-		}
-	}
-}
 
 int	partition_to_a(t_sort_solver *solver, int size, int pivot)
 {
@@ -193,120 +128,6 @@ int	partition_to_b(t_sort_solver *solver, int size, int pivot)
 	return (pushed);
 }
 
-void	sort_three(t_sort_solver *solver)
-{
-	int a, b, c;
-
-	if (!solver->stack_a || !(solver->stack_a->top) || \
-		!solver->stack_a->top->next || !solver->stack_a->top->next->next)
-		return; // 要素が3個未満の場合は別途処理
-
-	a = *(t_stack_content)(solver->stack_a->top->content);
-	b = *(t_stack_content)(solver->stack_a->top->next->content);
-	c = *(t_stack_content)(solver->stack_a->top->next->next->content);
-
-	/*
-	 * 1. 例: a > b && b < c && a < c  -> 最初の2個が入れ替わるだけ
-	 * 2. 例: a > b && b > c		  -> swap & reverse_rotate
-	 * 3. 例: a > b && b < c && a > c  -> rotate
-	 * 4. 例: a < b && b > c && a < c  -> swap & rotate
-	 * 5. 例: a < b && b > c && a > c  -> reverse_rotate
-	 */
-
-	if (a > b && b < c && a < c)
-		solver->ops->sa(solver->stack_a);
-	else if (a > b && b > c)
-	{
-		solver->ops->pb(solver->stack_b, solver->stack_a);
-		solver->ops->sa(solver->stack_a);
-		solver->ops->ra(solver->stack_a);
-		solver->ops->pa(solver->stack_a, solver->stack_b);
-		solver->ops->sa(solver->stack_a);
-		solver->ops->rra(solver->stack_a);
-	}
-	else if (a > b && b < c && a > c)
-	{
-		solver->ops->sa(solver->stack_a);
-		solver->ops->ra(solver->stack_a);
-		solver->ops->sa(solver->stack_a);
-		solver->ops->rra(solver->stack_a);
-	}
-	else if (a < b && b > c && a < c)
-	{
-		solver->ops->ra(solver->stack_a);
-		solver->ops->sa(solver->stack_a);
-		solver->ops->rra(solver->stack_a);
-	}
-	else if (a < b && b > c && a > c)
-	{
-		solver->ops->pb(solver->stack_b, solver->stack_a);
-		solver->ops->sa(solver->stack_a);
-		solver->ops->ra(solver->stack_a);
-		solver->ops->pa(solver->stack_a, solver->stack_b);
-		solver->ops->rra(solver->stack_a);
-	}
-}
-
-void	sort_three_stack_b(t_sort_solver *solver)
-{
-	int a, b, c;
-
-	if (!solver->stack_b || !(solver->stack_b->top) || \
-		!solver->stack_b->top->next || !solver->stack_b->top->next->next)
-		return; // 要素が3個未満の場合は別途処理
-
-	a = *(t_stack_content)(solver->stack_b->top->content);
-	b = *(t_stack_content)(solver->stack_b->top->next->content);
-	c = *(t_stack_content)(solver->stack_b->top->next->next->content);
-
-	if (a > b && a > c && c > b)
-	{
-		solver->ops->pa(solver->stack_a, solver->stack_b);
-		solver->ops->sb(solver->stack_b);
-		solver->ops->pa(solver->stack_a, solver->stack_b);
-		solver->ops->pa(solver->stack_a, solver->stack_b);
-	}
-	else if (b > a && a > c)
-	{
-		solver->ops->sb(solver->stack_b);
-		solver->ops->pa(solver->stack_a, solver->stack_b);
-		solver->ops->pa(solver->stack_a, solver->stack_b);
-		solver->ops->pa(solver->stack_a, solver->stack_b);
-	}
-	else if (b > a && b > c && c > a)
-	{
-		solver->ops->sb(solver->stack_b);
-		solver->ops->pa(solver->stack_a, solver->stack_b);
-		solver->ops->sb(solver->stack_b);
-		solver->ops->pa(solver->stack_a, solver->stack_b);
-		solver->ops->pa(solver->stack_a, solver->stack_b);
-	}
-	else if (c > a && a > b)
-	{
-		solver->ops->rb(solver->stack_b);
-		solver->ops->sb(solver->stack_b);
-		solver->ops->pa(solver->stack_a, solver->stack_b);
-		solver->ops->rrb(solver->stack_b);
-		solver->ops->pa(solver->stack_a, solver->stack_b);
-		solver->ops->pa(solver->stack_a, solver->stack_b);
-	}
-	else if (c > b && b > a)
-	{
-		solver->ops->rb(solver->stack_b);
-		solver->ops->sb(solver->stack_b);
-		solver->ops->pa(solver->stack_a, solver->stack_b);
-		solver->ops->pa(solver->stack_a, solver->stack_b);
-		solver->ops->rrb(solver->stack_b);
-		solver->ops->pa(solver->stack_a, solver->stack_b);
-	}
-	else
-	{
-		solver->ops->pa(solver->stack_a, solver->stack_b);
-		solver->ops->pa(solver->stack_a, solver->stack_b);
-		solver->ops->pa(solver->stack_a, solver->stack_b);
-	}
-}
-
 void	sort_stack_a(t_sort_solver *solver, int size)
 {
 	int	pivot;
@@ -318,8 +139,7 @@ void	sort_stack_a(t_sort_solver *solver, int size)
 		return ;
 	else if (size == 2)
 	{
-		if (*(solver->stack_a->peek(solver->stack_a)) > *(t_stack_content)(solver->stack_a->top->next->content))
-			solver->ops->sa(solver->stack_a);
+		sort_two(solver, solver->stack_a);
 		return ;
 	}
 	else if (size == 3)
@@ -328,7 +148,6 @@ void	sort_stack_a(t_sort_solver *solver, int size)
 		return ;
 	}
 	pivot = get_pivot(solver->stack_a, size);
-	// pivot = get_pivot(solver->stack_a);
 	pushed = partition_to_b(solver, size, pivot);
 	sort_stack_a(solver, size - pushed);
 	sort_stack_b(solver, pushed);
@@ -349,10 +168,7 @@ void	sort_stack_b(t_sort_solver *solver, int size)
 	}
 	else if (size == 2)
 	{
-		if (*(solver->stack_b->peek(solver->stack_b)) < *(t_stack_content)(solver->stack_b->top->next->content))
-			solver->ops->sb(solver->stack_b);
-		solver->ops->pa(solver->stack_a, solver->stack_b);
-		solver->ops->pa(solver->stack_a, solver->stack_b);
+		sort_two(solver, solver->stack_b);
 		return ;
 	}
 	else if (size == 3)
@@ -361,7 +177,6 @@ void	sort_stack_b(t_sort_solver *solver, int size)
 		return ;
 	}
 	pivot = get_pivot(solver->stack_b, size);
-	// pivot = get_pivot(solver->stack_b);
 	pushed = partition_to_a(solver, size, pivot);
 	sort_stack_a(solver, pushed);
 	sort_stack_b(solver, size - pushed);
@@ -372,9 +187,4 @@ void	quick_sort(t_sort_solver *solver)
 	if (solver->stack_a->size <= 1)
 		return ;
 	sort_stack_a(solver, solver->stack_a->size);
-}
-
-void	quick_strategy_destroy(t_sort_strategy *strategy)
-{
-	free(strategy);
 }
