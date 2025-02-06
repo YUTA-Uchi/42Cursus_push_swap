@@ -6,7 +6,7 @@
 /*   By: yuuchiya <yuuchiya@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 10:54:57 by yuuchiya          #+#    #+#             */
-/*   Updated: 2025/02/05 18:39:46 by yuuchiya         ###   ########.fr       */
+/*   Updated: 2025/02/06 16:26:24 by yuuchiya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,13 @@ void	sort_two(t_sort_solver *solver, t_stack *stack)
 	{
 		if (*(solver->stack_b->peek(solver->stack_b)) \
 			> *(t_stack_content)(solver->stack_b->top->next->content))
-			solver->ops->sb(solver->stack_b);
+		{
+			solver->ops->pa(solver->stack_a, solver->stack_b);
+			solver->ops->pa(solver->stack_a, solver->stack_b);
+			solver->ops->ra(solver->stack_a);
+			solver->ops->ra(solver->stack_a);
+			return ;
+		}
 		solver->ops->pa(solver->stack_a, solver->stack_b);
 		solver->ops->ra(solver->stack_a);
 		solver->ops->pa(solver->stack_a, solver->stack_b);
@@ -59,23 +65,6 @@ bool	is_minimal_sort(t_sort_solver *solver, int size)
 
 void	sort_four_distance_2(t_sort_solver *solver)
 {
-	// if (solver->stack_a->size == 4)
-	// {
-	// 	solver->ops->rra(solver->stack_a);
-	// 	solver->ops->rra(solver->stack_a);
-	// 	solver->ops->pb(solver->stack_b, solver->stack_a);
-	// 	sort_three(solver);
-	// 	solver->ops->pa(solver->stack_a, solver->stack_b);
-	// }
-	// else
-	// {
-	// 	solver->ops->ra(solver->stack_a);
-	// 	solver->ops->sa(solver->stack_a);
-	// 	solver->ops->pb(solver->stack_b, solver->stack_a);
-	// 	solver->ops->rra(solver->stack_a);
-	// 	sort_three(solver);
-	// 	solver->ops->pa(solver->stack_a, solver->stack_b);
-	// }
 	solver->ops->pb(solver->stack_b, solver->stack_a);
 	solver->ops->pb(solver->stack_b, solver->stack_a);
 	solver->ops->ra(solver->stack_a);
@@ -85,24 +74,6 @@ void	sort_four_distance_2(t_sort_solver *solver)
 
 void	sort_four_distance_3(t_sort_solver *solver)
 {
-	// if (solver->stack_a->size == 4)
-	// {
-	// 	solver->ops->rra(solver->stack_a);
-	// 	solver->ops->pb(solver->stack_b, solver->stack_a);
-	// 	sort_three(solver);
-	// 	solver->ops->pa(solver->stack_a, solver->stack_b);
-	// }
-	// else
-	// {
-	// 	solver->ops->ra(solver->stack_a);
-	// 	solver->ops->ra(solver->stack_a);
-	// 	solver->ops->sa(solver->stack_a);
-	// 	solver->ops->pb(solver->stack_b, solver->stack_a);
-	// 	solver->ops->rra(solver->stack_a);
-	// 	solver->ops->rra(solver->stack_a);
-	// 	sort_three(solver);
-	// 	solver->ops->pa(solver->stack_a, solver->stack_b);
-	// }
 	solver->ops->pb(solver->stack_b, solver->stack_a);
 	solver->ops->pb(solver->stack_b, solver->stack_a);
 	solver->ops->pb(solver->stack_b, solver->stack_a);
@@ -149,6 +120,7 @@ void	sort_four_stack_b(t_sort_solver *solver)
 	}
 	else if (distance_to_min == 1)
 	{
+		// it can be optimized each case 8
 		solver->ops->sb(solver->stack_b);
 		solver->ops->pa(solver->stack_a, solver->stack_b);
 		solver->ops->ra(solver->stack_a);
@@ -156,6 +128,7 @@ void	sort_four_stack_b(t_sort_solver *solver)
 	}
 	else if (distance_to_min == 2)
 	{
+		// it can be optimized each case 8~9
 		solver->ops->rrb(solver->stack_b);
 		solver->ops->rrb(solver->stack_b);
 		solver->ops->pa(solver->stack_a, solver->stack_b);
@@ -164,6 +137,7 @@ void	sort_four_stack_b(t_sort_solver *solver)
 	}
 	else
 	{
+		// it can be optimized each case 8~9
 		solver->ops->rrb(solver->stack_b);
 		solver->ops->pa(solver->stack_a, solver->stack_b);
 		solver->ops->ra(solver->stack_a);
