@@ -6,7 +6,7 @@
 /*   By: yuuchiya <yuuchiya@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 17:05:40 by yuuchiya          #+#    #+#             */
-/*   Updated: 2025/01/29 20:06:14 by yuuchiya         ###   ########.fr       */
+/*   Updated: 2025/02/07 18:38:29 by yuuchiya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,24 @@ static int	is_space(char c)
 {
 	return (c == ' ' || c == '\t' || c == '\n' || \
 			c == '\v' || c == '\f' || c == '\r');
+}
+
+bool	is_overflow(int result_sign, long result_num, char *str)
+{
+	int	num;
+
+	num = *str - '0';
+	if (result_sign == 1 && \
+		(result_num > (LONG_MAX / 10) || num > LONG_MAX % 10))
+	{
+		return (true);
+	}
+	else if (result_sign == -1 && (result_sign * result_num) < (LONG_MIN / 10) \
+			&& num > -(LONG_MIN % 10))
+	{
+		return (true);
+	}
+	return (false);
 }
 
 static long	ft_atol(char *str)
@@ -35,6 +53,7 @@ static long	ft_atol(char *str)
 	}
 	while (*str && ft_isdigit(*str))
 	{
+		// overflow check 9223372036854775807 ok 18446744073709551615 ok 18446744073709551616 ok 18446744073709551617 NG why?
 		num = num * 10 + (*str++ - '0');
 		if (sign == 1 && num > LONG_MAX)
 			return (LONG_MAX);

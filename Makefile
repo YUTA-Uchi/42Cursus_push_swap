@@ -18,7 +18,11 @@ SRCS		:=	main.c \
 				minimal_sort_strategy_private.c \
 				sort_strategy_utils_private.c \
 				sort_three_stack_b_strategy_private.c \
-				sort_three_strategy_private.c
+				sort_three_strategy_private.c \
+				sort_four_strategy_private.c \
+				sort_four_stack_b_strategy_private.c \
+				sort_five_strategy_private.c \
+				sort_five_stack_b_strategy_private.c \
 
 OBJ_DIR		:=	./obj
 OBJS		:=	$(SRCS:%.c=$(OBJ_DIR)/%.o)
