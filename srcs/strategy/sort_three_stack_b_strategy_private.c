@@ -15,11 +15,24 @@
 
 void	sort_three_stack_b_distance_2(t_sort_solver *solver)
 {
-	// it can be optimized one case -1
-	solver->ops->rrb(solver->stack_b);
 	solver->ops->pa(solver->stack_a, solver->stack_b);
-	solver->ops->ra(solver->stack_a);
-	sort_two(solver, solver->stack_b);
+	ft_printf(2,"stack_a: %d\n", *(solver->stack_a->peek(solver->stack_a)));
+	ft_printf(2,"stack_b: %d\n", *(solver->stack_b->peek(solver->stack_b)));
+	if (*(t_stack_content)(solver->stack_a->top->content) \
+		> *(t_stack_content)(solver->stack_b->top->content))
+	{
+		sort_two(solver, solver->stack_b);
+		solver->ops->ra(solver->stack_a);
+	}
+	else
+	{
+		solver->ops->sb(solver->stack_b);
+		solver->ops->pa(solver->stack_a, solver->stack_b);
+		solver->ops->ra(solver->stack_a);
+		solver->ops->ra(solver->stack_a);
+		solver->ops->pa(solver->stack_a, solver->stack_b);
+		solver->ops->ra(solver->stack_a);
+	}
 }
 
 void	sort_three_stack_b(t_sort_solver *solver)
@@ -35,11 +48,25 @@ void	sort_three_stack_b(t_sort_solver *solver)
 	}
 	else if (distance_to_min == 1)
 	{
-		// it can be optimized each case -1
-		solver->ops->sb(solver->stack_b);
-		solver->ops->pa(solver->stack_a, solver->stack_b);
-		solver->ops->ra(solver->stack_a);
-		sort_two(solver, solver->stack_b);
+		if (*(t_stack_content)(solver->stack_b->top->content) \
+			> *(t_stack_content)(solver->stack_b->top->next->next->content))
+		{
+			solver->ops->pa(solver->stack_a, solver->stack_b);
+			solver->ops->pa(solver->stack_a, solver->stack_b);
+			solver->ops->ra(solver->stack_a);
+			solver->ops->pa(solver->stack_a, solver->stack_b);
+			solver->ops->ra(solver->stack_a);
+			solver->ops->ra(solver->stack_a);
+		}
+		else
+		{
+			solver->ops->pa(solver->stack_a, solver->stack_b);
+			solver->ops->pa(solver->stack_a, solver->stack_b);
+			solver->ops->ra(solver->stack_a);
+			solver->ops->ra(solver->stack_a);
+			solver->ops->pa(solver->stack_a, solver->stack_b);
+			solver->ops->ra(solver->stack_a);
+		}
 	}
 	else
 	{

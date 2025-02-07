@@ -75,9 +75,23 @@ void	sort_three_distance_2(t_sort_solver *solver)
 	else
 	{
 		solver->ops->pb(solver->stack_b, solver->stack_a);
-		solver->ops->pb(solver->stack_b, solver->stack_a);
-		solver->ops->ra(solver->stack_a);
-		sort_two(solver, solver->stack_b);
+		if (*(t_stack_content)(solver->stack_a->top->content) \
+			> *(t_stack_content)(solver->stack_b->top->content))
+		{
+			solver->ops->sa(solver->stack_a);
+			solver->ops->ra(solver->stack_a);
+			solver->ops->pa(solver->stack_a, solver->stack_b);
+			solver->ops->ra(solver->stack_a);
+			solver->ops->ra(solver->stack_a);
+		}
+		else
+		{
+			solver->ops->sa(solver->stack_a);
+			solver->ops->ra(solver->stack_a);
+			solver->ops->ra(solver->stack_a);
+			solver->ops->pa(solver->stack_a, solver->stack_b);
+			solver->ops->ra(solver->stack_a);
+		}
 	}
 }
 

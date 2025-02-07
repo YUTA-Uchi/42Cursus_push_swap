@@ -94,7 +94,7 @@ int	partition_to_a(t_sort_solver *solver, int size, int pivot)
 	ft_printf(2, "partition_to_a start\n");
 	while (i < size)
 	{
-		if (*(solver->stack_b->peek(solver->stack_b)) >= pivot)
+		if (*(solver->stack_b->peek(solver->stack_b)) <= pivot)
 		{
 			solver->ops->pa(solver->stack_a, solver->stack_b);
 			pushed++;
@@ -105,7 +105,7 @@ int	partition_to_a(t_sort_solver *solver, int size, int pivot)
 	}
 	ft_printf(2, "partition_to_a end\n");
 	// ft_printf(2, "restore start\n");
-	// minimal_restore(solver, solver->stack_b, size - pushed);
+	minimal_restore(solver, solver->stack_b, size - pushed);
 	// ft_printf(2, "restore end\n");
 	return (pushed);
 }
@@ -120,7 +120,7 @@ int	partition_to_b(t_sort_solver *solver, int size, int pivot)
 	ft_printf(2, "partition_to_b start\n");
 	while (i < size)
 	{
-		if (*(solver->stack_a->peek(solver->stack_a)) < pivot)
+		if (*(solver->stack_a->peek(solver->stack_a)) > pivot)
 		{
 			solver->ops->pb(solver->stack_b, solver->stack_a);
 			pushed++;
@@ -130,9 +130,9 @@ int	partition_to_b(t_sort_solver *solver, int size, int pivot)
 		i++;
 	}
 	ft_printf(2, "partition_to_b end\n");
-	ft_printf(2, "restore start\n");
+	// ft_printf(2, "restore start\n");
 	minimal_restore(solver, solver->stack_a, size - pushed);
-	ft_printf(2, "restore end\n");
+	// ft_printf(2, "restore end\n");
 	return (pushed);
 }
 
@@ -148,9 +148,8 @@ void	sort_stack_a(t_sort_solver *solver, int size)
 	pivot = get_pivot(solver->stack_a, size);
 	ft_printf(2, "pivot: %d\n", pivot);
 	pushed = partition_to_b(solver, size, pivot);
-	sort_stack_b(solver, pushed);
 	sort_stack_a(solver, size - pushed);
-	
+	sort_stack_b(solver, pushed);
 }
 
 void	sort_stack_b(t_sort_solver *solver, int size)
@@ -181,22 +180,11 @@ void	sort_stack_b(t_sort_solver *solver, int size)
 		sort_four_stack_b(solver);
 		return ;
 	}
-	else if (size == 5)
-	{
-		sort_five_stack_b(solver);
-		return ;
-	}
-	else if (size == 6)
-	{
-		sort_six_stack_b(solver);
-		return ;
-	}
 	pivot = get_pivot(solver->stack_b, size);
 	ft_printf(2, "pivot: %d\n", pivot);
 	pushed = partition_to_a(solver, size, pivot);
-	sort_stack_b(solver, size - pushed);
 	sort_stack_a(solver, pushed);
-	
+	sort_stack_b(solver, size - pushed);
 }
 
 void	quick_sort(t_sort_solver *solver)
