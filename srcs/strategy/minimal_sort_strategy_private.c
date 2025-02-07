@@ -6,7 +6,7 @@
 /*   By: yuuchiya <yuuchiya@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 10:54:57 by yuuchiya          #+#    #+#             */
-/*   Updated: 2025/02/06 16:26:24 by yuuchiya         ###   ########.fr       */
+/*   Updated: 2025/02/07 16:17:39 by yuuchiya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,15 +106,7 @@ void	sort_four(t_sort_solver *solver)
 void	sort_four_stack_b(t_sort_solver *solver)
 {
 	int	distance_to_min;
-	int b_1;
-	int b_2;
-	int b_3;
-	int b_4;
 
-	b_1 = *(t_stack_content)(solver->stack_b->top->content);
-	b_2 = *(t_stack_content)(solver->stack_b->top->next->content);
-	b_3 = *(t_stack_content)(solver->stack_b->top->next->next->content);
-	b_4 = *(t_stack_content)(solver->stack_b->top->next->next->next->content);
 	distance_to_min = get_distance_to_min(solver->stack_b, 4);
 	if (distance_to_min == 0)
 	{
@@ -124,371 +116,204 @@ void	sort_four_stack_b(t_sort_solver *solver)
 	}
 	else if (distance_to_min == 1)
 	{
-		solver->ops->pa(solver->stack_a, solver->stack_b);
+		solver->ops->sb(solver->stack_b);
 		solver->ops->pa(solver->stack_a, solver->stack_b);
 		solver->ops->ra(solver->stack_a);
-		if (b_1 < b_3 && b_1 > b_4)
-			solver->ops->rr(solver->stack_a, solver->stack_b);
-		else
-			solver->ops->ra(solver->stack_a);
-		if (b_1 < b_3 && b_1 < b_4)
-		{
-			solver->ops->ra(solver->stack_a);
-			sort_two(solver, solver->stack_b);
-		}
-		else if (b_1 > b_3 && b_1 > b_4)
-		{
-			solver->ops->pa(solver->stack_a, solver->stack_b);
-			if (b_3 < b_4)
-			{
-				solver->ops->ra(solver->stack_a);
-				solver->ops->pa(solver->stack_a, solver->stack_b);
-				solver->ops->ra(solver->stack_a);
-				solver->ops->ra(solver->stack_a);
-			}
-			else
-			{
-				solver->ops->pa(solver->stack_a, solver->stack_b);
-				solver->ops->ra(solver->stack_a);
-				solver->ops->ra(solver->stack_a);
-				solver->ops->ra(solver->stack_a);
-			}
-		}
-		else
-		{
-			solver->ops->pa(solver->stack_a, solver->stack_b);
-			solver->ops->ra(solver->stack_a);
-			solver->ops->ra(solver->stack_a);
-			solver->ops->pa(solver->stack_a, solver->stack_b);
-			solver->ops->ra(solver->stack_a);
-		}
+		sort_three_stack_b(solver);
 	}
 	else if (distance_to_min == 2)
 	{
-		if (b_1 < b_3 && b_1 < b_4)
-		{
-			solver->ops->pa(solver->stack_a, solver->stack_b);
-			solver->ops->sb(solver->stack_b);
-			solver->ops->pa(solver->stack_a, solver->stack_b);
-			solver->ops->ra(solver->stack_a);
-			solver->ops->ra(solver->stack_a);
-			sort_two(solver, solver->stack_b);
-		}
-		else if (b_1 > b_3 && b_1 > b_4)
-		{
-			solver->ops->pa(solver->stack_a, solver->stack_b);
-			solver->ops->pa(solver->stack_a, solver->stack_b);
-			solver->ops->pa(solver->stack_a, solver->stack_b);
-			solver->ops->ra(solver->stack_a);
-			if (b_2 < b_4)
-			{
-				solver->ops->ra(solver->stack_a);
-				solver->ops->pa(solver->stack_a, solver->stack_b);
-				solver->ops->ra(solver->stack_a);
-				solver->ops->ra(solver->stack_a);
-			}
-			else
-			{
-				solver->ops->pa(solver->stack_a, solver->stack_b);
-				solver->ops->ra(solver->stack_a);
-				solver->ops->ra(solver->stack_a);
-				solver->ops->ra(solver->stack_a);
-			}
-		}
-		else
-		{
-			solver->ops->pa(solver->stack_a, solver->stack_b);
-			solver->ops->pa(solver->stack_a, solver->stack_b);
-			if (b_2 < b_4)
-			{
-				solver->ops->pa(solver->stack_a, solver->stack_b);
-				solver->ops->ra(solver->stack_a);
-				solver->ops->ra(solver->stack_a);
-				solver->ops->ra(solver->stack_a);
-				solver->ops->pa(solver->stack_a, solver->stack_b);
-				solver->ops->ra(solver->stack_a);
-			}
-			else
-			{
-				solver->ops->ss(solver->stack_a, solver->stack_b);
-				solver->ops->pa(solver->stack_a, solver->stack_b);
-				solver->ops->pa(solver->stack_a, solver->stack_b);
-				solver->ops->ra(solver->stack_a);
-				solver->ops->ra(solver->stack_a);
-				solver->ops->ra(solver->stack_a);
-				solver->ops->ra(solver->stack_a);
-			}
-		}
+		solver->ops->rrb(solver->stack_b);
+		solver->ops->rrb(solver->stack_b);
+		solver->ops->pa(solver->stack_a, solver->stack_b);
+		solver->ops->ra(solver->stack_a);
+		sort_three_stack_b(solver);
 	}
 	else
 	{
-		if (b_1 < b_2 && b_1 < b_3)
-		{
-			solver->ops->pa(solver->stack_a, solver->stack_b);
-			solver->ops->pa(solver->stack_a, solver->stack_b);
-			solver->ops->ss(solver->stack_a, solver->stack_b);
-			solver->ops->pa(solver->stack_a, solver->stack_b);
-			solver->ops->ra(solver->stack_a);
-			solver->ops->ra(solver->stack_a);
-			if (b_2 < b_3)
-			{
-				solver->ops->ra(solver->stack_a);
-				solver->ops->pa(solver->stack_a, solver->stack_b);
-				solver->ops->ra(solver->stack_a);
-			}
-			else
-			{
-				solver->ops->pa(solver->stack_a, solver->stack_b);
-				solver->ops->ra(solver->stack_a);
-				solver->ops->ra(solver->stack_a);
-			}
-
-		}
-		else if (b_1 > b_2 && b_1 > b_3)
-		{
-			solver->ops->pa(solver->stack_a, solver->stack_b);
-			if (b_2 < b_3)
-				solver->ops->sb(solver->stack_b);
-			solver->ops->pa(solver->stack_a, solver->stack_b);
-			solver->ops->pa(solver->stack_a, solver->stack_b);
-			solver->ops->pa(solver->stack_a, solver->stack_b);
-			solver->ops->ra(solver->stack_a);
-			solver->ops->ra(solver->stack_a);
-			solver->ops->ra(solver->stack_a);
-			solver->ops->ra(solver->stack_a);
-		}
-		else
-		{
-			solver->ops->pa(solver->stack_a, solver->stack_b);
-			solver->ops->pa(solver->stack_a, solver->stack_b);
-			if (b_2 < b_3)
-			{
-				solver->ops->sb(solver->stack_b);
-				solver->ops->pa(solver->stack_a, solver->stack_b);
-				solver->ops->ra(solver->stack_a);
-				solver->ops->ra(solver->stack_a);
-				solver->ops->ra(solver->stack_a);
-				solver->ops->pa(solver->stack_a, solver->stack_b);
-				solver->ops->ra(solver->stack_a);
-			}
-			else
-			{
-				solver->ops->ss(solver->stack_a, solver->stack_b);
-				solver->ops->pa(solver->stack_a, solver->stack_b);
-				solver->ops->ra(solver->stack_a);
-				solver->ops->pa(solver->stack_a, solver->stack_b);
-				solver->ops->ra(solver->stack_a);
-				solver->ops->ra(solver->stack_a);
-				solver->ops->ra(solver->stack_a);
-			}
-		}
+		solver->ops->rrb(solver->stack_b);
+		solver->ops->pa(solver->stack_a, solver->stack_b);
+		solver->ops->ra(solver->stack_a);
+		sort_three_stack_b(solver);
 	}
 }
-
-// void	sort_five_distance_2(t_sort_solver *solver)
-// {
-// 	solver->ops->pb(solver->stack_b, solver->stack_a);
-// 	solver->ops->pb(solver->stack_b, solver->stack_a);
-// 	solver->ops->ra(solver->stack_a);
-// 	solver->ops->pb(solver->stack_b, solver->stack_a);
-// 	solver->ops->pb(solver->stack_b, solver->stack_a);
-// 	sort_four_stack_b(solver);
-// }
-
-// void	sort_five_distance_3(t_sort_solver *solver)
-// {
-// 	solver->ops->pb(solver->stack_b, solver->stack_a);
-// 	solver->ops->pb(solver->stack_b, solver->stack_a);
-// 	solver->ops->pb(solver->stack_b, solver->stack_a);
-// 	solver->ops->ra(solver->stack_a);
-// 	solver->ops->pb(solver->stack_b, solver->stack_a);
-// 	sort_four_stack_b(solver);
-// }
-
-// void	sort_five_distance_4(t_sort_solver *solver)
-// {
-// 	solver->ops->pb(solver->stack_b, solver->stack_a);
-// 	solver->ops->pb(solver->stack_b, solver->stack_a);
-// 	solver->ops->pb(solver->stack_b, solver->stack_a);
-// 	solver->ops->pb(solver->stack_b, solver->stack_a);
-// 	solver->ops->ra(solver->stack_a);
-// 	sort_four_stack_b(solver);
-// }
-
-// void	sort_five(t_sort_solver *solver)
+// void	sort_four_stack_b(t_sort_solver *solver)
 // {
 // 	int	distance_to_min;
+// 	int b_1;
+// 	int b_2;
+// 	int b_3;
+// 	int b_4;
 
-// 	distance_to_min = get_distance_to_min(solver->stack_a, 5);
-// 	if (distance_to_min == 0)
-// 	{
-// 		solver->ops->ra(solver->stack_a);
-// 		sort_four(solver);
-// 	}
-// 	else if (distance_to_min == 1)
-// 	{
-// 		solver->ops->sa(solver->stack_a);
-// 		solver->ops->ra(solver->stack_a);
-// 		sort_four(solver);
-// 	}
-// 	else if (distance_to_min == 2)
-// 		sort_five_distance_2(solver);
-// 	else if (distance_to_min == 3)
-// 		sort_four_distance_3(solver);
-// 	else
-// 		sort_five_distance_4(solver);
-// }
-
-// void	sort_five_stack_b(t_sort_solver *solver)
-// {
-// 	int	distance_to_min;
-
-// 	distance_to_min = get_distance_to_min(solver->stack_b, 5);
+// 	b_1 = *(t_stack_content)(solver->stack_b->top->content);
+// 	b_2 = *(t_stack_content)(solver->stack_b->top->next->content);
+// 	b_3 = *(t_stack_content)(solver->stack_b->top->next->next->content);
+// 	b_4 = *(t_stack_content)(solver->stack_b->top->next->next->next->content);
+// 	distance_to_min = get_distance_to_min(solver->stack_b, 4);
 // 	if (distance_to_min == 0)
 // 	{
 // 		solver->ops->pa(solver->stack_a, solver->stack_b);
 // 		solver->ops->ra(solver->stack_a);
-// 		sort_four_stack_b(solver);
+// 		sort_three_stack_b(solver);
 // 	}
 // 	else if (distance_to_min == 1)
 // 	{
-// 		solver->ops->sb(solver->stack_b);
+// 		solver->ops->pa(solver->stack_a, solver->stack_b);
 // 		solver->ops->pa(solver->stack_a, solver->stack_b);
 // 		solver->ops->ra(solver->stack_a);
-// 		sort_four_stack_b(solver);
+// 		if (b_1 < b_3 && b_1 > b_4)
+// 			solver->ops->rr(solver->stack_a, solver->stack_b);
+// 		else
+// 			solver->ops->ra(solver->stack_a);
+// 		if (b_1 < b_3 && b_1 < b_4)
+// 		{
+// 			solver->ops->ra(solver->stack_a);
+// 			sort_two(solver, solver->stack_b);
+// 		}
+// 		else if (b_1 > b_3 && b_1 > b_4)
+// 		{
+// 			solver->ops->pa(solver->stack_a, solver->stack_b);
+// 			if (b_3 < b_4)
+// 			{
+// 				solver->ops->ra(solver->stack_a);
+// 				solver->ops->pa(solver->stack_a, solver->stack_b);
+// 				solver->ops->ra(solver->stack_a);
+// 				solver->ops->ra(solver->stack_a);
+// 			}
+// 			else
+// 			{
+// 				solver->ops->pa(solver->stack_a, solver->stack_b);
+// 				solver->ops->ra(solver->stack_a);
+// 				solver->ops->ra(solver->stack_a);
+// 				solver->ops->ra(solver->stack_a);
+// 			}
+// 		}
+// 		else
+// 		{
+// 			solver->ops->pa(solver->stack_a, solver->stack_b);
+// 			solver->ops->ra(solver->stack_a);
+// 			solver->ops->ra(solver->stack_a);
+// 			solver->ops->pa(solver->stack_a, solver->stack_b);
+// 			solver->ops->ra(solver->stack_a);
+// 		}
 // 	}
 // 	else if (distance_to_min == 2)
 // 	{
-// 		solver->ops->rrb(solver->stack_b);
-// 		solver->ops->rrb(solver->stack_b);
-// 		solver->ops->rrb(solver->stack_b);
-// 		solver->ops->pa(solver->stack_a, solver->stack_b);
-// 		solver->ops->ra(solver->stack_a);
-// 		sort_four_stack_b(solver);
-// 	}
-// 	else if (distance_to_min == 3)
-// 	{
-// 		solver->ops->rrb(solver->stack_b);
-// 		solver->ops->rrb(solver->stack_b);
-// 		solver->ops->pa(solver->stack_a, solver->stack_b);
-// 		solver->ops->ra(solver->stack_a);
-// 		sort_four_stack_b(solver);
-// 	}
-// 	else
-// 	{
-// 		solver->ops->rrb(solver->stack_b);
-// 		solver->ops->pa(solver->stack_a, solver->stack_b);
-// 		solver->ops->ra(solver->stack_a);
-// 		sort_four_stack_b(solver);
-// 	}
-// }
-
-// void	sort_six(t_sort_solver *solver)
-// {
-// 	int	distance_to_min;
-
-// 	distance_to_min = get_distance_to_min(solver->stack_a, 6);
-// 	if (distance_to_min == 0)
-// 	{
-// 		solver->ops->ra(solver->stack_a);
-// 		sort_five(solver);
-// 	}
-// 	else if (distance_to_min == 1)
-// 	{
-// 		solver->ops->sa(solver->stack_a);
-// 		solver->ops->ra(solver->stack_a);
-// 		sort_five(solver);
-// 	}
-// 	else if (distance_to_min == 2)
-// 	{
-// 		solver->ops->pb(solver->stack_b, solver->stack_a);
-// 		solver->ops->pb(solver->stack_b, solver->stack_a);
-// 		solver->ops->ra(solver->stack_a);
-// 		solver->ops->pb(solver->stack_b, solver->stack_a);
-// 		solver->ops->pb(solver->stack_b, solver->stack_a);
-// 		solver->ops->pb(solver->stack_b, solver->stack_a);
-// 		sort_five_stack_b(solver);
-// 	}
-// 	else if (distance_to_min == 3)
-// 	{
-// 		solver->ops->pb(solver->stack_b, solver->stack_a);
-// 		solver->ops->pb(solver->stack_b, solver->stack_a);
-// 		solver->ops->pb(solver->stack_b, solver->stack_a);
-// 		solver->ops->ra(solver->stack_a);
-// 		solver->ops->pb(solver->stack_b, solver->stack_a);
-// 		solver->ops->pb(solver->stack_b, solver->stack_a);
-// 		sort_five_stack_b(solver);
-// 	}
-// 	else if (distance_to_min == 4)
-// 	{
-// 		solver->ops->pb(solver->stack_b, solver->stack_a);
-// 		solver->ops->pb(solver->stack_b, solver->stack_a);
-// 		solver->ops->pb(solver->stack_b, solver->stack_a);
-// 		solver->ops->pb(solver->stack_b, solver->stack_a);
-// 		solver->ops->ra(solver->stack_a);
-// 		solver->ops->pb(solver->stack_b, solver->stack_a);
-// 		sort_five_stack_b(solver);
+// 		if (b_1 < b_3 && b_1 < b_4)
+// 		{
+// 			solver->ops->pa(solver->stack_a, solver->stack_b);
+// 			solver->ops->sb(solver->stack_b);
+// 			solver->ops->pa(solver->stack_a, solver->stack_b);
+// 			solver->ops->ra(solver->stack_a);
+// 			solver->ops->ra(solver->stack_a);
+// 			sort_two(solver, solver->stack_b);
+// 		}
+// 		else if (b_1 > b_3 && b_1 > b_4)
+// 		{
+// 			solver->ops->pa(solver->stack_a, solver->stack_b);
+// 			solver->ops->pa(solver->stack_a, solver->stack_b);
+// 			solver->ops->pa(solver->stack_a, solver->stack_b);
+// 			solver->ops->ra(solver->stack_a);
+// 			if (b_2 < b_4)
+// 			{
+// 				solver->ops->ra(solver->stack_a);
+// 				solver->ops->pa(solver->stack_a, solver->stack_b);
+// 				solver->ops->ra(solver->stack_a);
+// 				solver->ops->ra(solver->stack_a);
+// 			}
+// 			else
+// 			{
+// 				solver->ops->pa(solver->stack_a, solver->stack_b);
+// 				solver->ops->ra(solver->stack_a);
+// 				solver->ops->ra(solver->stack_a);
+// 				solver->ops->ra(solver->stack_a);
+// 			}
+// 		}
+// 		else
+// 		{
+// 			solver->ops->pa(solver->stack_a, solver->stack_b);
+// 			solver->ops->pa(solver->stack_a, solver->stack_b);
+// 			if (b_2 < b_4)
+// 			{
+// 				solver->ops->pa(solver->stack_a, solver->stack_b);
+// 				solver->ops->ra(solver->stack_a);
+// 				solver->ops->ra(solver->stack_a);
+// 				solver->ops->ra(solver->stack_a);
+// 				solver->ops->pa(solver->stack_a, solver->stack_b);
+// 				solver->ops->ra(solver->stack_a);
+// 			}
+// 			else
+// 			{
+// 				solver->ops->ss(solver->stack_a, solver->stack_b);
+// 				solver->ops->pa(solver->stack_a, solver->stack_b);
+// 				solver->ops->pa(solver->stack_a, solver->stack_b);
+// 				solver->ops->ra(solver->stack_a);
+// 				solver->ops->ra(solver->stack_a);
+// 				solver->ops->ra(solver->stack_a);
+// 				solver->ops->ra(solver->stack_a);
+// 			}
+// 		}
 // 	}
 // 	else
 // 	{
-// 		solver->ops->pb(solver->stack_b, solver->stack_a);
-// 		solver->ops->pb(solver->stack_b, solver->stack_a);
-// 		solver->ops->pb(solver->stack_b, solver->stack_a);
-// 		solver->ops->pb(solver->stack_b, solver->stack_a);
-// 		solver->ops->pb(solver->stack_b, solver->stack_a);
-// 		solver->ops->ra(solver->stack_a);
-// 		sort_five_stack_b(solver);
-// 	}
-// }
-
-// void	sort_six_stack_b(t_sort_solver *solver)
-// {
-// 	int	distance_to_min;
-
-// 	distance_to_min = get_distance_to_min(solver->stack_b, 6);
-// 	if (distance_to_min == 0)
-// 	{
-// 		solver->ops->pa(solver->stack_a, solver->stack_b);
-// 		solver->ops->ra(solver->stack_a);
-// 		sort_five_stack_b(solver);
-// 	}
-// 	else if (distance_to_min == 1)
-// 	{
-// 		solver->ops->sb(solver->stack_b);
-// 		solver->ops->pa(solver->stack_a, solver->stack_b);
-// 		solver->ops->ra(solver->stack_a);
-// 		sort_five_stack_b(solver);
-// 	}
-// 	else if (distance_to_min == 2)
-// 	{
-// 		solver->ops->rb(solver->stack_b);
-// 		solver->ops->rb(solver->stack_b);
-// 		solver->ops->pa(solver->stack_a, solver->stack_b);
-// 		solver->ops->ra(solver->stack_a);
-// 		sort_five_stack_b(solver);
-// 	}
-// 	else if (distance_to_min == 3)
-// 	{
-// 		solver->ops->rrb(solver->stack_b);
-// 		solver->ops->rrb(solver->stack_b);
-// 		solver->ops->rrb(solver->stack_b);
-// 		solver->ops->pa(solver->stack_a, solver->stack_b);
-// 		solver->ops->ra(solver->stack_a);
-// 		sort_five_stack_b(solver);
-// 	}
-// 	else if (distance_to_min == 4)
-// 	{
-// 		solver->ops->rrb(solver->stack_b);
-// 		solver->ops->rrb(solver->stack_b);
-// 		solver->ops->pa(solver->stack_a, solver->stack_b);
-// 		solver->ops->ra(solver->stack_a);
-// 		sort_five_stack_b(solver);
-// 	}
-// 	else
-// 	{
-// 		solver->ops->rrb(solver->stack_b);
-// 		solver->ops->pa(solver->stack_a, solver->stack_b);
-// 		solver->ops->ra(solver->stack_a);
-// 		sort_five_stack_b(solver);
+// 		if (b_1 < b_2 && b_1 < b_3)
+// 		{
+// 			solver->ops->pa(solver->stack_a, solver->stack_b);
+// 			solver->ops->pa(solver->stack_a, solver->stack_b);
+// 			solver->ops->ss(solver->stack_a, solver->stack_b);
+// 			solver->ops->pa(solver->stack_a, solver->stack_b);
+// 			solver->ops->ra(solver->stack_a);
+// 			solver->ops->ra(solver->stack_a);
+// 			if (b_2 < b_3)
+// 			{
+// 				solver->ops->ra(solver->stack_a);
+// 				solver->ops->pa(solver->stack_a, solver->stack_b);
+// 				solver->ops->ra(solver->stack_a);
+// 			}
+// 			else
+// 			{
+// 				solver->ops->pa(solver->stack_a, solver->stack_b);
+// 				solver->ops->ra(solver->stack_a);
+// 				solver->ops->ra(solver->stack_a);
+// 			}
+// 		}
+// 		else if (b_1 > b_2 && b_1 > b_3)
+// 		{
+// 			solver->ops->pa(solver->stack_a, solver->stack_b);
+// 			if (b_2 < b_3)
+// 				solver->ops->sb(solver->stack_b);
+// 			solver->ops->pa(solver->stack_a, solver->stack_b);
+// 			solver->ops->pa(solver->stack_a, solver->stack_b);
+// 			solver->ops->pa(solver->stack_a, solver->stack_b);
+// 			solver->ops->ra(solver->stack_a);
+// 			solver->ops->ra(solver->stack_a);
+// 			solver->ops->ra(solver->stack_a);
+// 			solver->ops->ra(solver->stack_a);
+// 		}
+// 		else
+// 		{
+// 			solver->ops->pa(solver->stack_a, solver->stack_b);
+// 			solver->ops->pa(solver->stack_a, solver->stack_b);
+// 			if (b_2 < b_3)
+// 			{
+// 				solver->ops->sb(solver->stack_b);
+// 				solver->ops->pa(solver->stack_a, solver->stack_b);
+// 				solver->ops->ra(solver->stack_a);
+// 				solver->ops->ra(solver->stack_a);
+// 				solver->ops->ra(solver->stack_a);
+// 				solver->ops->pa(solver->stack_a, solver->stack_b);
+// 				solver->ops->ra(solver->stack_a);
+// 			}
+// 			else
+// 			{
+// 				solver->ops->ss(solver->stack_a, solver->stack_b);
+// 				solver->ops->pa(solver->stack_a, solver->stack_b);
+// 				solver->ops->ra(solver->stack_a);
+// 				solver->ops->pa(solver->stack_a, solver->stack_b);
+// 				solver->ops->ra(solver->stack_a);
+// 				solver->ops->ra(solver->stack_a);
+// 				solver->ops->ra(solver->stack_a);
+// 			}
+// 		}
 // 	}
 // }

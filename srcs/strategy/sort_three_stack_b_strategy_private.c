@@ -6,7 +6,7 @@
 /*   By: yuuchiya <yuuchiya@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 15:57:22 by yuuchiya          #+#    #+#             */
-/*   Updated: 2025/02/06 13:30:22 by yuuchiya         ###   ########.fr       */
+/*   Updated: 2025/02/07 16:14:51 by yuuchiya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,8 @@
 void	sort_three_stack_b_distance_2(t_sort_solver *solver)
 {
 	solver->ops->pa(solver->stack_a, solver->stack_b);
-	ft_printf(2,"stack_a: %d\n", *(solver->stack_a->peek(solver->stack_a)));
-	ft_printf(2,"stack_b: %d\n", *(solver->stack_b->peek(solver->stack_b)));
-	if (*(t_stack_content)(solver->stack_a->top->content) \
-		> *(t_stack_content)(solver->stack_b->top->content))
+	if (*(solver->stack_a->peek(solver->stack_a)) \
+		> *(solver->stack_b->peek(solver->stack_b)))
 	{
 		sort_two(solver, solver->stack_b);
 		solver->ops->ra(solver->stack_a);
@@ -48,7 +46,7 @@ void	sort_three_stack_b(t_sort_solver *solver)
 	}
 	else if (distance_to_min == 1)
 	{
-		if (*(t_stack_content)(solver->stack_b->top->content) \
+		if (*(solver->stack_b->peek(solver->stack_b)) \
 			> *(t_stack_content)(solver->stack_b->top->next->next->content))
 		{
 			solver->ops->pa(solver->stack_a, solver->stack_b);
