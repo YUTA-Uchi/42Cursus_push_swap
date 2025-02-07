@@ -54,11 +54,11 @@ static long	ft_atol(char *str)
 	while (*str && ft_isdigit(*str))
 	{
 		// overflow check 9223372036854775807 ok 18446744073709551615 ok 18446744073709551616 ok 18446744073709551617 NG why?
-		num = num * 10 + (*str++ - '0');
-		if (sign == 1 && num > LONG_MAX)
+		if (sign == 1 && is_overflow(sign, num, str))
 			return (LONG_MAX);
-		if (sign == -1 && num > (unsigned long)LONG_MAX + 1)
+		if (sign == -1 && is_overflow(sign, num, str))
 			return (LONG_MIN);
+		num = num * 10 + (*str++ - '0');
 	}
 	return (num * sign);
 }
