@@ -6,7 +6,7 @@
 /*   By: yuuchiya <yuuchiya@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/01 15:22:24 by yuuchiya          #+#    #+#             */
-/*   Updated: 2025/02/08 15:43:25 by yuuchiya         ###   ########.fr       */
+/*   Updated: 2025/02/08 21:07:42 by yuuchiya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ int	partition_to_a(t_sort_solver *solver, int size, int pivot)
 
 	pushed = 0;
 	i = 0;
-	// ft_printf(2, "partition_to_a start\n");
+	// ft_printf(1, "partition_to_a start\n");
 	while (i < size)
 	{
 		if (*(solver->stack_b->peek(solver->stack_b)) >= pivot)
@@ -103,10 +103,10 @@ int	partition_to_a(t_sort_solver *solver, int size, int pivot)
 			solver->ops->rb(solver->stack_b);
 		i++;
 	}
-	// ft_printf(2, "partition_to_a end\n");
-	// ft_printf(2, "restore start\n");
+	// ft_printf(1, "partition_to_a end\n");
+	// ft_printf(1, "restore start\n");
 	// minimal_restore(solver, solver->stack_b, size - pushed);
-	// ft_printf(2, "restore end\n");
+	// ft_printf(1, "restore end\n");
 	return (pushed);
 }
 
@@ -117,7 +117,7 @@ int	partition_to_b(t_sort_solver *solver, int size, int pivot)
 
 	pushed = 0;
 	i = 0;
-	// ft_printf(2, "partition_to_b start\n");
+	// ft_printf(1, "partition_to_b start\n");
 	while (i < size)
 	{
 		if (*(solver->stack_a->peek(solver->stack_a)) < pivot)
@@ -129,10 +129,10 @@ int	partition_to_b(t_sort_solver *solver, int size, int pivot)
 			solver->ops->ra(solver->stack_a);
 		i++;
 	}
-	// ft_printf(2, "partition_to_b end\n");
-	// ft_printf(2, "restore start\n");
+	// ft_printf(1, "partition_to_b end\n");
+	// ft_printf(1, "restore start\n");
 	minimal_restore(solver, solver->stack_a, size - pushed);
-	// ft_printf(2, "restore end\n");
+	// ft_printf(1, "restore end\n");
 	return (pushed);
 }
 
@@ -141,12 +141,12 @@ void	sort_stack_a(t_sort_solver *solver, int size)
 	int	pivot;
 	int	pushed;
 
-	// ft_printf(2, "stack_a:size: %d\n", size);
+	// ft_printf(1, "stack_a:size: %d\n", size);
 	pushed = 0;
 	if (is_minimal_sort(solver, size))
 		return ;
 	pivot = get_pivot(solver->stack_a, size);
-	// ft_printf(2, "pivot: %d\n", pivot);
+	// ft_printf(1, "pivot: %d\n", pivot);
 	pushed = partition_to_b(solver, size, pivot);
 	sort_stack_b(solver, pushed);
 	sort_stack_a(solver, size - pushed);
@@ -157,12 +157,12 @@ void	sort_stack_b(t_sort_solver *solver, int size)
 	int	pivot;
 	int	pushed;
 
-	// ft_printf(2, "stack_b:size: %d\n", size);
+	// ft_printf(1, "stack_b:size: %d\n", size);
 	pushed = 0;
 	if (is_minimal_sort_stack_b(solver, size))
 		return ;
 	pivot = get_pivot(solver->stack_b, size);
-	// ft_printf(2, "pivot: %d\n", pivot);
+	// ft_printf(1, "pivot: %d\n", pivot);
 	pushed = partition_to_a(solver, size, pivot);
 	sort_stack_b(solver, size - pushed);
 	sort_stack_a(solver, pushed);

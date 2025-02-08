@@ -6,7 +6,7 @@
 /*   By: yuuchiya <yuuchiya@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 10:49:07 by yuuchiya          #+#    #+#             */
-/*   Updated: 2025/02/08 15:02:52 by yuuchiya         ###   ########.fr       */
+/*   Updated: 2025/02/08 21:06:25 by yuuchiya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,10 @@
 
 int	get_median(int *values, int size)
 {
-	int	i;
-	int	j;
-	int	key;
+	int		i;
+	int		j;
+	int		key;
+	long	sum;
 
 	i = 1;
 	while (i < size)
@@ -35,7 +36,10 @@ int	get_median(int *values, int size)
 	if (size % 2)
 		return (values[size / 2]);
 	else
-		return ((values[(size / 2) - 1] + values[size / 2]) / 2);
+	{
+		sum = (long)values[(size / 2) - 1] + (long)values[size / 2];
+		return (sum / 2);
+	}
 }
 
 int	get_insert_position(t_stack *stack, int value, int size)
@@ -45,7 +49,7 @@ int	get_insert_position(t_stack *stack, int value, int size)
 
 	node = stack->top;
 	i = 0;
-	while (node && i < size + 1)
+	while (node && i < size - 1)
 	{
 		if (*(t_stack_content)node->content > value)
 			break ;
@@ -90,7 +94,7 @@ void	minimal_restore(t_sort_solver *solver, \
 	int	half;
 
 	half = stack->size / 2;
-	if (half > size_remain)
+	if (half >= size_remain)
 	{
 		multi_reverse_rotate(solver, stack, size_remain);
 	}
@@ -106,8 +110,9 @@ void	minimal_move(t_sort_solver *solver, \
 {
 	int	half;
 
+	// ft_printf(1, "minimal_move start\n");
 	half = stack->size / 2;
-	if (half > distance_from_top)
+	if (half >= distance_from_top)
 	{
 		multi_rotate(solver, stack, distance_from_top);
 	}
@@ -115,6 +120,7 @@ void	minimal_move(t_sort_solver *solver, \
 	{
 		multi_reverse_rotate(solver, stack, stack->size - distance_from_top);
 	}
+	// ft_printf(1, "minimal_move end\n");
 }
 
 int	get_pivot(t_stack *stack, int size)
