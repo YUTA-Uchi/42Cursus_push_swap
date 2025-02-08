@@ -6,7 +6,7 @@
 /*   By: yuuchiya <yuuchiya@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 17:05:40 by yuuchiya          #+#    #+#             */
-/*   Updated: 2025/02/07 18:38:29 by yuuchiya         ###   ########.fr       */
+/*   Updated: 2025/02/08 12:17:08 by yuuchiya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,31 +18,23 @@ static int	is_space(char c)
 			c == '\v' || c == '\f' || c == '\r');
 }
 
-bool	is_overflow(int result_sign, long result_num, char *str)
+static long	return_limit(unsigned long long num, int sign)
 {
-	int	num;
+	const unsigned long long	lim = (unsigned long long)(LONG_MAX) + 1;
 
-	num = *str - '0';
-	if (result_sign == 1 && \
-		(result_num > (LONG_MAX / 10) || num > LONG_MAX % 10))
-	{
-		return (true);
-	}
-	else if (result_sign == -1 && (result_sign * result_num) < (LONG_MIN / 10) \
-			&& num > -(LONG_MIN % 10))
-	{
-		return (true);
-	}
-	return (false);
+	if (num >= lim && !(lim & 1) && !sign)
+		return ((long)(lim - 1));
+	else
+		return ((long)(lim));
 }
 
 static long	ft_atol(char *str)
 {
-	unsigned long	num;
-	int				sign;
+	unsigned long long			num;
+	int							sign;
 
 	num = 0;
-	sign = 1;
+	sign = 0;
 	while (is_space(*str))
 		str++;
 	if (*str == '+' || *str == '-')
@@ -53,14 +45,14 @@ static long	ft_atol(char *str)
 	}
 	while (*str && ft_isdigit(*str))
 	{
-		// overflow check 9223372036854775807 ok 18446744073709551615 ok 18446744073709551616 ok 18446744073709551617 NG why?
-		if (sign == 1 && is_overflow(sign, num, str))
-			return (LONG_MAX);
-		if (sign == -1 && is_overflow(sign, num, str))
-			return (LONG_MIN);
-		num = num * 10 + (*str++ - '0');
+		if (num <= (ULLONG_MAX / 10) && num * 10 <= (ULLONG_MAX - (*str - '0')))
+			num = num * 10 + (*str++ - '0');
+		else
+		{
+			return (return_limit(num, sign));
+		}
 	}
-	return (num * sign);
+	return ((long)((num ^ sign) - sign));
 }
 
 bool	validate_number(char *str, long *result)
