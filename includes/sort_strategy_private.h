@@ -6,7 +6,7 @@
 /*   By: yuuchiya <yuuchiya@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/08 10:49:07 by yuuchiya          #+#    #+#             */
-/*   Updated: 2025/02/08 12:08:41 by yuuchiya         ###   ########.fr       */
+/*   Updated: 2025/02/08 15:29:27 by yuuchiya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,9 @@ void	quick_strategy_destroy(t_sort_strategy *strategy);
 //utils
 int		get_median(int *values, int size);
 void	minimal_restore(t_sort_solver *solver, t_stack *stack, int size_remain);
+void	minimal_move(t_sort_solver *solver, \
+					t_stack *stack, int distance_from_top);
+int		get_insert_position(t_stack *stack, int value, int size);
 int		get_pivot(t_stack *stack, int size);
 int		get_distance_to_min(t_stack *stack, int size);
 int		get_distance_to_max(t_stack *stack, int size);

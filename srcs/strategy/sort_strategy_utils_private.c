@@ -6,7 +6,7 @@
 /*   By: yuuchiya <yuuchiya@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 10:49:07 by yuuchiya          #+#    #+#             */
-/*   Updated: 2025/02/05 12:49:44 by yuuchiya         ###   ########.fr       */
+/*   Updated: 2025/02/08 15:02:52 by yuuchiya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,32 +38,82 @@ int	get_median(int *values, int size)
 		return ((values[(size / 2) - 1] + values[size / 2]) / 2);
 }
 
-void	minimal_restore(t_sort_solver *solver, t_stack *stack, int size_remain)
+int	get_insert_position(t_stack *stack, int value, int size)
+{
+	t_list	*node;
+	int		i;
+
+	node = stack->top;
+	i = 0;
+	while (node && i < size + 1)
+	{
+		if (*(t_stack_content)node->content > value)
+			break ;
+		node = node->next;
+		i++;
+	}
+	return (i);
+}
+
+void	multi_rotate(t_sort_solver *solver, t_stack *stack, int size)
 {
 	int	i;
-	int	half;
 
 	i = 0;
+	while (i++ < size)
+	{
+		if (stack->name == 'a')
+			solver->ops->ra(stack);
+		else
+			solver->ops->rb(stack);
+	}
+}
+
+void	multi_reverse_rotate(t_sort_solver *solver, t_stack *stack, int size)
+{
+	int	i;
+
+	i = 0;
+	while (i++ < size)
+	{
+		if (stack->name == 'a')
+			solver->ops->rra(stack);
+		else
+			solver->ops->rrb(stack);
+	}
+}
+
+void	minimal_restore(t_sort_solver *solver, \
+						t_stack *stack, \
+						int size_remain)
+{
+	int	half;
+
 	half = stack->size / 2;
 	if (half > size_remain)
 	{
-		while (i++ < size_remain)
-		{
-			if (stack->name == 'a')
-				solver->ops->rra(stack);
-			else
-				solver->ops->rrb(stack);
-		}
+		multi_reverse_rotate(solver, stack, size_remain);
 	}
 	else
 	{
-		while (i++ < stack->size - size_remain)
-		{
-			if (stack->name == 'a')
-				solver->ops->ra(stack);
-			else
-				solver->ops->rb(stack);
-		}
+		multi_rotate(solver, stack, stack->size - size_remain);
+	}
+}
+
+void	minimal_move(t_sort_solver *solver, \
+						t_stack *stack, \
+						int distance_from_top)
+{
+	int	half;
+
+	half = stack->size / 2;
+	if (half > distance_from_top)
+	{
+		multi_rotate(solver, stack, distance_from_top);
+	}
+	else
+	{
+		multi_reverse_rotate(solver, stack, stack->size - distance_from_top);
 	}
 }
 

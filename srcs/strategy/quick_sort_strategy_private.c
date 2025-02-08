@@ -6,7 +6,7 @@
 /*   By: yuuchiya <yuuchiya@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/01 15:22:24 by yuuchiya          #+#    #+#             */
-/*   Updated: 2025/02/07 17:03:45 by yuuchiya         ###   ########.fr       */
+/*   Updated: 2025/02/08 15:43:25 by yuuchiya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -159,7 +159,7 @@ void	sort_stack_b(t_sort_solver *solver, int size)
 
 	// ft_printf(2, "stack_b:size: %d\n", size);
 	pushed = 0;
-	if (is_minimal_sort(solver, size))
+	if (is_minimal_sort_stack_b(solver, size))
 		return ;
 	pivot = get_pivot(solver->stack_b, size);
 	// ft_printf(2, "pivot: %d\n", pivot);
