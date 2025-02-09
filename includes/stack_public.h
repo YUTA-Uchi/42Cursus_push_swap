@@ -6,7 +6,7 @@
 /*   By: yuuchiya <yuuchiya@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 13:05:43 by yuuchiya          #+#    #+#             */
-/*   Updated: 2025/02/09 12:51:04 by yuuchiya         ###   ########.fr       */
+/*   Updated: 2025/02/09 14:01:48 by yuuchiya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,4 +39,7 @@ struct s_stack
 t_stack	*stack_create(char name);
 // deconstructor
 void	stack_destroy(t_stack *stack);
+// util
+int		get_smallest_value(t_stack *stack, int size);
+int		get_second_smallest_value(t_stack *stack, int size);
 #endif

@@ -6,7 +6,7 @@
 /*   By: yuuchiya <yuuchiya@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/01 15:22:24 by yuuchiya          #+#    #+#             */
-/*   Updated: 2025/02/09 13:00:24 by yuuchiya         ###   ########.fr       */
+/*   Updated: 2025/02/09 14:18:39 by yuuchiya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -171,6 +171,8 @@ void	sort_stack_b(t_sort_solver *solver, int size)
 void	quick_sort(t_sort_solver *solver)
 {
 	if (solver->stack_a->size <= 1)
+		return ;
+	if (is_minimal_sort(solver, solver->stack_a->size))
 		return ;
 	sort_stack_a(solver, solver->stack_a->size);
 }

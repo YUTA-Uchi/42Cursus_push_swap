@@ -6,7 +6,7 @@
 /*   By: yuuchiya <yuuchiya@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 10:54:57 by yuuchiya          #+#    #+#             */
-/*   Updated: 2025/02/09 12:59:00 by yuuchiya         ###   ########.fr       */
+/*   Updated: 2025/02/09 14:19:57 by yuuchiya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ bool	is_minimal_sort(t_sort_solver *solver, int size)
 		return (sort_three(solver), minimal);
 	else if (size == 4)
 		return (sort_four(solver), minimal);
-	else if (solver->stack_a->size == 5)
+	else if (size == 5)
 		return (sort_five(solver), minimal);
 	else
 		minimal = false;

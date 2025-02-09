@@ -6,14 +6,14 @@
 /*   By: yuuchiya <yuuchiya@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 10:49:07 by yuuchiya          #+#    #+#             */
-/*   Updated: 2025/02/09 13:07:18 by yuuchiya         ###   ########.fr       */
+/*   Updated: 2025/02/09 14:34:01 by yuuchiya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sort_strategy_private.h"
 #include "sort_solver_public.h"
 
-int	get_median(int *values, int size)
+static int	get_median(int *values, int size)
 {
 	int		i;
 	int		j;
@@ -59,7 +59,7 @@ int	get_insert_position(t_stack *stack, int value, int size)
 	return (i);
 }
 
-void	multi_rotate(t_sort_solver *solver, t_stack *stack, int size)
+static void	multi_rotate(t_sort_solver *solver, t_stack *stack, int size)
 {
 	int	i;
 
@@ -73,7 +73,7 @@ void	multi_rotate(t_sort_solver *solver, t_stack *stack, int size)
 	}
 }
 
-void	multi_reverse_rotate(t_sort_solver *solver, t_stack *stack, int size)
+static void	multi_reverse_rotate(t_sort_solver *solver, t_stack *stack, int size)
 {
 	int	i;
 
