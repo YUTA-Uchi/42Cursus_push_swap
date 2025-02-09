@@ -8,6 +8,7 @@ SRCS		:=	main.c \
 				stack_private.c \
 				stack_private_utils.c \
 				stack_public.c \
+				stack_public_utils.c \
 				validator_private.c \
 				validator_private_utils.c \
 				validator_public.c \

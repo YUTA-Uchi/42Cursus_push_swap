@@ -6,7 +6,7 @@
 /*   By: yuuchiya <yuuchiya@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/01 15:22:24 by yuuchiya          #+#    #+#             */
-/*   Updated: 2025/02/09 14:18:39 by yuuchiya         ###   ########.fr       */
+/*   Updated: 2025/02/09 15:45:49 by yuuchiya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,74 +16,6 @@
 void	sort_stack_a(t_sort_solver *solver, int size);
 void	sort_stack_b(t_sort_solver *solver, int size);
 
-
-
-// int	get_pivot(t_stack *stack)
-// {
-// 	int top;
-// 	int middle;
-// 	int tail;
-
-// 	if (stack->value(stack) == NULL)
-// 		return (0);
-// 	top = *(t_stack_node)stack->value(stack);
-// 	if (stack->top->next == NULL)
-// 		return (top);
-// 	middle = *(t_stack_node)stack->top->next->content;
-// 	if (stack->top->next->next == NULL)
-// 		return ((top + middle) / 2);
-// 	tail = *(t_stack_node)stack->top->next->next->content;
-// 	if (top < middle && middle < tail)
-// 		return (middle);
-// 	else if (top < tail && tail < middle)
-// 		return (tail);
-// 	else
-// 		return (top);
-// }
-
-// static int	find_min(t_stack *stack)
-// {
-// 	t_list	*node;
-// 	int		min;
-
-// 	node = stack->top;
-// 	min = *(t_stack_node)node->content;
-// 	while (node)
-// 	{
-// 		if (*(t_stack_node)node->content < min)
-// 			min = *(t_stack_node)node->content;
-// 		node = node->next;
-// 	}
-// 	return (min);
-// }
-
-// static int	find_max(t_stack *stack)
-// {
-// 	t_list	*node;
-// 	int		max;
-
-// 	node = stack->top;
-// 	max = *(t_stack_node)node->content;
-// 	while (node)
-// 	{
-// 		if (*(t_stack_node)node->content > max)
-// 			max = *(t_stack_node)node->content;
-// 		node = node->next;
-// 	}
-// 	return (max);
-// }
-
-// int	get_pivot(t_stack *stack)
-// {
-// 	int	min;
-// 	int	max;
-
-// 	min = find_min(stack);
-// 	max = find_max(stack);
-// 	return ((min + max) / 2);
-// }
-
-
 int	partition_to_a(t_sort_solver *solver, int size, int pivot)
 {
 	int	pushed;
@@ -91,7 +23,6 @@ int	partition_to_a(t_sort_solver *solver, int size, int pivot)
 
 	pushed = 0;
 	i = 0;
-	// ft_printf(1, "partition_to_a start\n");
 	while (i < size)
 	{
 		if (solver->stack_b->value(solver->stack_b, 0) >= pivot)
@@ -103,10 +34,6 @@ int	partition_to_a(t_sort_solver *solver, int size, int pivot)
 			solver->ops->rb(solver->stack_b);
 		i++;
 	}
-	// ft_printf(1, "partition_to_a end\n");
-	// ft_printf(1, "restore start\n");
-	// minimal_restore(solver, solver->stack_b, size - pushed);
-	// ft_printf(1, "restore end\n");
 	return (pushed);
 }
 
@@ -117,7 +44,6 @@ int	partition_to_b(t_sort_solver *solver, int size, int pivot)
 
 	pushed = 0;
 	i = 0;
-	// ft_printf(1, "partition_to_b start\n");
 	while (i < size)
 	{
 		if (solver->stack_a->value(solver->stack_a, 0) < pivot)
@@ -129,10 +55,7 @@ int	partition_to_b(t_sort_solver *solver, int size, int pivot)
 			solver->ops->ra(solver->stack_a);
 		i++;
 	}
-	// ft_printf(1, "partition_to_b end\n");
-	// ft_printf(1, "restore start\n");
 	minimal_restore(solver, solver->stack_a, size - pushed);
-	// ft_printf(1, "restore end\n");
 	return (pushed);
 }
 
@@ -141,12 +64,10 @@ void	sort_stack_a(t_sort_solver *solver, int size)
 	int	pivot;
 	int	pushed;
 
-	// ft_printf(1, "stack_a:size: %d\n", size);
 	pushed = 0;
 	if (is_minimal_sort(solver, size))
 		return ;
 	pivot = get_pivot(solver->stack_a, size);
-	// ft_printf(1, "pivot: %d\n", pivot);
 	pushed = partition_to_b(solver, size, pivot);
 	sort_stack_b(solver, pushed);
 	sort_stack_a(solver, size - pushed);
@@ -157,12 +78,10 @@ void	sort_stack_b(t_sort_solver *solver, int size)
 	int	pivot;
 	int	pushed;
 
-	// ft_printf(1, "stack_b:size: %d\n", size);
 	pushed = 0;
 	if (is_minimal_sort_stack_b(solver, size))
 		return ;
 	pivot = get_pivot(solver->stack_b, size);
-	// ft_printf(1, "pivot: %d\n", pivot);
 	pushed = partition_to_a(solver, size, pivot);
 	sort_stack_b(solver, size - pushed);
 	sort_stack_a(solver, pushed);

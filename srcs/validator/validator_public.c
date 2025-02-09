@@ -6,7 +6,7 @@
 /*   By: yuuchiya <yuuchiya@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 14:52:22 by yuuchiya          #+#    #+#             */
-/*   Updated: 2025/02/09 12:40:40 by yuuchiya         ###   ########.fr       */
+/*   Updated: 2025/02/09 15:25:19 by yuuchiya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,6 @@ int	validate_all(t_validator *v)
 
 	if (!init_parsed_nums(&(v->parsed_nums), v->arg_count))
 		return (set_error(v, V_MALLOC_ERROR), 1);
-	// if (v->arg_count == 1)
-	// 	return (set_error(v, V_NO_MORE_OPERATION), 1);
 	if (v->arg_count == INT_MAX)
 		return (set_error(v, V_TOO_MANY_ARG), 1);
 	i = 0;

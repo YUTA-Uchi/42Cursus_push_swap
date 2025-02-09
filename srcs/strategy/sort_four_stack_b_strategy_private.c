@@ -6,7 +6,7 @@
 /*   By: yuuchiya <yuuchiya@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 17:07:46 by yuuchiya          #+#    #+#             */
-/*   Updated: 2025/02/09 13:04:32 by yuuchiya         ###   ########.fr       */
+/*   Updated: 2025/02/09 15:49:07 by yuuchiya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,6 @@ static void	sort_four_stack_b_distance_3(t_sort_solver *solver)
 	solver->ops->pa(solver->stack_a, solver->stack_b);
 	solver->ops->ra(solver->stack_a);
 }
-
 
 void	sort_four_stack_b(t_sort_solver *solver)
 {

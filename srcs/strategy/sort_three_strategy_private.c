@@ -6,7 +6,7 @@
 /*   By: yuuchiya <yuuchiya@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 15:54:18 by yuuchiya          #+#    #+#             */
-/*   Updated: 2025/02/09 14:31:35 by yuuchiya         ###   ########.fr       */
+/*   Updated: 2025/02/09 15:47:50 by yuuchiya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,5 +84,3 @@ void	sort_three(t_sort_solver *solver)
 	else
 		sort_three_distance_2(solver);
 }
-
-

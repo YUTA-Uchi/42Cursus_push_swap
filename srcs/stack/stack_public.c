@@ -6,7 +6,7 @@
 /*   By: yuuchiya <yuuchiya@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 19:13:17 by yuuchiya          #+#    #+#             */
-/*   Updated: 2025/02/09 14:01:26 by yuuchiya         ###   ########.fr       */
+/*   Updated: 2025/02/09 15:30:29 by yuuchiya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,49 +39,4 @@ void	stack_destroy(t_stack *stack)
 {
 	stack->clear(stack);
 	free(stack);
-}
-
-int	get_smallest_value(t_stack *stack, int size)
-{
-	int	smallest;
-	int	count;
-	int	value;
-
-	count = 0;
-	smallest = INT_MAX;
-	while (count < size)
-	{
-		value = stack->value(stack, count);
-		if (value < smallest)
-			smallest = value;
-		count++;
-	}
-	return (smallest);
-}
-
-int	get_second_smallest_value(t_stack *stack, int size)
-{
-	int	smallest;
-	int	second_smallest;
-	int	count;
-	int	value;
-
-	count = 0;
-	smallest = INT_MAX;
-	second_smallest = INT_MAX;
-	while (count < size)
-	{
-		value = stack->value(stack, count);
-		if (value < smallest)
-		{
-			second_smallest = smallest;
-			smallest = value;
-		}
-		else if (value < second_smallest)
-		{
-			second_smallest = value;
-		}
-		count++;
-	}
-	return (second_smallest);
 }
