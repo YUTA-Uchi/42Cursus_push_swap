@@ -3,8 +3,8 @@
 
 void	swap_a(t_stack *a)
 {
-	t_stack_content	first;
-	t_stack_content	second;
+	t_stack_node	first;
+	t_stack_node	second;
 
 	if (a->size < 2)
 		return ;
@@ -17,8 +17,8 @@ void	swap_a(t_stack *a)
 
 void	swap_b(t_stack *b)
 {
-	t_stack_content	first;
-	t_stack_content	second;
+	t_stack_node	first;
+	t_stack_node	second;
 
 	if (b->size < 2)
 		return ;
@@ -31,8 +31,8 @@ void	swap_b(t_stack *b)
 
 void	swap_ab(t_stack *a, t_stack *b)
 {
-	t_stack_content	first;
-	t_stack_content	second;
+	t_stack_node	first;
+	t_stack_node	second;
 
 	if (a->size < 2 || b->size < 2)
 		return ;

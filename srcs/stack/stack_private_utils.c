@@ -25,7 +25,7 @@ void	stack_print(t_stack *stack)
 	node = stack->top;
 	while (node)
 	{
-		ft_printf(STDOUT_FILENO, "%d\n", *(t_stack_content)(node->content));
+		ft_printf(STDOUT_FILENO, "%d\n", *(t_stack_node)(node->content));
 		node = node->next;
 	}
 }

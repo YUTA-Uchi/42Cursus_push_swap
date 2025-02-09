@@ -8,11 +8,11 @@ static int	find_min(t_stack *stack)
 	int		min;
 
 	node = stack->top;
-	min = *(t_stack_content)node->content;
+	min = *(t_stack_node)node->content;
 	while (node)
 	{
-		if (*(t_stack_content)node->content < min)
-			min = *(t_stack_content)node->content;
+		if (*(t_stack_node)node->content < min)
+			min = *(t_stack_node)node->content;
 		node = node->next;
 	}
 	return (min);

@@ -6,7 +6,7 @@
 /*   By: yuuchiya <yuuchiya@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 10:49:07 by yuuchiya          #+#    #+#             */
-/*   Updated: 2025/02/08 21:06:25 by yuuchiya         ###   ########.fr       */
+/*   Updated: 2025/02/09 13:07:18 by yuuchiya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ int	get_insert_position(t_stack *stack, int value, int size)
 	i = 0;
 	while (node && i < size - 1)
 	{
-		if (*(t_stack_content)node->content > value)
+		if (*(t_stack_node)node->content > value)
 			break ;
 		node = node->next;
 		i++;
@@ -132,12 +132,12 @@ int	get_pivot(t_stack *stack, int size)
 
 	values = (int *)malloc(sizeof(int) * size);
 	count = 0;
-	if (stack->peek(stack) == NULL)
+	if (stack->top == NULL)
 		return (0);
 	current = stack->top;
 	while (current != NULL && count < size)
 	{
-		values[count++] = *(t_stack_content)current->content;
+		values[count++] = *(t_stack_node)current->content;
 		current = current->next;
 	}
 	median = get_median(values, size);
@@ -153,14 +153,14 @@ int	get_distance_to_min(t_stack *stack, int size)
 	int		i;
 
 	node = stack->top;
-	min = *(t_stack_content)node->content;
+	min = *(t_stack_node)node->content;
 	distance = 0;
 	i = 0;
 	while (node && (i < size))
 	{
-		if (*(t_stack_content)node->content < min)
+		if (*(t_stack_node)node->content < min)
 		{
-			min = *(t_stack_content)node->content;
+			min = *(t_stack_node)node->content;
 			distance = i;
 		}
 		node = node->next;
@@ -177,14 +177,14 @@ int	get_distance_to_max(t_stack *stack, int size)
 	int		i;
 
 	node = stack->top;
-	max = *(t_stack_content)node->content;
+	max = *(t_stack_node)node->content;
 	distance = 0;
 	i = 0;
 	while (node && (i < size))
 	{
-		if (*(t_stack_content)node->content > max)
+		if (*(t_stack_node)node->content > max)
 		{
-			max = *(t_stack_content)node->content;
+			max = *(t_stack_node)node->content;
 			distance = i;
 		}
 		node = node->next;

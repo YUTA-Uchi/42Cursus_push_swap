@@ -6,7 +6,7 @@
 /*   By: yuuchiya <yuuchiya@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 17:07:46 by yuuchiya          #+#    #+#             */
-/*   Updated: 2025/02/08 17:36:25 by yuuchiya         ###   ########.fr       */
+/*   Updated: 2025/02/09 13:04:32 by yuuchiya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,13 +52,13 @@ void	sort_three_for_four_stack_b(t_sort_solver *solver)
 {
 	int	insert_position;
 
-	if (*(solver->stack_a->peek(solver->stack_a)) \
-		> *(t_stack_content)(solver->stack_a->top->next->content))
+	if (solver->stack_a->value(solver->stack_a, 0) \
+		> solver->stack_a->value(solver->stack_a, 1))
 	{
 		solver->ops->sa(solver->stack_a);
 	}
 	insert_position = get_insert_position(solver->stack_a \
-					, *(solver->stack_b->peek(solver->stack_b)) \
+					, solver->stack_b->value(solver->stack_b, 0) \
 					, 3);
 	minimal_move(solver, solver->stack_a, insert_position);
 	solver->ops->pa(solver->stack_a, solver->stack_b);
@@ -67,8 +67,8 @@ void	sort_three_for_four_stack_b(t_sort_solver *solver)
 
 static void	sort_four_stack_b_distance_1(t_sort_solver *solver)
 {
-	if (*(t_stack_content)(solver->stack_a->top->next->content) \
-		< *(solver->stack_b->peek(solver->stack_b)))
+	if (solver->stack_a->value(solver->stack_a, 1) \
+		< solver->stack_b->value(solver->stack_b, 0))
 	{
 		solver->ops->ss(solver->stack_a, solver->stack_b);
 	}
@@ -83,8 +83,8 @@ static void	sort_four_stack_b_distance_1(t_sort_solver *solver)
 
 static void	sort_four_stack_b_distance_2(t_sort_solver *solver)
 {
-	if (*(solver->stack_a->peek(solver->stack_a)) \
-		< *(t_stack_content)(solver->stack_a->top->next->content))
+	if (solver->stack_a->value(solver->stack_a, 0) \
+		< solver->stack_a->value(solver->stack_a, 1))
 	{
 		solver->ops->sb(solver->stack_b);
 	}

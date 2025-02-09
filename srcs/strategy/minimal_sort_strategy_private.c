@@ -6,7 +6,7 @@
 /*   By: yuuchiya <yuuchiya@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 10:54:57 by yuuchiya          #+#    #+#             */
-/*   Updated: 2025/02/08 17:48:51 by yuuchiya         ###   ########.fr       */
+/*   Updated: 2025/02/09 12:59:00 by yuuchiya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,16 +17,16 @@ void	sort_two(t_sort_solver *solver, t_stack *stack)
 {
 	if (stack->name == 'a')
 	{
-		if (*(t_stack_content)(solver->stack_a->top->content) \
-			> *(t_stack_content)(solver->stack_a->top->next->content))
+		if (solver->stack_a->value(solver->stack_a, 0) \
+			> solver->stack_a->value(solver->stack_a, 1))
 			solver->ops->sa(solver->stack_a);
 		solver->ops->ra(solver->stack_a);
 		solver->ops->ra(solver->stack_a);
 	}
 	else
 	{
-		if (*(t_stack_content)(solver->stack_b->top->content) \
-			> *(t_stack_content)(solver->stack_b->top->next->content))
+		if (solver->stack_b->value(solver->stack_b, 0) \
+			> solver->stack_b->value(solver->stack_b, 1))
 		{
 			solver->ops->pa(solver->stack_a, solver->stack_b);
 			solver->ops->pa(solver->stack_a, solver->stack_b);

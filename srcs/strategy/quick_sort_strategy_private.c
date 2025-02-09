@@ -6,7 +6,7 @@
 /*   By: yuuchiya <yuuchiya@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/01 15:22:24 by yuuchiya          #+#    #+#             */
-/*   Updated: 2025/02/08 21:07:42 by yuuchiya         ###   ########.fr       */
+/*   Updated: 2025/02/09 13:00:24 by yuuchiya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,15 +24,15 @@ void	sort_stack_b(t_sort_solver *solver, int size);
 // 	int middle;
 // 	int tail;
 
-// 	if (stack->peek(stack) == NULL)
+// 	if (stack->value(stack) == NULL)
 // 		return (0);
-// 	top = *(t_stack_content)stack->peek(stack);
+// 	top = *(t_stack_node)stack->value(stack);
 // 	if (stack->top->next == NULL)
 // 		return (top);
-// 	middle = *(t_stack_content)stack->top->next->content;
+// 	middle = *(t_stack_node)stack->top->next->content;
 // 	if (stack->top->next->next == NULL)
 // 		return ((top + middle) / 2);
-// 	tail = *(t_stack_content)stack->top->next->next->content;
+// 	tail = *(t_stack_node)stack->top->next->next->content;
 // 	if (top < middle && middle < tail)
 // 		return (middle);
 // 	else if (top < tail && tail < middle)
@@ -47,11 +47,11 @@ void	sort_stack_b(t_sort_solver *solver, int size);
 // 	int		min;
 
 // 	node = stack->top;
-// 	min = *(t_stack_content)node->content;
+// 	min = *(t_stack_node)node->content;
 // 	while (node)
 // 	{
-// 		if (*(t_stack_content)node->content < min)
-// 			min = *(t_stack_content)node->content;
+// 		if (*(t_stack_node)node->content < min)
+// 			min = *(t_stack_node)node->content;
 // 		node = node->next;
 // 	}
 // 	return (min);
@@ -63,11 +63,11 @@ void	sort_stack_b(t_sort_solver *solver, int size);
 // 	int		max;
 
 // 	node = stack->top;
-// 	max = *(t_stack_content)node->content;
+// 	max = *(t_stack_node)node->content;
 // 	while (node)
 // 	{
-// 		if (*(t_stack_content)node->content > max)
-// 			max = *(t_stack_content)node->content;
+// 		if (*(t_stack_node)node->content > max)
+// 			max = *(t_stack_node)node->content;
 // 		node = node->next;
 // 	}
 // 	return (max);
@@ -94,7 +94,7 @@ int	partition_to_a(t_sort_solver *solver, int size, int pivot)
 	// ft_printf(1, "partition_to_a start\n");
 	while (i < size)
 	{
-		if (*(solver->stack_b->peek(solver->stack_b)) >= pivot)
+		if (solver->stack_b->value(solver->stack_b, 0) >= pivot)
 		{
 			solver->ops->pa(solver->stack_a, solver->stack_b);
 			pushed++;
@@ -120,7 +120,7 @@ int	partition_to_b(t_sort_solver *solver, int size, int pivot)
 	// ft_printf(1, "partition_to_b start\n");
 	while (i < size)
 	{
-		if (*(solver->stack_a->peek(solver->stack_a)) < pivot)
+		if (solver->stack_a->value(solver->stack_a, 0) < pivot)
 		{
 			solver->ops->pb(solver->stack_b, solver->stack_a);
 			pushed++;

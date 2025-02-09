@@ -6,7 +6,7 @@
 /*   By: yuuchiya <yuuchiya@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 17:30:03 by yuuchiya          #+#    #+#             */
-/*   Updated: 2025/02/08 20:15:08 by yuuchiya         ###   ########.fr       */
+/*   Updated: 2025/02/09 13:01:37 by yuuchiya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,13 +55,13 @@ void	sort_five(t_sort_solver *solver)
 	solver->ops->pb(solver->stack_b, solver->stack_a);
 	sort_three(solver);
 	insert_position = get_insert_position(solver->stack_a \
-					, *(solver->stack_b->peek(solver->stack_b)) \
+					, solver->stack_b->value(solver->stack_b, 0) \
 					, 4);
 	minimal_move(solver, solver->stack_a, insert_position);
 	solver->ops->pa(solver->stack_a, solver->stack_b);
 	minimal_move(solver, solver->stack_a, 4 - insert_position);
 	insert_position = get_insert_position(solver->stack_a \
-					, *(solver->stack_b->peek(solver->stack_b)) \
+					, solver->stack_b->value(solver->stack_b, 0) \
 					, 5);
 	minimal_move(solver, solver->stack_a, insert_position);
 	solver->ops->pa(solver->stack_a, solver->stack_b);

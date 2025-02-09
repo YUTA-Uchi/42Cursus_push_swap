@@ -6,7 +6,7 @@
 /*   By: yuuchiya <yuuchiya@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 15:54:18 by yuuchiya          #+#    #+#             */
-/*   Updated: 2025/02/08 19:59:14 by yuuchiya         ###   ########.fr       */
+/*   Updated: 2025/02/09 13:11:33 by yuuchiya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,8 @@ void	sort_three_distance_0(t_sort_solver *solver)
 {
 	if (solver->stack_a->size == 3)
 	{
-		if (*(t_stack_content)(solver->stack_a->top->next->content) \
-			> *(t_stack_content)(solver->stack_a->top->next->next->content))
+		if (solver->stack_a->value(solver->stack_a, 1) \
+			> solver->stack_a->value(solver->stack_a, 2))
 		{
 			solver->ops->rra(solver->stack_a);
 			solver->ops->sa(solver->stack_a);
@@ -39,8 +39,8 @@ void	sort_three_distance_1(t_sort_solver *solver)
 {
 	if (solver->stack_a->size == 3)
 	{
-		if (*(t_stack_content)(solver->stack_a->top->content) \
-			> *(t_stack_content)(solver->stack_a->top->next->next->content))
+		if (solver->stack_a->value(solver->stack_a, 0) \
+			> solver->stack_a->value(solver->stack_a, 2))
 		{
 			solver->ops->ra(solver->stack_a);
 		}
@@ -63,8 +63,8 @@ void	sort_three_distance_2(t_sort_solver *solver)
 
 	if (solver->stack_a->size == 3)
 	{
-		if (*(t_stack_content)(solver->stack_a->top->content) \
-			> *(t_stack_content)(solver->stack_a->top->next->content))
+		if (solver->stack_a->value(solver->stack_a, 0) \
+			> solver->stack_a->value(solver->stack_a, 1))
 		{
 			solver->ops->sa(solver->stack_a);
 			solver->ops->rra(solver->stack_a);
@@ -77,7 +77,7 @@ void	sort_three_distance_2(t_sort_solver *solver)
 		solver->ops->pb(solver->stack_b, solver->stack_a);
 		solver->ops->sa(solver->stack_a);
 		insert_position = get_insert_position(solver->stack_a \
-								, *(solver->stack_b->peek(solver->stack_b)) \
+								, solver->stack_b->value(solver->stack_b, 0) \
 								, 3);
 		minimal_move(solver, solver->stack_a, insert_position);
 		solver->ops->pa(solver->stack_a, solver->stack_b);
