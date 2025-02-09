@@ -6,7 +6,7 @@
 /*   By: yuuchiya <yuuchiya@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/08 10:49:07 by yuuchiya          #+#    #+#             */
-/*   Updated: 2025/02/09 15:35:04 by yuuchiya         ###   ########.fr       */
+/*   Updated: 2025/02/09 17:24:11 by yuuchiya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,9 @@ void	selection_strategy_destroy(t_sort_strategy *strategy);
 
 void	quick_sort(t_sort_solver *solver);
 void	quick_strategy_destroy(t_sort_strategy *strategy);
+
+void	v3_quick_sort(t_sort_solver *solver);
+void	v3_quick_strategy_destroy(t_sort_strategy *strategy);
 //utils
 void	minimal_restore(t_sort_solver *solver, t_stack *stack, int size_remain);
 void	minimal_move(t_sort_solver *solver, \

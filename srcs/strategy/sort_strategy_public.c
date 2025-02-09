@@ -6,7 +6,7 @@
 /*   By: yuuchiya <yuuchiya@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/01 15:22:46 by yuuchiya          #+#    #+#             */
-/*   Updated: 2025/02/05 10:57:47 by yuuchiya         ###   ########.fr       */
+/*   Updated: 2025/02/09 17:52:33 by yuuchiya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,4 +40,17 @@ t_sort_strategy	*quick_sort_strategy_create(void)
 void	quick_strategy_destroy(t_sort_strategy *strategy)
 {
 	free(strategy);
+}
+
+t_sort_strategy	*v3_quick_sort_strategy_create(void)
+{
+	t_v3_quick_strategy	*strategy;
+
+	strategy = malloc(sizeof(t_v3_quick_strategy));
+	if (!strategy)
+		return (NULL);
+	strategy->base.execute = v3_quick_sort;
+	strategy->base.destroy = v3_quick_strategy_destroy;
+	strategy->base.data = NULL;
+	return ((t_sort_strategy *)strategy);
 }
