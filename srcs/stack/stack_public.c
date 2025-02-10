@@ -6,7 +6,7 @@
 /*   By: yuuchiya <yuuchiya@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 19:13:17 by yuuchiya          #+#    #+#             */
-/*   Updated: 2025/02/10 13:49:07 by yuuchiya         ###   ########.fr       */
+/*   Updated: 2025/02/10 16:26:30 by yuuchiya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,4 +38,19 @@ void	stack_destroy(t_stack *stack)
 {
 	stack->clear(stack);
 	free(stack);
+}
+
+bool	is_sorted(t_stack *stack)
+{
+	t_stack_node	*node;
+
+	node = stack->top;
+	while (node && get_next_node(node))
+	{
+		if (*(get_node_content(node)) \
+			> *(get_node_content(get_next_node(node))))
+			return (false);
+		node = get_next_node(node);
+	}
+	return (true);
 }

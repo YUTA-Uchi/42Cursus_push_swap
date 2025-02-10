@@ -6,7 +6,7 @@
 /*   By: yuuchiya <yuuchiya@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 13:11:41 by yuuchiya          #+#    #+#             */
-/*   Updated: 2025/02/10 13:40:38 by yuuchiya         ###   ########.fr       */
+/*   Updated: 2025/02/10 18:42:01 by yuuchiya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,9 +34,16 @@ t_stack_node	*get_prev_node(t_stack_node *node)
 	return (node->prev);
 }
 
-void	set_node_content(t_stack_node *node, t_stack_value content)
+void	set_next_node(t_stack_node *node, t_stack_node *next)
 {
 	if (node == NULL)
 		return ;
-	node->content = content;
+	node->next = next;
+}
+
+void	set_prev_node(t_stack_node *node, t_stack_node *prev)
+{
+	if (node == NULL)
+		return ;
+	node->prev = prev;
 }

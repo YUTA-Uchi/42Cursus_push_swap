@@ -6,7 +6,7 @@
 /*   By: yuuchiya <yuuchiya@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 15:23:53 by yuuchiya          #+#    #+#             */
-/*   Updated: 2025/02/10 13:06:44 by yuuchiya         ###   ########.fr       */
+/*   Updated: 2025/02/10 16:30:32 by yuuchiya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,6 @@ void	set_stack_bottom(t_stack_node **self_bottom, t_stack_node *bottom)
 
 void	stack_clear(t_stack *stack)
 {
-	ft_lstclear(&(stack->top), free);
+	clear_nodes(&(stack->top), &(stack->bottom), free);
 	add_size(&(stack->size), -stack->size);
 }

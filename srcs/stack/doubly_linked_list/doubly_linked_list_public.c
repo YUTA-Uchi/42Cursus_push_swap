@@ -6,7 +6,7 @@
 /*   By: yuuchiya <yuuchiya@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 12:41:22 by yuuchiya          #+#    #+#             */
-/*   Updated: 2025/02/10 13:26:02 by yuuchiya         ###   ########.fr       */
+/*   Updated: 2025/02/10 18:33:45 by yuuchiya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void	clear_nodes(t_stack_node **top, t_stack_node **bottom, \
 	t_stack_node	*current;
 	t_stack_node	*next_node;
 
-	if (top == NULL || *top == NULL)
+	if (top == NULL || *top == NULL || bottom == NULL || *bottom == NULL)
 		return ;
 	current = *top;
 	while (current != NULL)

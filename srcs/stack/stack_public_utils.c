@@ -6,7 +6,7 @@
 /*   By: yuuchiya <yuuchiya@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 15:29:58 by yuuchiya          #+#    #+#             */
-/*   Updated: 2025/02/10 14:01:29 by yuuchiya         ###   ########.fr       */
+/*   Updated: 2025/02/10 14:55:41 by yuuchiya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ int	get_smallest_value(t_stack *stack, int size)
 	smallest = INT_MAX;
 	while (count < size)
 	{
-		value = stack->value(stack, count);
+		value = stack->value(stack, count, TOP);
 		if (value < smallest)
 			smallest = value;
 		count++;
@@ -108,7 +108,7 @@ int	get_second_smallest_value(t_stack *stack, int size)
 	second_smallest = INT_MAX;
 	while (count < size)
 	{
-		value = stack->value(stack, count);
+		value = stack->value(stack, count, TOP);
 		if (value < smallest)
 		{
 			second_smallest = smallest;

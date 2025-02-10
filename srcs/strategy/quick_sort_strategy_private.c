@@ -6,7 +6,7 @@
 /*   By: yuuchiya <yuuchiya@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/01 15:22:24 by yuuchiya          #+#    #+#             */
-/*   Updated: 2025/02/09 15:45:49 by yuuchiya         ###   ########.fr       */
+/*   Updated: 2025/02/10 14:56:20 by yuuchiya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int	partition_to_a(t_sort_solver *solver, int size, int pivot)
 	i = 0;
 	while (i < size)
 	{
-		if (solver->stack_b->value(solver->stack_b, 0) >= pivot)
+		if (solver->stack_b->value(solver->stack_b, 0, TOP) >= pivot)
 		{
 			solver->ops->pa(solver->stack_a, solver->stack_b);
 			pushed++;
@@ -46,7 +46,7 @@ int	partition_to_b(t_sort_solver *solver, int size, int pivot)
 	i = 0;
 	while (i < size)
 	{
-		if (solver->stack_a->value(solver->stack_a, 0) < pivot)
+		if (solver->stack_a->value(solver->stack_a, 0, TOP) < pivot)
 		{
 			solver->ops->pb(solver->stack_b, solver->stack_a);
 			pushed++;

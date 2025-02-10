@@ -6,7 +6,7 @@
 /*   By: yuuchiya <yuuchiya@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 17:30:03 by yuuchiya          #+#    #+#             */
-/*   Updated: 2025/02/09 14:22:01 by yuuchiya         ###   ########.fr       */
+/*   Updated: 2025/02/10 14:56:45 by yuuchiya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,14 +31,14 @@ void	sort_five_minimum(t_sort_solver *solver)
 	second_smallest = get_second_smallest_value(solver->stack_a, 5);
 	while (solver->stack_a->size > 3)
 	{
-		if (solver->stack_a->value(solver->stack_a, 0) == smallest \
-			|| solver->stack_a->value(solver->stack_a, 0) == second_smallest)
+		if (solver->stack_a->value(solver->stack_a, 0, TOP) == smallest \
+		|| solver->stack_a->value(solver->stack_a, 0, TOP) == second_smallest)
 			solver->ops->pb(solver->stack_b, solver->stack_a);
 		else
 			solver->ops->ra(solver->stack_a);
 	}
-	if (solver->stack_b->value(solver->stack_b, 0) \
-		< solver->stack_b->value(solver->stack_b, 1))
+	if (solver->stack_b->value(solver->stack_b, 0, TOP) \
+		< solver->stack_b->value(solver->stack_b, 1, TOP))
 		solver->ops->sb(solver->stack_b);
 	sort_three_minimum(solver);
 	solver->ops->pa(solver->stack_a, solver->stack_b);

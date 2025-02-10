@@ -16,17 +16,11 @@ SRCS		:=	main.c \
 				validator_public.c \
 				sort_solver_public.c \
 				sort_strategy_public.c \
-				selection_sort_strategy_private.c \
-				quick_sort_strategy_private.c \
-				quick_sort_strategy_private_utils.c \
 				minimal_sort_strategy_private.c \
 				sort_strategy_utils_private.c \
-				sort_three_stack_b_strategy_private.c \
-				sort_three_strategy_private.c \
-				sort_four_strategy_private.c \
-				sort_four_stack_b_strategy_private.c \
-				sort_five_strategy_private.c \
-				sort_five_stack_b_strategy_private.c \
+				v3_quick_sort_strategy_private.c \
+				v3_quick_sort_strategy_private_utils.c \
+				v3_quick_sort_strategy_private_position.c \
 
 OBJ_DIR		:=	./obj
 OBJS		:=	$(SRCS:%.c=$(OBJ_DIR)/%.o)

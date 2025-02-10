@@ -6,155 +6,60 @@
 /*   By: yuuchiya <yuuchiya@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 17:19:50 by yuuchiya          #+#    #+#             */
-/*   Updated: 2025/02/09 18:56:45 by yuuchiya         ###   ########.fr       */
+/*   Updated: 2025/02/10 18:53:21 by yuuchiya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "sort_strategy_private.h"
 #include "sort_solver_public.h"
+#include "sort_strategy_private.h"
 
-void	get_two_tri_partition_pivots(int *values, int size, int *pivots)
+void	partition_to_3(t_sort_solver *solver, t_stack *stack, \
+					t_recursion_data *rec_data, t_stack_search_from from)
+{
+	if (stack->value(stack, 0, from) < rec_data->pivot[0])
+		move_to_min(solver, rec_data);
+	else if (stack->value(stack, 0, from) < rec_data->pivot[1])
+		move_to_mid(solver, rec_data);
+	else
+		move_to_max(solver, rec_data);
+}
+
+void	split_to_3part(t_sort_solver *solver, t_recursion_data *rec_data)
 {
 	int		i;
-	int		j;
-	int		key;
+	t_stack	*stack;
 
-	i = 1;
-	while (i < size)
-	{
-		key = values[i];
-		j = i - 1;
-		while (j >= 0 && values[j] > key)
-		{
-			values[j + 1] = values[j];
-			j--;
-		}
-		values[j + 1] = key;
-		i++;
-	}
-	pivots[0] = values[size / 3];
-	pivots[1] = values[(2 * size) / 3];
-}
-
-void	move_to_min(t_sort_solver *solver, \
-					t_stack_pos current_pos, int *next_size)
-{
-	next_size[2]++;
-	if (current_pos == TOP_A)
-	{
-		solver->ops->pb(solver->stack_b, solver->stack_a);
-		solver->ops->rb(solver->stack_b);
-	}
-	else if (current_pos == BOTTOM_A)
-	{
-		solver->ops->rra(solver->stack_a);
-		solver->ops->pb(solver->stack_b, solver->stack_a);
-		solver->ops->rb(solver->stack_b);
-	}
-	else if (current_pos == TOP_B)
-		solver->ops->rb(solver->stack_b);
-	else if (current_pos == BOTTOM_B)
-		solver->ops->rrb(solver->stack_b);
-}
-
-void	move_to_mid(t_sort_solver *solver, \
-					t_stack_pos current_pos, int *next_size)
-{
-	next_size[1]++;
-	if (current_pos == TOP_A)
-	{
-		solver->ops->pb(solver->stack_b, solver->stack_a);
-	}
-	else if (current_pos == BOTTOM_A)
-	{
-		solver->ops->rra(solver->stack_a);
-		solver->ops->pb(solver->stack_b, solver->stack_a);
-	}
-	else if (current_pos == TOP_B)
-	{
-		solver->ops->pa(solver->stack_a, solver->stack_b);
-		solver->ops->ra(solver->stack_a);
-	}
-	else if (current_pos == BOTTOM_B)
-	{
-		solver->ops->rrb(solver->stack_b);
-		solver->ops->pa(solver->stack_a, solver->stack_b);
-		solver->ops->ra(solver->stack_a);
-	}
-}
-
-void	move_to_max(t_sort_solver *solver, \
-					t_stack_pos current_pos, int *next_size)
-{
-	next_size[0]++;
-	if (current_pos == TOP_A)
-	{
-		solver->ops->ra(solver->stack_a);
-	}
-	else if (current_pos == BOTTOM_A)
-	{
-		solver->ops->rra(solver->stack_a);
-	}
-	else if (current_pos == TOP_B)
-	{
-		solver->ops->pa(solver->stack_a, solver->stack_b);
-	}
-	else if (current_pos == BOTTOM_B)
-	{
-		solver->ops->rrb(solver->stack_b);
-		solver->ops->pa(solver->stack_a, solver->stack_b);
-	}	
-}
-
-void	split_to_3part(t_sort_solver *solver, int size, t_stack_pos pos, int *next_size)
-{
-	int	pivot[2];
-	int	i;
-
+	if (rec_data->pos == TOP_A || rec_data->pos == BOTTOM_A)
+		stack = solver->stack_a;
+	else
+		stack = solver->stack_b;
 	i = 0;
-	get_pivot(solver->stack_a, size, pos, pivot);
-	while (i < size)
+	get_pivots(stack, rec_data);
+	while (i < rec_data->size)
 	{
-		if (solver->stack_a->value(solver->stack_a, 0) < pivot[0])
-			move_to_min(solver, pos, next_size);
-		else if (solver->stack_a->value(solver->stack_a, 0) < pivot[1])
-			move_to_mid(solver, pos, next_size);
+		if (rec_data->pos == TOP_A || rec_data->pos == TOP_B)
+			partition_to_3(solver, stack, rec_data, TOP);
 		else
-			move_to_max(solver, pos, next_size);
+			partition_to_3(solver, stack, rec_data, BOTTOM);
 		i++;
 	}
-}
-
-void	init_next_size(int *next_size)
-{
-	next_size[0] = 0;
-	next_size[1] = 0;
-	next_size[2] = 0;
 }
 
 void	recurse_v3_quick_sort(t_sort_solver *solver, int size, t_stack_pos pos)
 {
-	int	next_size[3];
+	t_recursion_data	*recursion_data;
 
-	if (size <= 1)
+	if (is_minimal_sort(solver, size, pos))
 		return ;
-	if (size == 2)
-	{
-		if (solver->stack_a->value(solver->stack_a, 0) \
-			> solver->stack_a->value(solver->stack_a, 1))
-			solver->ops->sa(solver->stack_a);
-		return ;
-	}
-	else if (size == 3)
-	{
-		sort_three(solver);
-		return ;
-	}
-	init_next_size(next_size);
-	split_to_3part(solver, size, pos, next_size);
-	recurse_v3_quick_sort(solver, next_size[0], get_max_pos(pos));
-	recurse_v3_quick_sort(solver, next_size[1], get_mid_pos(pos));
-	recurse_v3_quick_sort(solver, next_size[2], get_min_pos(pos));
+	recursion_data = recursion_data_create(size, pos);
+	split_to_3part(solver, recursion_data);
+	recurse_v3_quick_sort(solver, recursion_data->next_size[0] \
+						, get_max_pos(pos));
+	recurse_v3_quick_sort(solver, recursion_data->next_size[1] \
+						, get_mid_pos(pos));
+	recurse_v3_quick_sort(solver, recursion_data->next_size[2] \
+						, get_min_pos(pos));
+	recursion_data_destroy(recursion_data);
 }
 
 void	v3_quick_sort(t_sort_solver *solver)
@@ -163,7 +68,7 @@ void	v3_quick_sort(t_sort_solver *solver)
 		return ;
 	if (is_sorted(solver->stack_a))
 		return ;
-	if (is_minimal_sort(solver, solver->stack_a->size))
+	if (is_minimal_sort(solver, solver->stack_a->size, TOP_A))
 		return ;
 	recurse_v3_quick_sort(solver, solver->stack_a->size, TOP_A);
 }

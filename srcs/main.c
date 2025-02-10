@@ -6,7 +6,7 @@
 /*   By: yuuchiya <yuuchiya@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/12 19:04:12 by yuuchiya          #+#    #+#             */
-/*   Updated: 2025/02/10 14:06:28 by yuuchiya         ###   ########.fr       */
+/*   Updated: 2025/02/10 16:34:18 by yuuchiya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ int	push_swap_execute(t_push_swap *ps)
 {
 	t_sort_strategy	*strategy;
 
-	strategy = quick_sort_strategy_create();
+	strategy = v3_quick_sort_strategy_create();
 	if (!strategy)
 		return (1);
 	ps->solver->set_strategy(ps->solver, strategy);

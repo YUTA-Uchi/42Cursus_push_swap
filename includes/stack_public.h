@@ -6,7 +6,7 @@
 /*   By: yuuchiya <yuuchiya@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 13:05:43 by yuuchiya          #+#    #+#             */
-/*   Updated: 2025/02/10 13:49:33 by yuuchiya         ###   ########.fr       */
+/*   Updated: 2025/02/10 16:24:26 by yuuchiya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,17 @@
 # define STACK_PUBLIC_H
 
 # include <stdlib.h>
+# include <stdbool.h>
 # include "libft.h"
 # include "doubly_linked_list_public.h"
 
 typedef struct s_stack		t_stack;
+
+typedef enum e_stack_search_from
+{
+	TOP,
+	BOTTOM
+}	t_stack_search_from;
 
 struct s_stack
 {
@@ -27,7 +34,7 @@ struct s_stack
 	char			name;
 	void			(*push)(t_stack *, t_stack_value);
 	t_stack_value	(*pop)(t_stack *);
-	int				(*value)(t_stack *, int);
+	int				(*value)(t_stack *, int, t_stack_search_from);
 	void			(*rotate)(t_stack *);
 	void			(*reverse_rotate)(t_stack *);
 	void			(*clear)(t_stack *);
@@ -39,6 +46,7 @@ t_stack	*stack_create(char name);
 // deconstructor
 void	stack_destroy(t_stack *stack);
 // util
+bool	is_sorted(t_stack *stack);
 int		get_smallest_value(t_stack *stack, int size);
 int		get_second_smallest_value(t_stack *stack, int size);
 int		get_insert_position(t_stack *stack, int value, int size);

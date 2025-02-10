@@ -6,7 +6,7 @@
 /*   By: yuuchiya <yuuchiya@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 12:32:14 by yuuchiya          #+#    #+#             */
-/*   Updated: 2025/02/10 13:40:56 by yuuchiya         ###   ########.fr       */
+/*   Updated: 2025/02/10 18:42:26 by yuuchiya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,9 @@ void			clear_nodes(t_stack_node **top, t_stack_node **bottom, \
 							void (*del)(void *));
 // utills
 t_stack_value	get_node_content(t_stack_node *node);
-void			set_node_content(t_stack_node *node, t_stack_value content);
 t_stack_node	*get_next_node(t_stack_node *node);
 t_stack_node	*get_prev_node(t_stack_node *node);
+void			set_next_node(t_stack_node *node, t_stack_node *next);
+void			set_prev_node(t_stack_node *node, t_stack_node *prev);
 
 #endif

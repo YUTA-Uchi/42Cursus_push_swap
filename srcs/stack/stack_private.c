@@ -6,7 +6,7 @@
 /*   By: yuuchiya <yuuchiya@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 19:34:38 by yuuchiya          #+#    #+#             */
-/*   Updated: 2025/02/10 13:47:14 by yuuchiya         ###   ########.fr       */
+/*   Updated: 2025/02/10 18:31:57 by yuuchiya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ t_stack_value	stack_pop(t_stack *stack)
 	node = stack->top;
 	content = get_node_content(node);
 	set_stack_top(&(stack->top), get_next_node(node));
+	set_prev_node(stack->top, NULL);
 	if (stack->size == 1)
 		set_stack_bottom(&(stack->bottom), NULL);
 	free(node);
@@ -43,16 +44,22 @@ t_stack_value	stack_pop(t_stack *stack)
 	return (content);
 }
 
-int	stack_value(t_stack *stack, int index)
+int	stack_value(t_stack *stack, int index, t_stack_search_from from)
 {
 	t_stack_node	*node;
 
 	if (stack->size == 0)
 		return (0);
-	node = stack->top;
+	if (from == TOP)
+		node = stack->top;
+	else
+		node = stack->bottom;
 	while (node && index > 0)
 	{
-		node = get_next_node(node);
+		if (from == TOP)
+			node = get_next_node(node);
+		else
+			node = get_prev_node(node);
 		index--;
 	}
 	return (*get_node_content(node));
@@ -79,6 +86,7 @@ void	stack_reverse_rotate(t_stack *stack)
 	tail_node = stack->bottom;
 	tail_content = get_node_content(tail_node);
 	set_stack_bottom(&(stack->bottom), get_prev_node(tail_node));
+	set_next_node(stack->bottom, NULL);
 	free(tail_node);
 	stack->add_size(&(stack->size), -1);
 	stack->push(stack, tail_content);
