@@ -6,7 +6,7 @@
 /*   By: yuuchiya <yuuchiya@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 15:24:46 by yuuchiya          #+#    #+#             */
-/*   Updated: 2025/02/09 15:24:50 by yuuchiya         ###   ########.fr       */
+/*   Updated: 2025/02/10 12:17:33 by yuuchiya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 void	swap_a(t_stack *a)
 {
-	t_stack_node	first;
-	t_stack_node	second;
+	t_stack_value	first;
+	t_stack_value	second;
 
 	if (a->size < 2)
 		return ;
@@ -28,8 +28,8 @@ void	swap_a(t_stack *a)
 
 void	swap_b(t_stack *b)
 {
-	t_stack_node	first;
-	t_stack_node	second;
+	t_stack_value	first;
+	t_stack_value	second;
 
 	if (b->size < 2)
 		return ;
@@ -42,8 +42,8 @@ void	swap_b(t_stack *b)
 
 void	swap_ab(t_stack *a, t_stack *b)
 {
-	t_stack_node	first;
-	t_stack_node	second;
+	t_stack_value	first;
+	t_stack_value	second;
 
 	if (a->size < 2 || b->size < 2)
 		return ;

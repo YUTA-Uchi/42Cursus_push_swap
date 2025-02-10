@@ -6,7 +6,7 @@
 /*   By: yuuchiya <yuuchiya@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 15:26:51 by yuuchiya          #+#    #+#             */
-/*   Updated: 2025/02/09 15:26:53 by yuuchiya         ###   ########.fr       */
+/*   Updated: 2025/02/10 14:03:55 by yuuchiya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,16 +15,16 @@
 
 static int	find_min(t_stack *stack)
 {
-	t_list	*node;
-	int		min;
+	t_stack_node	*node;
+	int				min;
 
 	node = stack->top;
-	min = *(t_stack_node)node->content;
+	min = *(get_node_content(node));
 	while (node)
 	{
-		if (*(t_stack_node)node->content < min)
-			min = *(t_stack_node)node->content;
-		node = node->next;
+		if (*(get_node_content(node)) < min)
+			min = *(get_node_content(node));
+		node = get_next_node(node);
 	}
 	return (min);
 }
@@ -38,7 +38,7 @@ void	selection_sort(t_sort_solver *solver)
 	while (solver->stack_a->size > 0)
 	{
 		min = find_min(solver->stack_a);
-		while (*(int *)(solver->stack_a->top->content) != min)
+		while (*(get_node_content(solver->stack_a->top)) != min)
 			solver->ops->ra(solver->stack_a);
 		solver->ops->pb(solver->stack_b, solver->stack_a);
 	}

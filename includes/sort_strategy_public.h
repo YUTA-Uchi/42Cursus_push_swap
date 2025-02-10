@@ -6,7 +6,7 @@
 /*   By: yuuchiya <yuuchiya@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 15:17:10 by yuuchiya          #+#    #+#             */
-/*   Updated: 2025/02/09 15:17:34 by yuuchiya         ###   ########.fr       */
+/*   Updated: 2025/02/10 18:44:03 by yuuchiya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,12 +30,39 @@ typedef struct s_selection_strategy
 	t_sort_strategy	base;
 }	t_selection_strategy;
 
-t_sort_strategy	*selection_sort_strategy_create(void);
+t_sort_strategy		*selection_sort_strategy_create(void);
 
 typedef struct s_quick_strategy
 {
 	t_sort_strategy	base;
 }	t_quick_strategy;
 
-t_sort_strategy	*quick_sort_strategy_create(void);
+t_sort_strategy		*quick_sort_strategy_create(void);
+
+typedef struct s_v3_quick_strategy
+{
+	t_sort_strategy	base;
+}	t_v3_quick_strategy;
+
+t_sort_strategy		*v3_quick_sort_strategy_create(void);
+
+typedef enum e_stack_position
+{
+	TOP_A,
+	TOP_B,
+	BOTTOM_A,
+	BOTTOM_B
+}	t_stack_pos;
+
+typedef struct s_recursion_data
+{
+	int			size;
+	t_stack_pos	pos;
+	int			pivot[2];
+	int			next_size[3];
+}	t_recursion_data;
+
+t_recursion_data	*recursion_data_create(int size, t_stack_pos pos);
+void				recursion_data_destroy(t_recursion_data *data);
+
 #endif

@@ -6,7 +6,7 @@
 /*   By: yuuchiya <yuuchiya@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 15:43:58 by yuuchiya          #+#    #+#             */
-/*   Updated: 2025/02/09 15:44:34 by yuuchiya         ###   ########.fr       */
+/*   Updated: 2025/02/10 13:56:56 by yuuchiya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,10 +44,10 @@ static int	get_median(int *values, int size)
 
 int	get_pivot(t_stack *stack, int size)
 {
-	int		*values;
-	t_list	*current;
-	int		count;
-	int		median;
+	int				*values;
+	t_stack_node	*current;
+	int				count;
+	int				median;
 
 	values = (int *)malloc(sizeof(int) * size);
 	count = 0;
@@ -56,8 +56,8 @@ int	get_pivot(t_stack *stack, int size)
 	current = stack->top;
 	while (current != NULL && count < size)
 	{
-		values[count++] = *(t_stack_node)current->content;
-		current = current->next;
+		values[count++] = *(get_node_content(current));
+		current = get_next_node(current);
 	}
 	median = get_median(values, size);
 	free(values);

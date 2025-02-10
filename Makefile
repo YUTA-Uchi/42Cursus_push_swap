@@ -9,22 +9,18 @@ SRCS		:=	main.c \
 				stack_private_utils.c \
 				stack_public.c \
 				stack_public_utils.c \
+				doubly_linked_list_public.c \
+				doubly_linked_list_public_utils.c \
 				validator_private.c \
 				validator_private_utils.c \
 				validator_public.c \
 				sort_solver_public.c \
 				sort_strategy_public.c \
-				selection_sort_strategy_private.c \
-				quick_sort_strategy_private.c \
-				quick_sort_strategy_private_utils.c \
 				minimal_sort_strategy_private.c \
 				sort_strategy_utils_private.c \
-				sort_three_stack_b_strategy_private.c \
-				sort_three_strategy_private.c \
-				sort_four_strategy_private.c \
-				sort_four_stack_b_strategy_private.c \
-				sort_five_strategy_private.c \
-				sort_five_stack_b_strategy_private.c \
+				v3_quick_sort_strategy_private.c \
+				v3_quick_sort_strategy_private_utils.c \
+				v3_quick_sort_strategy_private_position.c \
 
 OBJ_DIR		:=	./obj
 OBJS		:=	$(SRCS:%.c=$(OBJ_DIR)/%.o)
@@ -35,7 +31,7 @@ INC			:=	-Iincludes -I$(LIBFT_DIR) -MMD -MP
 CC			:=	cc
 CFLAGS		:=	-Wall -Wextra -Werror
 
-vpath %.c	./srcs:./srcs/operations:./srcs/stack:./srcs/validator:./srcs/sort_solver:./srcs/strategy
+vpath %.c	./srcs:./srcs/operations:./srcs/stack:./srcs/stack/doubly_linked_list:./srcs/validator:./srcs/sort_solver:./srcs/strategy
 
 $(NAME) : $(OBJS) $(LIBFT_DIR)/libft.a
 	$(CC) $(CFLAGS) $(OBJS) $(LD_FLAGS) $(LD_LIBS) -o $@
