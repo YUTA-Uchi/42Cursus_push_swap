@@ -6,7 +6,7 @@
 /*   By: yuuchiya <yuuchiya@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 13:05:43 by yuuchiya          #+#    #+#             */
-/*   Updated: 2025/02/09 15:34:42 by yuuchiya         ###   ########.fr       */
+/*   Updated: 2025/02/10 13:49:33 by yuuchiya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,24 +15,23 @@
 
 # include <stdlib.h>
 # include "libft.h"
+# include "doubly_linked_list_public.h"
 
-typedef int*			t_stack_node;
-typedef struct s_stack	t_stack;
+typedef struct s_stack		t_stack;
 
 struct s_stack
 {
-	t_list			*top;
+	t_stack_node	*top;
+	t_stack_node	*bottom;
 	int				size;
 	char			name;
-	void			(*push)(t_stack *, t_stack_node);
-	t_stack_node	(*pop)(t_stack *);
+	void			(*push)(t_stack *, t_stack_value);
+	t_stack_value	(*pop)(t_stack *);
 	int				(*value)(t_stack *, int);
 	void			(*rotate)(t_stack *);
 	void			(*reverse_rotate)(t_stack *);
 	void			(*clear)(t_stack *);
-	void			(*print)(t_stack *);
 	void			(*add_size)(int *, int);
-	void			(*set_stack_top)(t_list **, t_list *);
 };
 
 // constructor

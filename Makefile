@@ -9,6 +9,8 @@ SRCS		:=	main.c \
 				stack_private_utils.c \
 				stack_public.c \
 				stack_public_utils.c \
+				doubly_linked_list_public.c \
+				doubly_linked_list_public_utils.c \
 				validator_private.c \
 				validator_private_utils.c \
 				validator_public.c \
@@ -35,7 +37,7 @@ INC			:=	-Iincludes -I$(LIBFT_DIR) -MMD -MP
 CC			:=	cc
 CFLAGS		:=	-Wall -Wextra -Werror
 
-vpath %.c	./srcs:./srcs/operations:./srcs/stack:./srcs/validator:./srcs/sort_solver:./srcs/strategy
+vpath %.c	./srcs:./srcs/operations:./srcs/stack:./srcs/stack/doubly_linked_list:./srcs/validator:./srcs/sort_solver:./srcs/strategy
 
 $(NAME) : $(OBJS) $(LIBFT_DIR)/libft.a
 	$(CC) $(CFLAGS) $(OBJS) $(LD_FLAGS) $(LD_LIBS) -o $@

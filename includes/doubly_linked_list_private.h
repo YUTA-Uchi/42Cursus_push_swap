@@ -1,34 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   stack_private_utils.c                              :+:      :+:    :+:   */
+/*   doubly_linked_list_private.h                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yuuchiya <yuuchiya@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/09 15:23:53 by yuuchiya          #+#    #+#             */
-/*   Updated: 2025/02/10 13:06:44 by yuuchiya         ###   ########.fr       */
+/*   Created: 2025/02/10 12:32:00 by yuuchiya          #+#    #+#             */
+/*   Updated: 2025/02/10 12:57:53 by yuuchiya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "stack_private.h"
 
-void	add_size(int *size, int add_num)
-{
-	*size += add_num;
-}
+#ifndef DOUBLY_LINKED_LIST_PRIVATE_H
+# define DOUBLY_LINKED_LIST_PRIVATE_H
 
-void	set_stack_top(t_stack_node **self_top, t_stack_node *top)
-{
-	*self_top = top;
-}
+# include "doubly_linked_list_public.h"
 
-void	set_stack_bottom(t_stack_node **self_bottom, t_stack_node *bottom)
-{
-	*self_bottom = bottom;
-}
 
-void	stack_clear(t_stack *stack)
+struct s_stack_node
 {
-	ft_lstclear(&(stack->top), free);
-	add_size(&(stack->size), -stack->size);
-}
+	t_stack_node	*next;
+	t_stack_node	*prev;
+	void			*content;
+};
+
+#endif
