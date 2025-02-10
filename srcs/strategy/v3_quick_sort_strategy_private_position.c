@@ -49,23 +49,36 @@ t_stack_pos	get_min_pos(t_stack_pos pos)
 		return (TOP_B);
 }
 
-void	move_to_top_a(t_sort_solver *solver, t_stack_pos pos)
+t_stack_pos	optimize_position(t_sort_solver *solver, int size, t_stack_pos pos)
 {
-	if (pos == TOP_A)
+	if (pos == BOTTOM_A && solver->stack_a->size == size)
+		return (TOP_A);
+	else if (pos == BOTTOM_B && solver->stack_b->size == size)
+		return (TOP_B);
+	return (pos);
+}
+
+void	move_to_top_a(t_sort_solver *solver, t_stack_pos pos, int size)
+{
+	int	i;
+
+	i = 0;
+	if (pos == BOTTOM_A)
 	{
-		solver->ops->ra(solver->stack_a);
-	}
-	else if (pos == BOTTOM_A)
-	{
-		solver->ops->rra(solver->stack_a);
+		while (i < size)
+			solver->ops->rra(solver->stack_a);
 	}
 	else if (pos == TOP_B)
 	{
-		solver->ops->pa(solver->stack_a, solver->stack_b);
+		while (i < size)
+			solver->ops->pa(solver->stack_a, solver->stack_b);
 	}
 	else if (pos == BOTTOM_B)
 	{
-		solver->ops->rrb(solver->stack_b);
-		solver->ops->pa(solver->stack_a, solver->stack_b);
+		while (i < size)
+		{
+			solver->ops->rrb(solver->stack_b);
+			solver->ops->pa(solver->stack_a, solver->stack_b);
+		}
 	}
 }

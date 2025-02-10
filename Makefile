@@ -16,8 +16,9 @@ SRCS		:=	main.c \
 				validator_public.c \
 				sort_solver_public.c \
 				sort_strategy_public.c \
-				minimal_sort_strategy_private.c \
 				sort_strategy_utils_private.c \
+				minimal_sort_strategy_private.c \
+				sort_three_strategy_private.c \
 				v3_quick_sort_strategy_private.c \
 				v3_quick_sort_strategy_private_utils.c \
 				v3_quick_sort_strategy_private_position.c \

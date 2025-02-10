@@ -13,31 +13,116 @@
 #include "sort_strategy_private.h"
 #include "sort_solver_public.h"
 
-void	sort_three_distance_0(t_sort_solver *solver)
+static void	sort_three_distance_0(t_sort_solver *solver, t_stack_pos pos)
 {
-	solver->ops->ra(solver->stack_a);
-	sort_two(solver, solver->stack_a);
+	if (pos == TOP_A)
+	{
+		solver->ops->sa(solver->stack_a);
+		solver->ops->ra(solver->stack_a);
+		solver->ops->sa(solver->stack_a);
+		solver->ops->rra(solver->stack_a);
+		sort_two(solver, TOP_A);
+	}
+	else if (pos == BOTTOM_B)
+	{
+		solver->ops->rrb(solver->stack_b);
+		solver->ops->pa(solver->stack_a, solver->stack_b);
+		solver->ops->rrb(solver->stack_b);
+		solver->ops->pa(solver->stack_a, solver->stack_b);
+		solver->ops->rrb(solver->stack_b);
+		solver->ops->pa(solver->stack_a, solver->stack_b);
+		sort_two(solver, TOP_A);
+	}
+	else if (pos == BOTTOM_A)
+	{
+		solver->ops->rra(solver->stack_a);
+		solver->ops->rra(solver->stack_a);
+		solver->ops->rra(solver->stack_a);
+		sort_two(solver, TOP_A);
+	}
+	else
+	{
+		solver->ops->pa(solver->stack_a, solver->stack_b);
+		solver->ops->pa(solver->stack_a, solver->stack_b);
+		solver->ops->pa(solver->stack_a, solver->stack_b);
+		sort_two(solver, TOP_A);
+		// move_to_top_a(solver, pos, 3);
+		// sort_two(solver, TOP_A);
+	}
 }
 
-void	sort_three_distance_1(t_sort_solver *solver)
+static void	sort_three_distance_1(t_sort_solver *solver, t_stack_pos pos)
 {
-	solver->ops->sa(solver->stack_a);
-	solver->ops->ra(solver->stack_a);
-	sort_two(solver, solver->stack_a);
+	if (pos == TOP_A)
+	{
+		solver->ops->ra(solver->stack_a);
+		solver->ops->sa(solver->stack_a);
+		solver->ops->rra(solver->stack_a);
+		sort_two(solver, TOP_A);
+	}
+	else if (pos == BOTTOM_B)
+	{
+		solver->ops->rrb(solver->stack_b);
+		solver->ops->pa(solver->stack_a, solver->stack_b);
+		solver->ops->rrb(solver->stack_b);
+		solver->ops->pa(solver->stack_a, solver->stack_b);
+		solver->ops->sa(solver->stack_a);
+		solver->ops->rrb(solver->stack_b);
+		solver->ops->pa(solver->stack_a, solver->stack_b);
+		sort_two(solver, TOP_A);
+	}
+	else if (pos == BOTTOM_A)
+	{
+		solver->ops->rra(solver->stack_a);
+		solver->ops->rra(solver->stack_a);
+		solver->ops->sa(solver->stack_a);
+		solver->ops->rra(solver->stack_a);
+		sort_two(solver, TOP_A);
+	}
+	else
+	{
+		solver->ops->pa(solver->stack_a, solver->stack_b);
+		solver->ops->pa(solver->stack_a, solver->stack_b);
+		solver->ops->sa(solver->stack_a);
+		solver->ops->pa(solver->stack_a, solver->stack_b);
+		sort_two(solver, TOP_A);
+		// move_to_top_a(solver, pos, 2);
+		// solver->ops->sa(solver->stack_a);
+		// move_to_top_a(solver, pos, 1);
+		// sort_two(solver, TOP_A);
+	}
 }
 
-void	sort_three_distance_2(t_sort_solver *solver)
+static void	sort_three_distance_2(t_sort_solver *solver, t_stack_pos pos)
 {
-	int	insert_position;
-
-	solver->ops->pb(solver->stack_b, solver->stack_a);
-	solver->ops->sa(solver->stack_a);
-	insert_position = get_insert_position(solver->stack_a \
-							, solver->stack_b->value(solver->stack_b, 0, TOP) \
-							, 3);
-	minimal_move(solver, solver->stack_a, insert_position);
-	solver->ops->pa(solver->stack_a, solver->stack_b);
-	minimal_move(solver, solver->stack_a, 3 - insert_position);
+	if (pos == TOP_A)
+		sort_two(solver, TOP_A);
+	else if (pos == BOTTOM_B)
+	{
+		solver->ops->rrb(solver->stack_b);
+		solver->ops->rrb(solver->stack_b);
+		solver->ops->rrb(solver->stack_b);
+		solver->ops->pa(solver->stack_a, solver->stack_b);
+		solver->ops->pa(solver->stack_a, solver->stack_b);
+		solver->ops->pa(solver->stack_a, solver->stack_b);
+		sort_two(solver, TOP_A);
+	}
+	else if (pos == BOTTOM_A)
+	{
+		solver->ops->rra(solver->stack_a);
+		solver->ops->rra(solver->stack_a);
+		solver->ops->rra(solver->stack_a);
+		sort_three_distance_0(solver, TOP_A);
+	}
+	else
+	{
+		solver->ops->pa(solver->stack_a, solver->stack_b);
+		solver->ops->pa(solver->stack_a, solver->stack_b);
+		solver->ops->pa(solver->stack_a, solver->stack_b);
+		sort_three_distance_0(solver, TOP_A);
+		// move_to_top_a(solver, pos, 3);
+		// sort_three_distance_0(solver, TOP_A);
+	}
 }
 
 void	sort_three_minimum(t_sort_solver *solver)
@@ -76,11 +161,18 @@ void	sort_three(t_sort_solver *solver, t_stack_pos pos)
 		sort_three_minimum(solver);
 		return ;
 	}
-	move_to_top_a(solver, pos);
-	distance_to_max = get_distance_to_max(solver->stack_a, 3);
+	if (pos == TOP_A)
+		distance_to_max = get_distance_to_max(solver->stack_a, 3, TOP);
+	else if (pos == TOP_B)
+		distance_to_max = get_distance_to_max(solver->stack_b, 3, TOP);
+	else if (pos == BOTTOM_A)
+		distance_to_max = get_distance_to_max(solver->stack_a, 3, BOTTOM);
+	else
+		distance_to_max = get_distance_to_max(solver->stack_b, 3, BOTTOM);
 	if (distance_to_max == 0)
-		sort_three_distance_0(solver);
+		sort_three_distance_0(solver, pos);
 	else if (distance_to_max == 1)
-		sort_three_distance_1(solver);
-	sort_two(solver, TOP_A);
+		sort_three_distance_1(solver, pos);
+	else
+		sort_three_distance_2(solver, pos);
 }

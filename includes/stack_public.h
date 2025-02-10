@@ -51,5 +51,5 @@ int		get_smallest_value(t_stack *stack, int size);
 int		get_second_smallest_value(t_stack *stack, int size);
 int		get_insert_position(t_stack *stack, int value, int size);
 int		get_distance_to_min(t_stack *stack, int size);
-int		get_distance_to_max(t_stack *stack, int size);
+int		get_distance_to_max(t_stack *stack, int size, t_stack_search_from from);
 #endif

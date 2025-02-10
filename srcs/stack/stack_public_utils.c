@@ -54,14 +54,17 @@ int	get_distance_to_min(t_stack *stack, int size)
 	return (distance);
 }
 
-int	get_distance_to_max(t_stack *stack, int size)
+int	get_distance_to_max(t_stack *stack, int size, t_stack_search_from from)
 {
 	t_stack_node	*node;
 	int				max;
 	int				distance;
 	int				i;
 
-	node = stack->top;
+	if (from == TOP)
+		node = stack->top;
+	else
+		node = stack->bottom;
 	max = *(get_node_content(node));
 	distance = 0;
 	i = 0;
@@ -72,7 +75,10 @@ int	get_distance_to_max(t_stack *stack, int size)
 			max = *(get_node_content(node));
 			distance = i;
 		}
-		node = get_next_node(node);
+		if (from == TOP)
+			node = get_next_node(node);
+		else
+			node = get_prev_node(node);
 		i++;
 	}
 	return (distance);

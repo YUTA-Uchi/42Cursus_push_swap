@@ -63,8 +63,8 @@ bool	is_minimal_sort(t_sort_solver *solver, int size, t_stack_pos pos)
 		return (sort_one(solver, pos), minimal);
 	else if (size == 2)
 		return (sort_two(solver, pos), minimal);
-	// else if (size == 3)
-	// 	return (sort_three(solver), minimal);
+	else if (size == 3)
+		return (sort_three(solver,pos), minimal);
 	// else if (size == 4)
 	// 	return (sort_four(solver), minimal);
 	// else if (size == 5)

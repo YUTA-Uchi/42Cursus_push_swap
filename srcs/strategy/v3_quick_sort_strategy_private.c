@@ -49,6 +49,7 @@ void	recurse_v3_quick_sort(t_sort_solver *solver, int size, t_stack_pos pos)
 {
 	t_recursion_data	*recursion_data;
 
+	pos = optimize_position(solver, size, pos);
 	if (is_minimal_sort(solver, size, pos))
 		return ;
 	recursion_data = recursion_data_create(size, pos);
