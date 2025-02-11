@@ -6,7 +6,7 @@
 /*   By: yuuchiya <yuuchiya@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 15:17:10 by yuuchiya          #+#    #+#             */
-/*   Updated: 2025/02/11 11:54:43 by yuuchiya         ###   ########.fr       */
+/*   Updated: 2025/02/11 13:42:32 by yuuchiya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,13 @@ struct s_sort_strategy
 	void	(*destroy)(t_sort_strategy*);
 	void	*data;
 };
+
+typedef struct s_manual_sort_strategy
+{
+	t_sort_strategy	base;
+}	t_manual_sort_strategy;
+
+t_sort_strategy		*manual_sort_strategy_create(void);
 
 typedef struct s_v3_quick_strategy
 {

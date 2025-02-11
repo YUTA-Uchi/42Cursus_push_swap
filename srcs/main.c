@@ -6,7 +6,7 @@
 /*   By: yuuchiya <yuuchiya@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/12 19:04:12 by yuuchiya          #+#    #+#             */
-/*   Updated: 2025/02/10 16:34:18 by yuuchiya         ###   ########.fr       */
+/*   Updated: 2025/02/11 13:55:08 by yuuchiya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ t_push_swap	*push_swap_create(int argc, char **argv)
 	ps = (t_push_swap *)malloc(sizeof(t_push_swap));
 	if (!ps)
 		return (NULL);
+	ps->solver = NULL;
 	ps->validator = validator_create(argc, argv);
 	if (!ps->validator)
 		return (push_swap_destroy(ps, argc), NULL);
@@ -64,10 +65,10 @@ int	main(int argc, char **argv)
 		return (1);
 	ps = push_swap_create(argc - 1, argv + 1);
 	if (!ps)
-		return (ft_putstr_fd("Error\n", 2), 1);
+		return (ft_putstr_fd("Error\n", STDERR_FILENO), 1);
 	result = push_swap_execute(ps);
 	if (result)
-		ft_putstr_fd("Error\n", 2);
+		ft_putstr_fd("Error\n", STDERR_FILENO);
 	push_swap_destroy(ps, argc - 1);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: yuuchiya <yuuchiya@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 17:05:40 by yuuchiya          #+#    #+#             */
-/*   Updated: 2025/02/11 12:47:06 by yuuchiya         ###   ########.fr       */
+/*   Updated: 2025/02/11 13:52:00 by yuuchiya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ bool	validate_number(char *str, long *result)
 		strptr++;
 	if (*strptr == '-' || *strptr == '+')
 		strptr++;
-	is_valid = ft_isdigit(*strptr++);
+	is_valid = ft_isdigit(*strptr);
 	while (*strptr && is_valid)
 		is_valid = ft_isdigit(*strptr++);
 	if (!is_valid)
