@@ -100,7 +100,7 @@ void	sort_three(t_sort_solver *solver, t_stack_pos pos)
 {
 	int	distance_to_max;
 
-	if (solver->stack_a->size == 3)
+	if (pos == TOP_A && solver->stack_a->size == 3)
 	{
 		sort_three_minimum(solver);
 		return ;
