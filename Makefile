@@ -1,5 +1,5 @@
 PUSH_SWAP		:=	push_swap
-
+CHECKER			:=	checker
 NAME			:=	$(PUSH_SWAP)
 COMMON_SRCS		:=	operations.c \
 					operations_swap_private.c \
@@ -26,9 +26,12 @@ COMMON_SRCS		:=	operations.c \
 
 PUSH_SWAP_SRCS	:=	main.c
 
+CHECKER_SRCS	:=	main_bonus.c
+
 OBJ_DIR			:=	./obj
 OBJS			:=	$(COMMON_SRCS:%.c=$(OBJ_DIR)/%.o)
 PUSH_SWAP_OBJS	:=	$(PUSH_SWAP_SRCS:%.c=$(OBJ_DIR)/%.o)
+CHECKER_OBJS	:=	$(CHECKER_SRCS:%.c=$(OBJ_DIR)/%.o)
 LIBFT_DIR		:=	libft
 LD_FLAGS		:=	-L$(LIBFT_DIR)
 LD_LIBS			:=	-lft
@@ -55,12 +58,14 @@ $(OBJ_DIR):
 
 all:	$(NAME)
 
+bonus:	$(CHECKER)
+
 clean:
 	$(RM) -r $(OBJS) $(OBJ_DIR)
 	$(MAKE) clean -C $(LIBFT_DIR)
 
 fclean:	clean
-	$(RM) $(PUSH_SWAP)
+	$(RM) $(PUSH_SWAP) $(CHECKER)
 	$(MAKE) fclean -C $(LIBFT_DIR)
 
 re:	fclean all

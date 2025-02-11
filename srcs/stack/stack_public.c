@@ -26,6 +26,7 @@ t_stack	*stack_create(char name)
 	new_stack->name = name;
 	new_stack->push = stack_push;
 	new_stack->pop = stack_pop;
+	new_stack->swap = stack_swap;
 	new_stack->value = stack_value;
 	new_stack->rotate = stack_rotate;
 	new_stack->reverse_rotate = stack_reverse_rotate;

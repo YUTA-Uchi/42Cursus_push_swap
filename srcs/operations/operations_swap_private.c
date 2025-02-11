@@ -14,46 +14,19 @@
 
 void	swap_a(t_stack *a)
 {
-	t_stack_value	first;
-	t_stack_value	second;
-
-	if (a->size < 2)
-		return ;
-	first = a->pop(a);
-	second = a->pop(a);
-	a->push(a, first);
-	a->push(a, second);
+	a->swap(a);
 	ft_printf(STDOUT_FILENO, "sa\n");
 }
 
 void	swap_b(t_stack *b)
 {
-	t_stack_value	first;
-	t_stack_value	second;
-
-	if (b->size < 2)
-		return ;
-	first = b->pop(b);
-	second = b->pop(b);
-	b->push(b, first);
-	b->push(b, second);
+	b->swap(b);
 	ft_printf(STDOUT_FILENO, "sb\n");
 }
 
 void	swap_ab(t_stack *a, t_stack *b)
 {
-	t_stack_value	first;
-	t_stack_value	second;
-
-	if (a->size < 2 || b->size < 2)
-		return ;
-	first = a->pop(a);
-	second = a->pop(a);
-	a->push(a, first);
-	a->push(a, second);
-	first = b->pop(b);
-	second = b->pop(b);
-	b->push(b, first);
-	b->push(b, second);
+	a->swap(a);
+	b->swap(b);
 	ft_printf(STDOUT_FILENO, "ss\n");
 }

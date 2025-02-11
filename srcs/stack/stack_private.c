@@ -44,25 +44,17 @@ t_stack_value	stack_pop(t_stack *stack)
 	return (content);
 }
 
-int	stack_value(t_stack *stack, int index, t_stack_search_from from)
+void	stack_swap(t_stack *stack)
 {
-	t_stack_node	*node;
+	t_stack_value	first_content;
+	t_stack_value	second_content;
 
-	if (stack->size == 0)
-		return (0);
-	if (from == TOP)
-		node = stack->top;
-	else
-		node = stack->bottom;
-	while (node && index > 0)
-	{
-		if (from == TOP)
-			node = get_next_node(node);
-		else
-			node = get_prev_node(node);
-		index--;
-	}
-	return (*get_node_content(node));
+	if (stack->size < 2)
+		return ;
+	first_content = stack->pop(stack);
+	second_content = stack->pop(stack);
+	stack->push(stack, first_content);
+	stack->push(stack, second_content);
 }
 
 void	stack_rotate(t_stack *stack)

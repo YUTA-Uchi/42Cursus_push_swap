@@ -34,6 +34,7 @@ struct s_stack
 	char			name;
 	void			(*push)(t_stack *, t_stack_value);
 	t_stack_value	(*pop)(t_stack *);
+	void			(*swap)(t_stack *);
 	int				(*value)(t_stack *, int, t_stack_search_from);
 	void			(*rotate)(t_stack *);
 	void			(*reverse_rotate)(t_stack *);

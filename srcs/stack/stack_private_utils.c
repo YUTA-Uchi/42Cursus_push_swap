@@ -32,3 +32,24 @@ void	stack_clear(t_stack *stack)
 	clear_nodes(&(stack->top), &(stack->bottom), free);
 	add_size(&(stack->size), -stack->size);
 }
+
+int	stack_value(t_stack *stack, int index, t_stack_search_from from)
+{
+	t_stack_node	*node;
+
+	if (stack->size == 0)
+		return (0);
+	if (from == TOP)
+		node = stack->top;
+	else
+		node = stack->bottom;
+	while (node && index > 0)
+	{
+		if (from == TOP)
+			node = get_next_node(node);
+		else
+			node = get_prev_node(node);
+		index--;
+	}
+	return (*get_node_content(node));
+}
