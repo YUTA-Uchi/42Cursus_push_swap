@@ -6,7 +6,7 @@
 /*   By: yuuchiya <yuuchiya@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 15:25:36 by yuuchiya          #+#    #+#             */
-/*   Updated: 2025/02/09 15:25:37 by yuuchiya         ###   ########.fr       */
+/*   Updated: 2025/02/11 14:50:24 by yuuchiya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,14 @@ static void	set_strategy(t_sort_solver *solver, t_sort_strategy *strategy)
 	solver->strategy = strategy;
 }
 
-static void	solve(t_sort_solver *solver)
+static bool	solve(t_sort_solver *solver)
 {
 	if (solver->strategy)
-		solver->strategy->execute(solver);
+	{
+		if (!solver->strategy->execute(solver))
+			return (false);
+	}
+	return (true);
 }
 
 t_sort_solver	*sort_solver_create(t_stack *stack_a, t_stack *stack_b)
@@ -31,12 +35,18 @@ t_sort_solver	*sort_solver_create(t_stack *stack_a, t_stack *stack_b)
 
 	solver = malloc(sizeof(t_sort_solver));
 	if (!solver)
-		return (NULL);
+		return (stack_destroy(stack_a), stack_destroy(stack_b), NULL);
 	solver->ops = operations_create();
 	if (!solver->ops)
 	{
 		free(solver);
-		return (NULL);
+		return (stack_destroy(stack_a), stack_destroy(stack_b), NULL);
+	}
+	if (!stack_a || !stack_b)
+	{
+		operations_destroy(solver->ops);
+		free(solver);
+		return (stack_destroy(stack_a), stack_destroy(stack_b), NULL);
 	}
 	solver->stack_a = stack_a;
 	solver->stack_b = stack_b;

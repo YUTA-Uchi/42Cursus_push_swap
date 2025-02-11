@@ -6,19 +6,19 @@
 /*   By: yuuchiya <yuuchiya@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/08 10:49:07 by yuuchiya          #+#    #+#             */
-/*   Updated: 2025/02/11 11:40:33 by yuuchiya         ###   ########.fr       */
+/*   Updated: 2025/02/11 14:37:48 by yuuchiya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef SORT_STRATEGY_PRIVATE_H
 # define SORT_STRATEGY_PRIVATE_H
 
-# include "sort_strategy_public.h"
 # include <stdbool.h>
+# include "sort_strategy_public.h"
 
 typedef struct s_stack	t_stack;
 
-void		v3_quick_sort(t_sort_solver *solver);
+bool		v3_quick_sort(t_sort_solver *solver);
 void		v3_quick_strategy_destroy(t_sort_strategy *strategy);
 //utils
 void		get_two_tri_partition_pivots(int *values, \

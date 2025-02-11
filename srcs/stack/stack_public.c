@@ -6,7 +6,7 @@
 /*   By: yuuchiya <yuuchiya@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 19:13:17 by yuuchiya          #+#    #+#             */
-/*   Updated: 2025/02/11 11:44:48 by yuuchiya         ###   ########.fr       */
+/*   Updated: 2025/02/11 14:55:37 by yuuchiya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,8 @@ t_stack	*stack_create(char name)
 
 void	stack_destroy(t_stack *stack)
 {
+	if (!stack)
+		return ;
 	stack->clear(stack);
 	free(stack);
 }

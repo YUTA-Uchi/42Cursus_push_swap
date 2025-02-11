@@ -6,7 +6,7 @@
 /*   By: yuuchiya <yuuchiya@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 17:19:50 by yuuchiya          #+#    #+#             */
-/*   Updated: 2025/02/11 12:07:06 by yuuchiya         ###   ########.fr       */
+/*   Updated: 2025/02/11 14:32:24 by yuuchiya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,31 +45,39 @@ void	split_to_3part(t_sort_solver *solver, t_recursion_data *rec_data)
 	}
 }
 
-void	recurse_v3_quick_sort(t_sort_solver *solver, int size, t_stack_pos pos)
+bool	recurse_v3_quick_sort(t_sort_solver *solver, int size, t_stack_pos pos)
 {
 	t_recursion_data	*recursion_data;
 
 	pos = optimize_position(solver, size, pos);
 	if (is_minimal_sort(solver, size, pos))
-		return ;
+		return (true);
 	recursion_data = recursion_data_create(size, pos);
+	if (!recursion_data)
+		return (false);
 	split_to_3part(solver, recursion_data);
-	recurse_v3_quick_sort(solver, recursion_data->next_size[PART_MAX] \
-						, get_max_pos(pos));
-	recurse_v3_quick_sort(solver, recursion_data->next_size[PART_MID] \
-						, get_mid_pos(pos));
-	recurse_v3_quick_sort(solver, recursion_data->next_size[PART_MIN] \
-						, get_min_pos(pos));
+	if (!recurse_v3_quick_sort(solver, recursion_data->next_size[PART_MAX] \
+						, get_max_pos(pos)))
+		return (recursion_data_destroy(recursion_data), false);
+	if (!recurse_v3_quick_sort(solver, recursion_data->next_size[PART_MID] \
+						, get_mid_pos(pos)))
+		return (recursion_data_destroy(recursion_data), false);
+	if (!recurse_v3_quick_sort(solver, recursion_data->next_size[PART_MIN] \
+						, get_min_pos(pos)))
+		return (recursion_data_destroy(recursion_data), false);
 	recursion_data_destroy(recursion_data);
+	return (true);
 }
 
-void	v3_quick_sort(t_sort_solver *solver)
+bool	v3_quick_sort(t_sort_solver *solver)
 {
 	if (is_sorted(solver->stack_a))
-		return ;
+		return (true);
 	if (is_minimal_sort(solver, solver->stack_a->size, TOP_A))
-		return ;
-	recurse_v3_quick_sort(solver, solver->stack_a->size, TOP_A);
+		return (true);
+	if (!recurse_v3_quick_sort(solver, solver->stack_a->size, TOP_A))
+		return (false);
+	return (true);
 }
 
 void	v3_quick_strategy_destroy(t_sort_strategy *strategy)

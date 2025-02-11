@@ -6,7 +6,7 @@
 /*   By: yuuchiya <yuuchiya@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 15:15:36 by yuuchiya          #+#    #+#             */
-/*   Updated: 2025/02/09 15:16:48 by yuuchiya         ###   ########.fr       */
+/*   Updated: 2025/02/11 14:27:51 by yuuchiya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ struct s_sort_solver {
 	t_stack			*stack_b;
 	t_sort_strategy	*strategy;
 	void			(*set_strategy)(t_sort_solver*, t_sort_strategy*);
-	void			(*solve)(t_sort_solver*);
+	bool			(*solve)(t_sort_solver*);
 };
 
 t_sort_solver	*sort_solver_create(t_stack *stack_a, t_stack *stack_b);

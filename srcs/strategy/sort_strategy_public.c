@@ -6,7 +6,7 @@
 /*   By: yuuchiya <yuuchiya@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/01 15:22:46 by yuuchiya          #+#    #+#             */
-/*   Updated: 2025/02/11 11:43:08 by yuuchiya         ###   ########.fr       */
+/*   Updated: 2025/02/11 14:30:20 by yuuchiya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,3 +47,5 @@ t_sort_strategy	*v3_quick_sort_strategy_create(void)
 	strategy->base.data = NULL;
 	return ((t_sort_strategy *)strategy);
 }
+
+
