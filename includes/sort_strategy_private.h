@@ -6,7 +6,7 @@
 /*   By: yuuchiya <yuuchiya@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/08 10:49:07 by yuuchiya          #+#    #+#             */
-/*   Updated: 2025/02/11 14:37:48 by yuuchiya         ###   ########.fr       */
+/*   Updated: 2025/02/11 15:05:45 by yuuchiya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@ typedef struct s_stack	t_stack;
 
 bool		v3_quick_sort(t_sort_solver *solver);
 void		v3_quick_strategy_destroy(t_sort_strategy *strategy);
+bool		manual_sort(t_sort_solver *solver);
+void		manual_sort_strategy_destroy(t_sort_strategy *strategy);
 //utils
 void		get_two_tri_partition_pivots(int *values, \
 										t_recursion_data *rec_data);

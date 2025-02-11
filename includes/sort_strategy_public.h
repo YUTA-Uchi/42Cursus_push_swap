@@ -6,7 +6,7 @@
 /*   By: yuuchiya <yuuchiya@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 15:17:10 by yuuchiya          #+#    #+#             */
-/*   Updated: 2025/02/11 14:30:16 by yuuchiya         ###   ########.fr       */
+/*   Updated: 2025/02/11 17:17:39 by yuuchiya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@ typedef struct s_sort_strategy	t_sort_strategy;
 
 struct s_sort_strategy
 {
-	bool	(*execute)(t_sort_solver*);
-	void	(*destroy)(t_sort_strategy*);
+	bool	(*execute)(t_sort_solver *);
+	void	(*destroy)(t_sort_strategy *);
 	void	*data;
 };
 
