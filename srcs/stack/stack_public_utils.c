@@ -6,65 +6,21 @@
 /*   By: yuuchiya <yuuchiya@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 15:29:58 by yuuchiya          #+#    #+#             */
-/*   Updated: 2025/02/10 14:55:41 by yuuchiya         ###   ########.fr       */
+/*   Updated: 2025/02/11 12:14:52 by yuuchiya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "stack_public.h"
 #include "stack_private.h"
 
-int	get_insert_position(t_stack *stack, int value, int size)
-{
-	t_stack_node	*node;
-	int				i;
-
-	node = stack->top;
-	i = 0;
-	while (node && i < size - 1)
-	{
-		if (*(get_node_content(node)) > value)
-			break ;
-		node = get_next_node(node);
-		i++;
-	}
-	return (i);
-}
-
-int	get_distance_to_min(t_stack *stack, int size)
-{
-	t_stack_node	*node;
-	int				min;
-	int				distance;
-	int				i;
-
-	node = stack->top;
-	min = *(get_node_content(node));
-	distance = 0;
-	i = 0;
-	while (node && (i < size))
-	{
-		if (*(get_node_content(node)) < min)
-		{
-			min = *(get_node_content(node));
-			distance = i;
-		}
-		node = get_next_node(node);
-		i++;
-	}
-	return (distance);
-}
-
-int	get_distance_to_max(t_stack *stack, int size, t_stack_search_from from)
+int	get_distance_to_max_from_top(t_stack *stack, int size)
 {
 	t_stack_node	*node;
 	int				max;
 	int				distance;
 	int				i;
 
-	if (from == TOP)
-		node = stack->top;
-	else
-		node = stack->bottom;
+	node = stack->top;
 	max = *(get_node_content(node));
 	distance = 0;
 	i = 0;
@@ -75,56 +31,47 @@ int	get_distance_to_max(t_stack *stack, int size, t_stack_search_from from)
 			max = *(get_node_content(node));
 			distance = i;
 		}
-		if (from == TOP)
-			node = get_next_node(node);
-		else
-			node = get_prev_node(node);
+		node = get_next_node(node);
 		i++;
 	}
 	return (distance);
 }
 
-int	get_smallest_value(t_stack *stack, int size)
+int	get_distance_to_max_from_bottom(t_stack *stack, int size)
 {
-	int	smallest;
-	int	count;
-	int	value;
+	t_stack_node	*node;
+	int				max;
+	int				distance;
+	int				i;
 
-	count = 0;
-	smallest = INT_MAX;
-	while (count < size)
+	node = stack->bottom;
+	max = *(get_node_content(node));
+	distance = 0;
+	i = 0;
+	while (node && (i < size))
 	{
-		value = stack->value(stack, count, TOP);
-		if (value < smallest)
-			smallest = value;
-		count++;
+		if (*(get_node_content(node)) > max)
+		{
+			max = *(get_node_content(node));
+			distance = i;
+		}
+		node = get_prev_node(node);
+		i++;
 	}
-	return (smallest);
+	return (distance);
 }
 
-int	get_second_smallest_value(t_stack *stack, int size)
+bool	is_sorted(t_stack *stack)
 {
-	int	smallest;
-	int	second_smallest;
-	int	count;
-	int	value;
+	t_stack_node	*node;
 
-	count = 0;
-	smallest = INT_MAX;
-	second_smallest = INT_MAX;
-	while (count < size)
+	node = stack->top;
+	while (node && get_next_node(node))
 	{
-		value = stack->value(stack, count, TOP);
-		if (value < smallest)
-		{
-			second_smallest = smallest;
-			smallest = value;
-		}
-		else if (value < second_smallest)
-		{
-			second_smallest = value;
-		}
-		count++;
+		if (*(get_node_content(node)) \
+			> *(get_node_content(get_next_node(node))))
+			return (false);
+		node = get_next_node(node);
 	}
-	return (second_smallest);
+	return (true);
 }

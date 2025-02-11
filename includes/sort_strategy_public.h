@@ -6,7 +6,7 @@
 /*   By: yuuchiya <yuuchiya@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 15:17:10 by yuuchiya          #+#    #+#             */
-/*   Updated: 2025/02/10 18:44:03 by yuuchiya         ###   ########.fr       */
+/*   Updated: 2025/02/11 11:54:43 by yuuchiya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,26 +25,25 @@ struct s_sort_strategy
 	void	*data;
 };
 
-typedef struct s_selection_strategy
-{
-	t_sort_strategy	base;
-}	t_selection_strategy;
-
-t_sort_strategy		*selection_sort_strategy_create(void);
-
-typedef struct s_quick_strategy
-{
-	t_sort_strategy	base;
-}	t_quick_strategy;
-
-t_sort_strategy		*quick_sort_strategy_create(void);
-
 typedef struct s_v3_quick_strategy
 {
 	t_sort_strategy	base;
 }	t_v3_quick_strategy;
 
 t_sort_strategy		*v3_quick_sort_strategy_create(void);
+
+typedef enum e_partition
+{
+	PART_MAX,
+	PART_MID,
+	PART_MIN
+}	t_partition;
+
+typedef enum e_pivot
+{
+	SPLIT_MIN,
+	SPLIT_MID
+}	t_pivot;
 
 typedef enum e_stack_position
 {

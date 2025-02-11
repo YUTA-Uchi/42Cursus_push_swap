@@ -6,7 +6,7 @@
 /*   By: yuuchiya <yuuchiya@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 18:52:57 by yuuchiya          #+#    #+#             */
-/*   Updated: 2025/02/10 19:50:24 by yuuchiya         ###   ########.fr       */
+/*   Updated: 2025/02/11 12:19:04 by yuuchiya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,17 +65,17 @@ void	move_to_top_a(t_sort_solver *solver, t_stack_pos pos, int size)
 	i = 0;
 	if (pos == BOTTOM_A)
 	{
-		while (i < size)
+		while (i++ < size)
 			solver->ops->rra(solver->stack_a);
 	}
 	else if (pos == TOP_B)
 	{
-		while (i < size)
+		while (i++ < size)
 			solver->ops->pa(solver->stack_a, solver->stack_b);
 	}
 	else if (pos == BOTTOM_B)
 	{
-		while (i < size)
+		while (i++ < size)
 		{
 			solver->ops->rrb(solver->stack_b);
 			solver->ops->pa(solver->stack_a, solver->stack_b);

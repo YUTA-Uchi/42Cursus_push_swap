@@ -6,7 +6,7 @@
 /*   By: yuuchiya <yuuchiya@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 18:49:26 by yuuchiya          #+#    #+#             */
-/*   Updated: 2025/02/10 18:53:27 by yuuchiya         ###   ########.fr       */
+/*   Updated: 2025/02/11 11:51:53 by yuuchiya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,8 @@ void	get_two_tri_partition_pivots(int *values, t_recursion_data *rec_data)
 		values[j + 1] = key;
 		i++;
 	}
-	rec_data->pivot[0] = values[rec_data->size / 3];
-	rec_data->pivot[1] = values[(2 * rec_data->size) / 3];
+	rec_data->pivot[SPLIT_MIN] = values[rec_data->size / 3];
+	rec_data->pivot[SPLIT_MID] = values[(2 * rec_data->size) / 3];
 }
 
 void	get_pivots(t_stack *stack, t_recursion_data *rec_data)

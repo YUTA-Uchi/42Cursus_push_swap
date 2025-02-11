@@ -6,14 +6,14 @@
 /*   By: yuuchiya <yuuchiya@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 10:54:57 by yuuchiya          #+#    #+#             */
-/*   Updated: 2025/02/10 18:39:23 by yuuchiya         ###   ########.fr       */
+/*   Updated: 2025/02/11 12:19:21 by yuuchiya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sort_strategy_private.h"
 #include "sort_solver_public.h"
 
-void	sort_one(t_sort_solver *solver, t_stack_pos pos)
+static void	sort_one(t_sort_solver *solver, t_stack_pos pos)
 {
 	if (pos == BOTTOM_A && solver->stack_a->size != 1)
 		solver->ops->rra(solver->stack_a);
@@ -64,30 +64,8 @@ bool	is_minimal_sort(t_sort_solver *solver, int size, t_stack_pos pos)
 	else if (size == 2)
 		return (sort_two(solver, pos), minimal);
 	else if (size == 3)
-		return (sort_three(solver,pos), minimal);
-	// else if (size == 4)
-	// 	return (sort_four(solver), minimal);
-	// else if (size == 5)
-	// 	return (sort_five(solver), minimal);
+		return (sort_three(solver, pos), minimal);
 	else
 		minimal = false;
 	return (minimal);
 }
-
-// bool	is_minimal_sort_stack_b(t_sort_solver *solver, int size)
-// {
-// 	bool	minimal;
-
-// 	minimal = true;
-// 	if (size <= 1)
-// 		return (minimal);
-// 	else if (size == 2)
-// 		return (sort_two(solver, solver->stack_b), minimal);
-// 	else if (size == 3)
-// 		return (sort_three_stack_b(solver), minimal);
-// 	else if (size == 4)
-// 		return (sort_four_stack_b(solver), minimal);
-// 	else
-// 		minimal = false;
-// 	return (minimal);
-// }

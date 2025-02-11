@@ -6,7 +6,7 @@
 /*   By: yuuchiya <yuuchiya@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 15:54:18 by yuuchiya          #+#    #+#             */
-/*   Updated: 2025/02/10 19:26:49 by yuuchiya         ###   ########.fr       */
+/*   Updated: 2025/02/11 12:10:29 by yuuchiya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,31 +23,10 @@ static void	sort_three_distance_0(t_sort_solver *solver, t_stack_pos pos)
 		solver->ops->rra(solver->stack_a);
 		sort_two(solver, TOP_A);
 	}
-	else if (pos == BOTTOM_B)
-	{
-		solver->ops->rrb(solver->stack_b);
-		solver->ops->pa(solver->stack_a, solver->stack_b);
-		solver->ops->rrb(solver->stack_b);
-		solver->ops->pa(solver->stack_a, solver->stack_b);
-		solver->ops->rrb(solver->stack_b);
-		solver->ops->pa(solver->stack_a, solver->stack_b);
-		sort_two(solver, TOP_A);
-	}
-	else if (pos == BOTTOM_A)
-	{
-		solver->ops->rra(solver->stack_a);
-		solver->ops->rra(solver->stack_a);
-		solver->ops->rra(solver->stack_a);
-		sort_two(solver, TOP_A);
-	}
 	else
 	{
-		solver->ops->pa(solver->stack_a, solver->stack_b);
-		solver->ops->pa(solver->stack_a, solver->stack_b);
-		solver->ops->pa(solver->stack_a, solver->stack_b);
+		move_to_top_a(solver, pos, 3);
 		sort_two(solver, TOP_A);
-		// move_to_top_a(solver, pos, 3);
-		// sort_two(solver, TOP_A);
 	}
 }
 
@@ -60,36 +39,12 @@ static void	sort_three_distance_1(t_sort_solver *solver, t_stack_pos pos)
 		solver->ops->rra(solver->stack_a);
 		sort_two(solver, TOP_A);
 	}
-	else if (pos == BOTTOM_B)
-	{
-		solver->ops->rrb(solver->stack_b);
-		solver->ops->pa(solver->stack_a, solver->stack_b);
-		solver->ops->rrb(solver->stack_b);
-		solver->ops->pa(solver->stack_a, solver->stack_b);
-		solver->ops->sa(solver->stack_a);
-		solver->ops->rrb(solver->stack_b);
-		solver->ops->pa(solver->stack_a, solver->stack_b);
-		sort_two(solver, TOP_A);
-	}
-	else if (pos == BOTTOM_A)
-	{
-		solver->ops->rra(solver->stack_a);
-		solver->ops->rra(solver->stack_a);
-		solver->ops->sa(solver->stack_a);
-		solver->ops->rra(solver->stack_a);
-		sort_two(solver, TOP_A);
-	}
 	else
 	{
-		solver->ops->pa(solver->stack_a, solver->stack_b);
-		solver->ops->pa(solver->stack_a, solver->stack_b);
+		move_to_top_a(solver, pos, 2);
 		solver->ops->sa(solver->stack_a);
-		solver->ops->pa(solver->stack_a, solver->stack_b);
+		move_to_top_a(solver, pos, 1);
 		sort_two(solver, TOP_A);
-		// move_to_top_a(solver, pos, 2);
-		// solver->ops->sa(solver->stack_a);
-		// move_to_top_a(solver, pos, 1);
-		// sort_two(solver, TOP_A);
 	}
 }
 
@@ -107,21 +62,10 @@ static void	sort_three_distance_2(t_sort_solver *solver, t_stack_pos pos)
 		solver->ops->pa(solver->stack_a, solver->stack_b);
 		sort_two(solver, TOP_A);
 	}
-	else if (pos == BOTTOM_A)
-	{
-		solver->ops->rra(solver->stack_a);
-		solver->ops->rra(solver->stack_a);
-		solver->ops->rra(solver->stack_a);
-		sort_three_distance_0(solver, TOP_A);
-	}
 	else
 	{
-		solver->ops->pa(solver->stack_a, solver->stack_b);
-		solver->ops->pa(solver->stack_a, solver->stack_b);
-		solver->ops->pa(solver->stack_a, solver->stack_b);
+		move_to_top_a(solver, pos, 3);
 		sort_three_distance_0(solver, TOP_A);
-		// move_to_top_a(solver, pos, 3);
-		// sort_three_distance_0(solver, TOP_A);
 	}
 }
 
@@ -162,13 +106,13 @@ void	sort_three(t_sort_solver *solver, t_stack_pos pos)
 		return ;
 	}
 	if (pos == TOP_A)
-		distance_to_max = get_distance_to_max(solver->stack_a, 3, TOP);
+		distance_to_max = get_distance_to_max_from_top(solver->stack_a, 3);
 	else if (pos == TOP_B)
-		distance_to_max = get_distance_to_max(solver->stack_b, 3, TOP);
+		distance_to_max = get_distance_to_max_from_top(solver->stack_b, 3);
 	else if (pos == BOTTOM_A)
-		distance_to_max = get_distance_to_max(solver->stack_a, 3, BOTTOM);
+		distance_to_max = get_distance_to_max_from_bottom(solver->stack_a, 3);
 	else
-		distance_to_max = get_distance_to_max(solver->stack_b, 3, BOTTOM);
+		distance_to_max = get_distance_to_max_from_bottom(solver->stack_b, 3);
 	if (distance_to_max == 0)
 		sort_three_distance_0(solver, pos);
 	else if (distance_to_max == 1)

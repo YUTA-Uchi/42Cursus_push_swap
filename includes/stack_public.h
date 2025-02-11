@@ -6,7 +6,7 @@
 /*   By: yuuchiya <yuuchiya@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 13:05:43 by yuuchiya          #+#    #+#             */
-/*   Updated: 2025/02/10 16:24:26 by yuuchiya         ###   ########.fr       */
+/*   Updated: 2025/02/11 11:39:26 by yuuchiya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,9 +47,6 @@ t_stack	*stack_create(char name);
 void	stack_destroy(t_stack *stack);
 // util
 bool	is_sorted(t_stack *stack);
-int		get_smallest_value(t_stack *stack, int size);
-int		get_second_smallest_value(t_stack *stack, int size);
-int		get_insert_position(t_stack *stack, int value, int size);
-int		get_distance_to_min(t_stack *stack, int size);
-int		get_distance_to_max(t_stack *stack, int size, t_stack_search_from from);
+int		get_distance_to_max_from_top(t_stack *stack, int size);
+int		get_distance_to_max_from_bottom(t_stack *stack, int size);
 #endif
