@@ -6,7 +6,7 @@
 /*   By: yuuchiya <yuuchiya@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 13:59:37 by yuuchiya          #+#    #+#             */
-/*   Updated: 2025/02/11 18:01:47 by yuuchiya         ###   ########.fr       */
+/*   Updated: 2025/02/12 12:33:19 by yuuchiya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ static void	get_next_line(int fd, char **line)
 	}
 }
 
-static bool do_opetation_push_swap(char *line, t_sort_solver *solver)
+static bool	do_opetation_push_swap(char *line, t_sort_solver *solver)
 {
 	if (ft_strncmp(line, "sa", 3) == 0)
 		solver->stack_a->swap(solver->stack_a);
@@ -51,24 +51,22 @@ static bool do_opetation_push_swap(char *line, t_sort_solver *solver)
 		solver->stack_a->swap(solver->stack_a);
 		solver->stack_b->swap(solver->stack_b);
 	}
-	else if (ft_strncmp(line, "pa", 3) == 0)
+	else if (ft_strncmp(line, "pa", 3) == 0 && solver->stack_b->size > 0)
 	{
-		if (solver->stack_b->size == 0)
-			return (false);
-		solver->stack_a->push(solver->stack_a, solver->stack_b->pop(solver->stack_b));
+		solver->stack_a->push(solver->stack_a \
+							, solver->stack_b->pop(solver->stack_b));
 	}
-	else if (ft_strncmp(line, "pb", 3) == 0)
+	else if (ft_strncmp(line, "pb", 3) == 0 && solver->stack_a->size > 0)
 	{
-		if (solver->stack_a->size == 0)
-			return (false);
-		solver->stack_b->push(solver->stack_b, solver->stack_a->pop(solver->stack_a));
+		solver->stack_b->push(solver->stack_b \
+							, solver->stack_a->pop(solver->stack_a));
 	}
 	else
 		return (false);
 	return (true);
 }
 
-static bool do_operation_rotate(char *line, t_sort_solver *solver)
+static bool	do_operation_rotate(char *line, t_sort_solver *solver)
 {
 	if (ft_strncmp(line, "ra", 3) == 0)
 		solver->stack_a->rotate(solver->stack_a);
@@ -95,7 +93,8 @@ static bool do_operation_rotate(char *line, t_sort_solver *solver)
 
 static bool	do_operation(char *line, t_sort_solver *solver)
 {
-	return (do_opetation_push_swap(line, solver) || do_operation_rotate(line, solver));
+	return (do_opetation_push_swap(line, solver) \
+			|| do_operation_rotate(line, solver));
 }
 
 bool	manual_sort(t_sort_solver *solver)
