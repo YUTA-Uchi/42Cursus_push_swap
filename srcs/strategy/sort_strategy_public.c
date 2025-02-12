@@ -60,3 +60,8 @@ t_sort_strategy	*manual_sort_strategy_create(void)
 	strategy->base.data = NULL;
 	return ((t_sort_strategy *)strategy);
 }
+
+void	manual_sort_strategy_destroy(t_sort_strategy *strategy)
+{
+	free(strategy);
+}

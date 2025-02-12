@@ -122,8 +122,3 @@ bool	manual_sort(t_sort_solver *solver)
 		ft_printf(STDOUT_FILENO, "KO\n");
 	return (true);
 }
-
-void	manual_sort_strategy_destroy(t_sort_strategy *strategy)
-{
-	free(strategy);
-}
